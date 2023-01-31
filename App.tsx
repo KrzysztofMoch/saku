@@ -1,11 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
+import { persistor, store } from './src/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { authorize_user } from './src/utils/auth';
 
-const App = () => {
+const AuthScreen = () => {
+  const handleAuth = async () => {
+    console.log('Authenticating...');
+    await authorize_user();
+  };
+
   return (
     <View style={s.container}>
       <Text style={s.text}>Saku</Text>
+      <TouchableOpacity onPress={handleAuth} style={s.button}>
+        <Text style={s.authText}>Login with MangaDex</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={s.button}>
+        <Text style={s.authText}>Continue without login</Text>
+      </TouchableOpacity>
     </View>
+  );
+};
+
+const App = () => {
+  return (
+    <ReduxProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AuthScreen />
+      </PersistGate>
+    </ReduxProvider>
   );
 };
 
@@ -20,5 +45,12 @@ const s = StyleSheet.create({
   },
   text: {
     color: 'black',
+    fontSize: 30,
+  },
+  authText: {
+    color: 'blue',
+  },
+  button: {
+    marginVertical: 10,
   },
 });
