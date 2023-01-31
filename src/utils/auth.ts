@@ -1,8 +1,9 @@
 import { authorize, refresh, logout } from 'react-native-app-auth';
-import { AppDeepLinks } from '../constants/app-deeplinks';
-import { AppAuthConfiguration } from '../constants/auth-configuration';
-import { persistor, store } from '../store';
-import { clearAuth, setAuth } from '../store/state/authSlice';
+
+import { AppDeepLinks } from '@constants/app-deeplinks';
+import { AppAuthConfiguration } from '@constants/auth-configuration';
+import { persistor, store } from '@store';
+import { clearAuth, setAuth } from '@store/state/authSlice';
 
 const { dispatch, getState } = store;
 

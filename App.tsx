@@ -1,9 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { persistor, store } from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { authorize_user } from './src/utils/auth';
+
+import { persistor, store } from '@store';
+import { authorize_user } from '@utils/auth';
 
 const AuthScreen = () => {
   const handleAuth = async () => {

@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { persistReducer, persistStore } from 'redux-persist';
+
 import authReducer from './state/authSlice';
 import { api } from './api';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { reduxStorage } from './persist-storage';
-import { persistReducer, persistStore } from 'redux-persist';
 
 const persistConfig = {
   key: 'root',

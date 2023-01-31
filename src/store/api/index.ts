@@ -6,7 +6,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from '..';
-import { is_user_authorized, logout_user } from '../../utils/auth';
+import { is_user_authorized, logout_user } from '@utils/auth';
 
 const ENDPOINTS_WITH_REQ_AUTH: string[] = [];
 
