@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTLinkingManager.h>
 
 @implementation AppDelegate
 
@@ -13,6 +14,21 @@
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *) options {
+ if ([self.authorizationFlowManagerDelegate resumeExternalUserAgentFlowWithURL:url]) {
+   return YES;
+ }
+ return [RCTLinkingManager application:app openURL:url options:options];
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
+  restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+  {
+    return [RCTLinkingManager application:application
+    continueUserActivity:userActivity
+    restorationHandler:restorationHandler];
+  }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
