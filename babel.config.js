@@ -21,6 +21,8 @@ module.exports = {
           '@store': './src/store',
           '@api': './src/store/api',
           '@constants': './src/constants',
+          '@screens': './src/screens',
+          '@navigation': './src/navigation',
         },
       },
     ],

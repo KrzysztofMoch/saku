@@ -7,7 +7,9 @@
       "@store/*": ["./src/store/*"],
       "@store": ["./src/store"],
       "@api/*": ["./src/store/api/*"],
-      "@constants/*": ["./src/constants/*"]
+      "@constants/*": ["./src/constants/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@screens": ["./src/screens"]
     }
   }
 }
