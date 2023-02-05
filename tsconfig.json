@@ -9,8 +9,10 @@
       "@api/*": ["./src/store/api/*"],
       "@constants/*": ["./src/constants/*"],
       "@navigation/*": ["./src/navigation/*"],
-      "@screens": ["./src/screens"]
+      "@screens": ["./src/screens"],
       "@icons": ["./src/assets/icons"],
+      "@atoms": ["./src/components/atoms"],
+      "@molecules": ["./src/components/molecules"]
     }
   }
 }

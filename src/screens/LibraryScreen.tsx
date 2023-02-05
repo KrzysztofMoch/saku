@@ -1,14 +1,25 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { Colors } from '@constants/colors';
 
 const LibraryScreen = () => {
   return (
-    <View>
-      <Text>LibraryScreen</Text>
+    <View style={s.container}>
+      <Text style={s.text}>LibraryScreen</Text>
     </View>
   );
 };
 
 export default LibraryScreen;
 
-const s = StyleSheet.create({});
+const s = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.BLACK,
+  },
+  text: {
+    color: Colors.WHITE,
+  },
+});

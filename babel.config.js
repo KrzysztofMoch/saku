@@ -24,6 +24,8 @@ module.exports = {
           '@screens': './src/screens',
           '@navigation': './src/navigation',
           '@icons': './src/assets/icons',
+          '@atoms': './src/components/atoms',
+          '@molecules': './src/components/molecules',
         },
       },
     ],
