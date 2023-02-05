@@ -10,6 +10,7 @@
       "@constants/*": ["./src/constants/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@screens": ["./src/screens"]
+      "@icons": ["./src/assets/icons"],
     }
   }
 }

@@ -23,6 +23,7 @@ module.exports = {
           '@constants': './src/constants',
           '@screens': './src/screens',
           '@navigation': './src/navigation',
+          '@icons': './src/assets/icons',
         },
       },
     ],
