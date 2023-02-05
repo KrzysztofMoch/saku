@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import 'react-native-gesture-handler';
@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const App = () => {
   return (
     <SafeAreaProvider style={s.container}>
+      <StatusBar barStyle={'light-content'} />
       <GestureHandlerRootView style={s.container}>
         <ReduxProvider store={store}>
           <PersistGate loading={null} persistor={persistor}>
