@@ -4,6 +4,10 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Colors } from '@constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BottomBarButton } from '@atoms';
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 interface IconPos {
   name: string;
@@ -41,6 +45,32 @@ const CustomBottomBar = ({
     [bottomInset],
   );
 
+  const hoverTranslateX = useMemo(() => {
+    const index = state.index;
+    const { x } = iconsPos.find(
+      ({ name }) => name === state.routeNames[index],
+    ) || {
+      x: -1,
+    };
+
+    return x;
+  }, [iconsPos, state.index, state.routeNames]);
+
+  const hoverStyle = useAnimatedStyle(() => {
+    const x = hoverTranslateX;
+
+    return {
+      opacity: x === -1 ? 0 : 1,
+      transform: [
+        {
+          translateX: withTiming(x - 25, {
+            duration: 170,
+          }),
+        },
+      ],
+    };
+  }, [iconsPos, state.index]);
+
   const onLayout = useCallback(
     (
       {
@@ -72,6 +102,7 @@ const CustomBottomBar = ({
 
   return (
     <View style={[s.container, positionProps]}>
+      <Animated.View style={[s.hover, hoverStyle]} />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label = options.title ?? route.name;
@@ -108,5 +139,13 @@ const s = StyleSheet.create({
   },
   button: {
     marginTop: 8,
+  },
+  hover: {
+    position: 'absolute',
+    bottom: 0,
+    height: 54,
+    width: 54,
+    borderRadius: 15,
+    backgroundColor: Colors.WHITE,
   },
 });

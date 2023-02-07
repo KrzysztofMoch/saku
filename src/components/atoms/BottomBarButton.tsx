@@ -25,15 +25,23 @@ interface Props {
 const getIcon = (name: string, focused: boolean) => {
   switch (name) {
     case BottomTabNavigatorRoutes.Home:
-      return focused ? <HomeFilledIcon /> : <HomeIcon />;
+      return focused ? <HomeFilledIcon color={Colors.PINK} /> : <HomeIcon />;
     case BottomTabNavigatorRoutes.Updates:
-      return focused ? <ClockFilledIcon /> : <ClockIcon />;
+      return focused ? <ClockFilledIcon color={Colors.PINK} /> : <ClockIcon />;
     case BottomTabNavigatorRoutes.Search:
-      return focused ? <SearchFilledIcon /> : <SearchIcon />;
+      return focused ? (
+        <SearchFilledIcon color={Colors.PINK} />
+      ) : (
+        <SearchIcon />
+      );
     case BottomTabNavigatorRoutes.Library:
-      return focused ? <LibraryFilledIcon /> : <LibraryIcon />;
+      return focused ? (
+        <LibraryFilledIcon color={Colors.PINK} />
+      ) : (
+        <LibraryIcon />
+      );
     default:
-      return focused ? <HomeFilledIcon /> : <HomeIcon />;
+      return focused ? <HomeFilledIcon color={Colors.PINK} /> : <HomeIcon />;
   }
 };
 
@@ -61,7 +69,7 @@ const BottomBarButton = ({
     <View style={s.container} onLayout={onLayoutHandler}>
       <TouchableOpacity onPress={onPressHandler} style={s.button}>
         {Icon}
-        <Text style={s.label}>{label}</Text>
+        {!isFocused && <Text style={s.label}>{label}</Text>}
       </TouchableOpacity>
     </View>
   );

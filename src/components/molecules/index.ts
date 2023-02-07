@@ -1,1 +1,1 @@
-export { default as CustomBottomBar } from './BottomBar';
+export { default as CustomBottomBar } from './CustomBottomBar';
