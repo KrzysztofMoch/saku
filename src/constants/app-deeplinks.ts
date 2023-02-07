@@ -1,4 +1,4 @@
 export enum AppDeepLinks {
-  LogoutRedirect = 'saku://logout_redirect',
-  AuthRedirect = 'saku://login_redirect',
+  LogoutRedirect = 'com.saku://logout_redirect',
+  AuthRedirect = 'com.saku://login_redirect',
 }
