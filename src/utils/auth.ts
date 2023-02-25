@@ -1,11 +1,9 @@
 import { authorize, refresh, logout } from 'react-native-app-auth';
-
 import { AppDeepLinks } from '@constants/app-deeplinks';
 import { AppAuthConfiguration } from '@constants/auth-configuration';
-import { persistor, store } from '@store';
-import { clearAuth, setAuth } from '@store/state/authSlice';
+import { useAuthStore } from '@store/auth';
 
-const { dispatch, getState } = store;
+const { getState } = useAuthStore;
 
 export const authorize_user = async (): Promise<boolean> => {
   try {
@@ -14,14 +12,13 @@ export const authorize_user = async (): Promise<boolean> => {
     const { accessToken, accessTokenExpirationDate, refreshToken, idToken } =
       result;
 
-    dispatch(
-      setAuth({
-        access_token: accessToken,
-        access_token_expiration_date: accessTokenExpirationDate,
-        refresh_token: refreshToken,
-        id_token: idToken,
-      }),
-    );
+    useAuthStore.setState({
+      authorized: true,
+      accessToken,
+      accessTokenExpiresAt: accessTokenExpirationDate,
+      refreshToken,
+      idToken,
+    });
 
     return true;
   } catch (error) {
@@ -30,12 +27,12 @@ export const authorize_user = async (): Promise<boolean> => {
 };
 
 export const logout_user = async (force: boolean = false) => {
-  try {
-    const { id_token } = getState().auth;
+  const { idToken, clearState } = getState();
 
-    if (id_token && !force) {
+  try {
+    if (idToken && !force) {
       await logout(AppAuthConfiguration, {
-        idToken: id_token,
+        idToken: idToken,
         postLogoutRedirectUrl: AppDeepLinks.LogoutRedirect,
       });
     }
@@ -43,20 +40,19 @@ export const logout_user = async (force: boolean = false) => {
     __DEV__ && console.error('LOGOUT ACTION ERROR', error);
   }
 
-  dispatch(clearAuth());
-  persistor.purge();
+  clearState();
 };
 
 export const refresh_access_token = async (): Promise<boolean> => {
   try {
-    const { refresh_token } = getState().auth;
+    const { refreshToken, setState } = getState();
 
-    if (!refresh_token) {
+    if (!refreshToken) {
       throw new Error('No refresh token found');
     }
 
     const result = await refresh(AppAuthConfiguration, {
-      refreshToken: refresh_token,
+      refreshToken: refreshToken,
     });
 
     const {
@@ -66,14 +62,13 @@ export const refresh_access_token = async (): Promise<boolean> => {
       idToken,
     } = result;
 
-    dispatch(
-      setAuth({
-        access_token: accessToken,
-        access_token_expiration_date: accessTokenExpirationDate,
-        refresh_token: new_refresh_token ?? refresh_token,
-        id_token: idToken,
-      }),
-    );
+    setState({
+      authorized: true,
+      accessToken,
+      accessTokenExpiresAt: accessTokenExpirationDate,
+      refreshToken: new_refresh_token ?? refreshToken,
+      idToken,
+    });
 
     return true;
   } catch (error) {
@@ -82,13 +77,13 @@ export const refresh_access_token = async (): Promise<boolean> => {
 };
 
 export const is_user_authorized = async (): Promise<boolean> => {
-  const { access_token, access_token_expiration_date } = getState().auth;
+  const { authorized, accessTokenExpiresAt } = getState();
 
-  if (!access_token || !access_token_expiration_date) {
+  if (!authorized) {
     return false;
   }
 
-  const expiration_date = new Date(access_token_expiration_date);
+  const expiration_date = new Date(accessTokenExpiresAt);
 
   if (expiration_date < new Date()) {
     return await refresh_access_token();
