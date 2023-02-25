@@ -2,11 +2,11 @@
 
 ## Description
 
-Application that allow to read manag from [MangaDex](https://mangadex.org/) using [official MangaDex api](https://api.mangadex.org/docs/)
+Application that allow to read manga from [MangaDex](https://mangadex.org/) using [official MangaDex api](https://api.mangadex.org/docs/)
 
 ## Specs
 
-Application use React Native ``0.71.1`` and is tested & developed on **old architecture**
+Application use React Native ``0.71.3`` and is tested & developed on **old architecture**
 
 ## Security
 
