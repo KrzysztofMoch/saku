@@ -1,4 +1,6 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist, StateStorage } from 'zustand/middleware';
+import { MMKV } from 'react-native-mmkv';
 
 type AuthState =
   | {
@@ -29,10 +31,36 @@ const initialState: AuthState = {
   idToken: undefined,
 };
 
-export const useAuthStore = create<AuthStore>(set => ({
-  ...initialState,
-  setState: state => set(state),
-  clearState: () => set(initialState),
-}));
+const storage = new MMKV({
+  id: 'auth-storage',
+  encryptionKey: 'SUPER_SECRET_KEY',
+});
+
+const zustandStorage: StateStorage = {
+  setItem: (name, value) => {
+    return storage.set(name, value);
+  },
+  getItem: name => {
+    const value = storage.getString(name);
+    return value ?? null;
+  },
+  removeItem: name => {
+    return storage.delete(name);
+  },
+};
+
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    set => ({
+      ...initialState,
+      setState: state => set(state),
+      clearState: () => set(initialState),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => zustandStorage),
+    },
+  ),
+);
 
 export type { AuthState };
