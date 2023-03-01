@@ -1,18 +1,22 @@
 import React from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
-import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from '@navigation/stack-navigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useAuthStore } from '@store/auth';
+import { useHydration } from '@hooks';
 
 const App = () => {
+  const hydrated = useHydration(useAuthStore);
+
   return (
     <SafeAreaProvider style={s.container}>
       <StatusBar barStyle={'light-content'} />
       <GestureHandlerRootView style={s.container}>
         <NavigationContainer>
-          <StackNavigator />
+          {/* TODO - create loading screen */}
+          {hydrated ? <StackNavigator /> : null}
         </NavigationContainer>
       </GestureHandlerRootView>
     </SafeAreaProvider>

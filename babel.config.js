@@ -27,6 +27,7 @@ module.exports = {
           '@atoms': './src/components/atoms',
           '@molecules': './src/components/molecules',
           '@types': './src/types',
+          '@hooks': './src/hooks',
         },
       },
     ],
