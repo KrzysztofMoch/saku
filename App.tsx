@@ -1,27 +1,23 @@
 import React from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
-import { Provider as ReduxProvider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import 'react-native-gesture-handler';
-
-import { persistor, store } from '@store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from '@navigation/stack-navigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useAuthStore } from '@store/auth';
+import { useHydration } from '@hooks';
 
 const App = () => {
+  const hydrated = useHydration(useAuthStore);
+
   return (
     <SafeAreaProvider style={s.container}>
       <StatusBar barStyle={'light-content'} />
       <GestureHandlerRootView style={s.container}>
-        <ReduxProvider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <NavigationContainer>
-              <StackNavigator />
-            </NavigationContainer>
-          </PersistGate>
-        </ReduxProvider>
+        <NavigationContainer>
+          {/* TODO - create loading screen */}
+          {hydrated ? <StackNavigator /> : null}
+        </NavigationContainer>
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );
