@@ -38,6 +38,7 @@ interface MangaParams {
   artists: string[];
   year: number;
   includedTags: string[];
+  ids: string[];
   includedTagsMode: TagMode;
   excludedTags: string[];
   excludedTagsMode: TagMode;
@@ -72,7 +73,6 @@ const getManga: (
 ) => Promise<ApiResponse<MangaResponse, ApiError>> = async params => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
-  console.log(PATH + urlParams);
   const result = await network.get<MangaResponse, ApiError>(PATH + urlParams);
 
   return result;

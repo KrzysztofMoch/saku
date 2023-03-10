@@ -83,7 +83,7 @@ interface MangaRelationAttributes {
   relation: MangaRelationType;
 }
 
-interface ListAttributes {
+interface CustomListAttributes {
   name: string;
   visibility: 'public' | 'private';
   version: number;
@@ -103,5 +103,5 @@ export type {
   CoverAttributes,
   MangaRelationAttributes,
   AuthorAttributes,
-  ListAttributes,
+  CustomListAttributes,
 };

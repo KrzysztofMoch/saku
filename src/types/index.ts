@@ -7,6 +7,8 @@ export type {
   MangaAttributes,
   MangaRelationAttributes,
   ScanlationGroupAttributes,
+  AuthorAttributes,
+  CustomListAttributes,
 } from './api/attributes';
 export type { MangaRelationType } from './api/manga-relation';
 export type {

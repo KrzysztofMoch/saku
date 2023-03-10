@@ -2,7 +2,7 @@ import {
   AuthorAttributes,
   ChapterAttributes,
   CoverAttributes,
-  ListAttributes as CustomListAttributes,
+  CustomListAttributes,
   MangaAttributes,
   MangaRelationAttributes,
   ScanlationGroupAttributes,
@@ -13,7 +13,7 @@ import { MangaRelationType } from './manga-relation';
 export type MangaRelationship = {
   id: string;
   type: 'manga';
-  related: MangaRelationType;
+  related?: MangaRelationType;
   attributes?: MangaAttributes;
 };
 
