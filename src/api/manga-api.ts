@@ -7,7 +7,7 @@ import {
 } from '@types';
 import { convertParamsToUrl } from '@utils';
 import { ApiResponse } from 'apisauce';
-import { network } from '.';
+import { network } from './network';
 
 const PATH = '/manga';
 
@@ -73,9 +73,7 @@ const getManga: (
 ) => Promise<ApiResponse<MangaResponse, ApiError>> = async params => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
-  const result = await network.get<MangaResponse, ApiError>(PATH + urlParams);
-
-  return result;
+  return await network.get<MangaResponse, ApiError>(PATH + urlParams);
 };
 
 export { getManga };

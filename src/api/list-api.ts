@@ -1,6 +1,6 @@
 import { ApiError, CustomListAttributes, MangaRelationship } from '@types';
 import { ApiResponse } from 'apisauce';
-import { network } from '.';
+import { network } from './network';
 
 const PATH = '/list';
 
