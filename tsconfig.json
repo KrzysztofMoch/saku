@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["./src/utils/*"],
+      "@utils": ["./src/utils"],
       "@store/*": ["./src/store/*"],
-      "@api/*": ["./src/store/api/*"],
+      "@api/*": ["./src/api/*"],
       "@constants/*": ["./src/constants/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@screens": ["./src/screens"],
