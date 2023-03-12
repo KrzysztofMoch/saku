@@ -1,12 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getManga, MangaExpansions } from '@api/manga-api';
 import { ContentRating } from '@types';
+import { convertDate, manipulateDate } from '@utils';
 
 const useNewPopularTitles = () => {
-  // date from 30 days ago
-  const createdAtSince = new Date(new Date().setDate(new Date().getDate() - 30))
-    .toISOString()
-    .split('.')[0];
+  const createdAtSince = convertDate(manipulateDate(new Date(), { days: -30 }));
 
   const query = useQuery({
     queryKey: ['manga'],

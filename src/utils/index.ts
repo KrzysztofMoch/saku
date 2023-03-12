@@ -6,3 +6,5 @@ export {
 } from './auth';
 export { default as convertParamsToUrl } from './api/convert-params-to-url';
 export { extractRelationship } from './extract-relationship';
+export { default as convertDate } from './api/convert-date';
+export { manipulateDate } from './manipulate-date';
