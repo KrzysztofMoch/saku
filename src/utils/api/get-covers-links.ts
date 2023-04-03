@@ -1,7 +1,11 @@
 import LINKS from '@constants/links';
 import { CoverRelationship } from '@types';
 
-const getCoversLinks = (mangaId: string, coverRel: CoverRelationship[]) => {
+const getCoversLinks = (
+  mangaId: string,
+  coverRel: CoverRelationship[],
+  art: boolean = false,
+) => {
   if (coverRel.length === 0) {
     return null;
   }
@@ -16,7 +20,12 @@ const getCoversLinks = (mangaId: string, coverRel: CoverRelationship[]) => {
   const links = withAttributes.map(({ attributes }) => {
     const { fileName } = attributes!;
 
-    return `${LINKS.COVER}/${mangaId}/${fileName}`;
+    if (art) {
+      return `${LINKS.COVER}/${mangaId}/${fileName}`;
+    }
+
+    // for 'main' covers api provides 256px images
+    return `${LINKS.COVER}/${mangaId}/${fileName}.256.jpg`;
   });
 
   return links;
