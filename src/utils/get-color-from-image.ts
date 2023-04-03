@@ -20,15 +20,16 @@ const getColorFromImage = async (
 
     switch (colors.platform) {
       case 'android':
-        return colors.dominant ?? fallbackColor;
+        return colors.vibrant ?? fallbackColor;
       case 'ios':
-        return colors.secondary;
+        return colors.detail;
       default:
         __DEV__ && console.warn('getColorFromImage - Unknown platform');
         return fallbackColor;
     }
   } catch (error) {
-    __DEV__ && console.error('getColorFromImage -', source, error);
+    __DEV__ &&
+      console.error('getColorFromImage -', source.substring(0, 20), error);
     return fallbackColor;
   }
 };
