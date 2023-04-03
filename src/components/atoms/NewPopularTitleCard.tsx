@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  Dimensions,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   extractRelationship,
@@ -10,9 +17,18 @@ import {
 } from '@utils';
 import { MangaResponse } from '@api/manga-api';
 import CachedImage from './CachedImage';
+import Animated, {
+  SharedValue,
+  interpolate,
+  useAnimatedStyle,
+  useDerivedValue,
+} from 'react-native-reanimated';
+import ReactNativeBlobUtil from 'react-native-blob-util';
 
 type NewPopularTitleCardProps = MangaResponse['data'][number] & {
-  index: number;
+  number: number;
+  offset: SharedValue<number>;
+  style?: StyleProp<ViewStyle>;
 };
 
 const getGradientColors = (hex: string) => {
@@ -24,72 +40,120 @@ const getGradientColors = (hex: string) => {
   ];
 };
 
-const getGradient = async (source: string) => {
-  const dominantColor = await getColorFromImage(source, FALLBACK_COLOR, source);
+const getGradient = async (source: string, key: string) => {
+  const base64 = (await ReactNativeBlobUtil.fs.readFile(
+    source,
+    'base64',
+  )) as string;
+
+  const dominantColor = await getColorFromImage(
+    'data:image/png;base64,' + base64,
+    FALLBACK_COLOR,
+    key,
+  );
   const gradientArray = getGradientColors(dominantColor);
 
   return gradientArray;
 };
 
 const FALLBACK_COLOR = '#1c1c1c';
+
 const CARD_WIDTH = Dimensions.get('screen').width * 0.9;
+const CARD_MARGIN = Dimensions.get('screen').width * 0.05;
 
 const NewPopularTitleCard = ({
   attributes: { title, description, altTitles },
   id: mangaId,
   relationships,
-  index,
+  number,
+  offset,
+  style,
 }: NewPopularTitleCardProps) => {
+  const gradientLoaded = useRef(false);
   const [gradient, setGradient] = useState(getGradientColors(FALLBACK_COLOR));
 
-  const number = index + 1;
-  const imageUrl = getCoversLinks(
-    mangaId,
-    extractRelationship(relationships, 'cover_art'),
-  )?.[0];
+  const scale = useDerivedValue(() => {
+    const distance = Math.abs(
+      -offset.value - (number - 1) * (CARD_WIDTH + CARD_MARGIN),
+    );
 
-  const onImageCached = (base64: string) => {
-    getGradient(base64).then(setGradient);
-  };
+    return interpolate(
+      distance,
+      [0, CARD_WIDTH * 0.4, CARD_WIDTH],
+      [1, 0.9, 0.8],
+      'clamp',
+    );
+  }, [offset, number]);
+
+  const imageUrl = useMemo(() => {
+    return getCoversLinks(
+      mangaId,
+      extractRelationship(relationships, 'cover_art'),
+    )?.[0];
+  }, [mangaId, relationships]);
+
+  const onImageCached = useCallback(
+    (filePath: string) => {
+      if (imageUrl && !gradientLoaded.current) {
+        gradientLoaded.current = true;
+        getGradient(filePath, imageUrl).then(gradientArr =>
+          setGradient(gradientArr),
+        );
+      }
+    },
+    [imageUrl],
+  );
+
+  const animatedStyle = useAnimatedStyle(
+    () => ({
+      transform: [{ scale: scale.value }],
+    }),
+    [scale],
+  );
 
   return (
-    <LinearGradient style={s.container} colors={gradient}>
-      <Text style={s.number}>No. {number < 10 ? `0${number}` : number}</Text>
-      <View style={s.content}>
-        <View style={s.imageContainer}>
-          {imageUrl && (
-            <CachedImage
-              height={CARD_WIDTH * 0.5}
-              width={CARD_WIDTH * 0.3}
-              imageUrl={imageUrl}
-              imageKey={imageUrl.split('/')[imageUrl.split('/').length - 1]}
-              onImageCached={onImageCached}
-            />
-          )}
+    <Animated.View style={[s.container, style, animatedStyle]}>
+      <LinearGradient style={s.gradient} colors={gradient} key={number}>
+        <Text style={s.number}>No. {number < 10 ? `0${number}` : number}</Text>
+        <View style={s.content}>
+          <View style={s.imageContainer}>
+            {imageUrl && (
+              <CachedImage
+                height={CARD_WIDTH * 0.5}
+                width={CARD_WIDTH * 0.3}
+                imageUrl={imageUrl}
+                imageKey={imageUrl.split('/')[imageUrl.split('/').length - 1]}
+                onImageCached={onImageCached}
+              />
+            )}
+          </View>
+          <View style={s.info}>
+            <Text
+              style={s.title}
+              numberOfLines={2}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}>
+              {title.en ?? altTitles.en}
+            </Text>
+            <Text
+              style={s.description}
+              ellipsizeMode="tail"
+              numberOfLines={Math.round((CARD_WIDTH * 0.35) / 16)}>
+              {description.en}
+            </Text>
+          </View>
         </View>
-        <View style={s.info}>
-          <Text
-            style={s.title}
-            numberOfLines={2}
-            adjustsFontSizeToFit
-            minimumFontScale={0.8}>
-            {title.en ?? altTitles.en}
-          </Text>
-          <Text style={s.description}>{description.en}</Text>
-        </View>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </Animated.View>
   );
 };
 
-export default React.memo(NewPopularTitleCard);
-
 const s = StyleSheet.create({
   container: {
+    overflow: 'hidden',
     width: CARD_WIDTH,
     height: CARD_WIDTH * 0.6,
     borderRadius: 20,
-    marginHorizontal: 10,
   },
   number: {
     color: '#fff',
@@ -121,6 +185,9 @@ const s = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },
+  gradient: {
+    flex: 1,
+  },
   title: {
     color: '#fff',
     fontSize: 20,
@@ -131,6 +198,10 @@ const s = StyleSheet.create({
     color: '#fff',
     fontSize: 13,
     fontWeight: '500',
-    maxHeight: CARD_WIDTH * 0.35,
+    height: CARD_WIDTH * 0.35,
+    width: CARD_WIDTH * 0.6,
   },
 });
+
+export default React.memo(NewPopularTitleCard);
+export { CARD_WIDTH, CARD_MARGIN };
