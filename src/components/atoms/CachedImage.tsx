@@ -5,7 +5,6 @@ import {
   Image,
   ActivityIndicator,
   ImageProps,
-  Platform,
 } from 'react-native';
 import ReactNativeBlobUtil, {
   ReactNativeBlobUtilConfig,
@@ -21,25 +20,21 @@ interface CachedImageProps extends Omit<ImageProps, 'source'> {
     color?: string;
     backgroundColor?: string;
   };
-  onImageCached?: (base64: string) => void;
+  onImageCached?: (filePath: string) => void;
 }
+
+const FILE_PREFIX = 'file://';
 
 // check if image is cached
 const checkImage = async (
   localPath: string,
-  onImageCached?: (base64: string) => void,
+  onImageCached: CachedImageProps['onImageCached'],
 ) => {
   try {
     const fileExists = await ReactNativeBlobUtil.fs.exists(localPath);
 
     if (fileExists) {
-      const base64 = (await ReactNativeBlobUtil.fs.readFile(
-        localPath,
-        'base64',
-      )) as string;
-
-      onImageCached?.(`data:image/png;base64,${base64}`);
-
+      onImageCached?.(localPath);
       return localPath;
     }
   } catch (error) {
@@ -52,7 +47,7 @@ const checkImage = async (
 const cacheImage = async (
   localPath: string,
   url: string,
-  onImageCached?: (base64: string) => void,
+  onImageCached: CachedImageProps['onImageCached'],
 ) => {
   const options: ReactNativeBlobUtilConfig = {
     fileCache: true,
@@ -65,11 +60,13 @@ const cacheImage = async (
       url,
     );
 
-    const base64 = (await response.base64()) as string;
+    const path = response.path();
 
-    onImageCached?.(`data:image/png;base64,${base64}`);
+    onImageCached?.(path);
+    return path;
   } catch (error) {
-    console.log('cacheImage error', error);
+    __DEV__ && console.log('cacheImage error', error);
+    return url;
   }
 };
 
@@ -77,7 +74,7 @@ const cacheImage = async (
 const getImage = async (
   key: string,
   url: string,
-  onImageCached?: (base64: string) => void,
+  onImageCached: CachedImageProps['onImageCached'],
 ) => {
   const localPath = `${ReactNativeBlobUtil.fs.dirs.CacheDir}/${key}`;
 
@@ -85,11 +82,9 @@ const getImage = async (
 
   if (cachedImage) {
     return cachedImage;
-  } else {
-    cacheImage(localPath, url, onImageCached);
   }
 
-  return url;
+  return cacheImage(localPath, url, onImageCached);
 };
 
 const CachedImage = ({
@@ -101,6 +96,8 @@ const CachedImage = ({
   onImageCached,
   ...imageProps
 }: CachedImageProps) => {
+  const imageLoaded = React.useRef(false);
+
   const size = activityIndicator?.size || 'small';
   const color = activityIndicator?.color || 'white';
   const backgroundColor = activityIndicator?.backgroundColor || 'black';
@@ -108,9 +105,20 @@ const CachedImage = ({
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   useEffect(() => {
+    if (imageLoaded.current) {
+      return;
+    }
+
+    imageLoaded.current = true;
+
     getImage(imageKey, imageUrl, onImageCached).then(result =>
-      setImageUri(result),
+      setImageUri(FILE_PREFIX + result),
     );
+
+    return () => {
+      setImageUri(null);
+      imageLoaded.current = false;
+    };
   }, [imageKey, imageUrl, onImageCached]);
 
   return (
@@ -123,9 +131,10 @@ const CachedImage = ({
         <Image
           {...imageProps}
           source={{
-            uri: Platform.OS === 'android' ? `file://${imageUri}` : imageUri,
+            uri: imageUri,
             width,
             height,
+            cache: 'reload',
           }}
         />
       ) : (
