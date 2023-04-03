@@ -17,25 +17,18 @@ import {
 } from '@utils';
 import { MangaResponse } from '@api/manga-api';
 import CachedImage from './CachedImage';
-import Animated, {
-  SharedValue,
-  interpolate,
-  useAnimatedStyle,
-  useDerivedValue,
-} from 'react-native-reanimated';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 
 type NewPopularTitleCardProps = MangaResponse['data'][number] & {
   number: number;
-  offset: SharedValue<number>;
   style?: StyleProp<ViewStyle>;
 };
 
 const getGradientColors = (hex: string) => {
   return [
     hexToRgba(hex, 1.0),
-    hexToRgba(hex, 0.6),
-    hexToRgba(hex, 0.3),
+    hexToRgba(hex, 0.8),
+    hexToRgba(hex, 0.4),
     hexToRgba(hex, 0.0),
   ];
 };
@@ -66,24 +59,10 @@ const NewPopularTitleCard = ({
   id: mangaId,
   relationships,
   number,
-  offset,
   style,
 }: NewPopularTitleCardProps) => {
   const gradientLoaded = useRef(false);
   const [gradient, setGradient] = useState(getGradientColors(FALLBACK_COLOR));
-
-  const scale = useDerivedValue(() => {
-    const distance = Math.abs(
-      -offset.value - (number - 1) * (CARD_WIDTH + CARD_MARGIN),
-    );
-
-    return interpolate(
-      distance,
-      [0, CARD_WIDTH * 0.4, CARD_WIDTH],
-      [1, 0.9, 0.8],
-      'clamp',
-    );
-  }, [offset, number]);
 
   const imageUrl = useMemo(() => {
     return getCoversLinks(
@@ -104,15 +83,8 @@ const NewPopularTitleCard = ({
     [imageUrl],
   );
 
-  const animatedStyle = useAnimatedStyle(
-    () => ({
-      transform: [{ scale: scale.value }],
-    }),
-    [scale],
-  );
-
   return (
-    <Animated.View style={[s.container, style, animatedStyle]}>
+    <View style={[s.container, style]}>
       <LinearGradient style={s.gradient} colors={gradient} key={number}>
         <Text style={s.number}>No. {number < 10 ? `0${number}` : number}</Text>
         <View style={s.content}>
@@ -144,7 +116,7 @@ const NewPopularTitleCard = ({
           </View>
         </View>
       </LinearGradient>
-    </Animated.View>
+    </View>
   );
 };
 

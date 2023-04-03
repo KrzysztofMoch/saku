@@ -5,3 +5,4 @@ export {
   CARD_MARGIN as NEW_POPULAR_CARD_MARGIN,
 } from './NewPopularTitleCard';
 export { default as CachedImage } from './CachedImage';
+export { default as CenterCardCarousel } from './CenterCardCarousel';
