@@ -6,3 +6,7 @@ export {
 } from './NewPopularTitleCard';
 export { default as CachedImage } from './CachedImage';
 export { default as CenterCardCarousel } from './CenterCardCarousel';
+export {
+  default as MangaCard,
+  CARD_WIDTH as MANGA_CARD_WIDTH,
+} from './MangaCard';

@@ -36,6 +36,7 @@ interface CenterCardCarouselProps<T extends any[]> {
   style?: StyleProp<ViewStyle>;
   autoScroll?: boolean;
   autoScrollInterval?: number;
+  scaleFirst?: boolean;
 }
 
 interface ItemWrapperProps extends Card {
@@ -43,6 +44,7 @@ interface ItemWrapperProps extends Card {
   children: React.ReactNode;
   index: number;
   offset: SharedValue<number>;
+  scaleFirst: boolean;
 }
 
 const getNextSnapPoint = (snapPoints: number[], offset: number) => {
@@ -64,11 +66,16 @@ const ItemWrapper = ({
   offset,
   width,
   spacing = 0,
+  scaleFirst,
 }: ItemWrapperProps) => {
   const [visible, setVisible] = React.useState(false);
 
   const scale = useDerivedValue(() => {
     const distance = Math.abs(-offset.value - index * (width + spacing));
+
+    if (!scaleFirst) {
+      return 1;
+    }
 
     return interpolate(
       distance,
@@ -76,7 +83,7 @@ const ItemWrapper = ({
       [1, 0.9, 0.8],
       'clamp',
     );
-  }, [offset, index]);
+  }, [offset, index, scaleFirst]);
 
   const currentIndex = useDerivedValue(() => {
     return Math.round(Math.abs(-offset.value / (width + spacing)));
@@ -88,7 +95,8 @@ const ItemWrapper = ({
     () => currentIndex.value,
     current => {
       runOnJS(setVisible)(
-        current - itemsOnScreen <= index && current + itemsOnScreen >= index,
+        current - itemsOnScreen + 1 <= index &&
+          current + itemsOnScreen + 1 >= index,
       );
     },
     [currentIndex, index],
@@ -115,6 +123,7 @@ const CenterCardCarousel = <T extends any[] = any[]>({
   card: { width, spacing = 0 },
   autoScroll = false,
   autoScrollInterval = 7500,
+  scaleFirst = false,
 }: CenterCardCarouselProps<T>) => {
   const offset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
@@ -139,6 +148,7 @@ const CenterCardCarousel = <T extends any[] = any[]>({
     (item: (typeof data)[number], index: number) => {
       return (
         <ItemWrapper
+          scaleFirst={scaleFirst}
           offset={offset}
           key={_keyExtractor(item)}
           index={index}
@@ -149,7 +159,7 @@ const CenterCardCarousel = <T extends any[] = any[]>({
         </ItemWrapper>
       );
     },
-    [_keyExtractor, offset, renderItem, spacing, width],
+    [_keyExtractor, offset, renderItem, scaleFirst, spacing, width],
   );
 
   const snapPoints = data.map((_, index) => -index * (width + spacing));
