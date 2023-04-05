@@ -12,3 +12,4 @@ export { default as getColorFromImage } from './get-color-from-image';
 export { default as hexOpacity } from './hex-opacity';
 export { default as getCoversLinks } from './api/get-covers-links';
 export { default as hexToRgba } from './hex-to-rgba';
+export { default as arrayToObject } from './array-to-object';

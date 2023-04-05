@@ -4,8 +4,15 @@ import {
   ContentRating,
   GetRelationship,
 } from '@types';
-import { convertParamsToUrl } from '@utils';
+import {
+  arrayToObject,
+  convertParamsToUrl,
+  extractRelationship,
+  getCoversLinks,
+} from '@utils';
 import { network } from './network';
+import { MangaExpansions, getManga } from './manga-api';
+import { ApiResponse } from 'apisauce';
 
 interface ChapterOrderBy {
   createdAt: 'asc' | 'desc';
@@ -40,24 +47,105 @@ interface ChapterParams {
   includes: ChapterExpansions[];
 }
 
-interface ChapterResponse {
+export interface ChapterResponse {
   result: 'ok';
   response: 'collection';
   data: {
     id: string;
     type: 'chapter';
     attributes: ChapterAttributes;
-    relationships: GetRelationship<'manga' | 'scanlation_group'>;
+    relationships: GetRelationship<'manga' | 'scanlation_group'>[];
   }[];
   limit: number;
   offset: number;
   total: number;
 }
 
+export interface ChapterWithCoverResponse extends ChapterResponse {
+  data: {
+    id: string;
+    type: 'chapter';
+    attributes: ChapterAttributes;
+    relationships: GetRelationship<'manga' | 'scanlation_group'>[];
+    manga: {
+      mangaId: string;
+      title: string;
+      cover: string | undefined;
+    };
+  }[];
+}
+
 const getChapter = async (params?: Partial<ChapterParams>) => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
   return await network.get<ChapterResponse, ApiError>('/chapter' + urlParams);
+};
+
+const getChapterWithCover = async (params?: Partial<ChapterParams>) => {
+  const chapters = await getChapter(params);
+
+  if (!chapters.ok || !chapters.data) {
+    return chapters as ApiResponse<ChapterWithCoverResponse, ApiError>;
+  }
+
+  const mangaIdsMap = arrayToObject(
+    chapters.data.data,
+    ({ id }) => id,
+    ({ relationships }) => {
+      const mangaRelationship = extractRelationship(relationships, 'manga');
+
+      return mangaRelationship[0].id;
+    },
+  );
+
+  const mangaIds = Object.values(mangaIdsMap);
+
+  const manga = await getManga({
+    ids: mangaIds,
+    includes: [MangaExpansions.COVER],
+  });
+
+  if (!manga.ok || !manga.data) {
+    return manga as ApiResponse<ChapterWithCoverResponse, ApiError>;
+  }
+
+  const mangaData = manga.data.data.map(
+    ({ attributes: { title, altTitles }, id, relationships }) => {
+      const covers = getCoversLinks(
+        id,
+        extractRelationship(relationships, 'cover_art'),
+      );
+
+      return {
+        mangaId: id,
+        title: title.en ?? altTitles.en ?? '[No title]',
+        cover: covers ? covers[0] : undefined,
+      };
+    },
+  );
+
+  const result = chapters.data.data.map(chapter => {
+    const pairId = mangaIdsMap[chapter.id];
+    const pairManga = mangaData.find(({ mangaId }) => pairId === mangaId);
+
+    if (!pairManga) {
+      // this should never be called
+      throw new Error('Missing mangaId');
+    }
+
+    return {
+      ...chapter,
+      manga: pairManga,
+    };
+  });
+
+  return {
+    ...chapters,
+    data: {
+      ...chapters.data,
+      data: result,
+    },
+  } as ApiResponse<ChapterWithCoverResponse, ApiError>;
 };
 
 const getMangaChapters = async (
@@ -82,4 +170,9 @@ const getCustomListChapters = async (
   );
 };
 
-export { getChapter, getMangaChapters, getCustomListChapters };
+export {
+  getChapter,
+  getChapterWithCover,
+  getMangaChapters,
+  getCustomListChapters,
+};
