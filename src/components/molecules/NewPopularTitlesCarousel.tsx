@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Dimensions,
   StyleProp,
   StyleSheet,
@@ -15,9 +16,9 @@ import {
   CenterCardCarousel,
 } from '@atoms';
 import { Colors } from '@constants/colors';
+import { useNewPopularTitles } from '@hooks';
 
 interface NewPopularTitlesCarouselProps {
-  data: MangaResponse['data'];
   style?: StyleProp<ViewStyle>;
 }
 
@@ -41,44 +42,59 @@ const renderItem = ({
   />
 );
 
-const NewPopularTitlesCarousel = ({
-  data,
-  style,
-}: NewPopularTitlesCarouselProps) => {
+const NewPopularTitlesCarousel = ({ style }: NewPopularTitlesCarouselProps) => {
+  const { data, status } = useNewPopularTitles();
+
   return (
     <View style={style}>
       <View style={s.listHeader}>
         <Text style={s.listHeaderTitle}>New Popular Titles</Text>
       </View>
-      <CenterCardCarousel
-        data={data}
-        card={cardConfig}
-        style={s.list}
-        autoScroll
-        autoScrollInterval={7500}
-        renderItem={renderItem}
-      />
+      {status === 'error' && <Text>Error</Text>}
+      {status === 'loading' && (
+        <View style={s.loader}>
+          <ActivityIndicator />
+        </View>
+      )}
+      {status === 'success' && data.ok && data.data && (
+        <CenterCardCarousel
+          data={data.data.data}
+          card={cardConfig}
+          style={s.list}
+          scaleFirst
+          autoScroll
+          autoScrollInterval={7500}
+          renderItem={renderItem}
+        />
+      )}
     </View>
   );
 };
 
 const s = StyleSheet.create({
+  card: {
+    marginLeft: NEW_POPULAR_CARD_MARGIN,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 200,
+  },
   listHeader: {
     flexDirection: 'row',
-    paddingHorizontal: NEW_POPULAR_CARD_MARGIN + 10,
+    paddingHorizontal: NEW_POPULAR_CARD_MARGIN,
     marginBottom: 10,
   },
   listHeaderTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     color: Colors.WHITE,
+    marginLeft: 15,
   },
   list: {
     flexDirection: 'row',
     width: Dimensions.get('screen').width,
-  },
-  card: {
-    marginLeft: NEW_POPULAR_CARD_MARGIN,
   },
 });
 
