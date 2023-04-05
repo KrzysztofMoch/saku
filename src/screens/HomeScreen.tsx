@@ -1,35 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors } from '@constants/colors';
-import { useNewPopularTitles } from '@hooks';
-import { NewPopularTitlesCarousel } from '@molecules';
+import {
+  LatestUpdatesList,
+  NewPopularTitlesCarousel,
+  SeasonalTitlesCarousel,
+} from '@molecules';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
-// TODO: create a custom horizontal scroll view component for seasonal and recently added titles
-
-// TODO: create a custom list component for recently updated chapters
+// TODO: create header component
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
 
-  const { data: newPopularTitles, status: newPopularTitlesStatus } =
-    useNewPopularTitles();
-
   return (
-    <View style={[s.container, { paddingTop: top }]}>
-      {newPopularTitlesStatus === 'loading' && (
-        <Text style={s.text}>Loading... (so far so good)</Text>
-      )}
-      {newPopularTitlesStatus === 'error' && <Text style={s.text}>Error</Text>}
-      {newPopularTitlesStatus === 'success' &&
-        newPopularTitles.ok &&
-        newPopularTitles.data && (
-          <NewPopularTitlesCarousel
-            data={newPopularTitles.data.data}
-            style={s.newPopularTitlesCarousel}
-          />
-        )}
-    </View>
+    <ScrollView
+      style={[{ paddingTop: top }, s.container]}
+      contentContainerStyle={s.contentContainer}>
+      <NewPopularTitlesCarousel style={s.list} />
+      <SeasonalTitlesCarousel style={s.list} />
+      <LatestUpdatesList style={s.list} />
+    </ScrollView>
   );
 };
 
@@ -40,10 +32,13 @@ const s = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.BLACK,
   },
+  contentContainer: {
+    paddingBottom: 180,
+  },
   text: {
     color: Colors.WHITE,
   },
-  newPopularTitlesCarousel: {
+  list: {
     marginTop: 10,
   },
 });
