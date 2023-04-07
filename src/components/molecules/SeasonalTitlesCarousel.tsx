@@ -62,6 +62,7 @@ const s = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    height: 200,
   },
   listHeader: {
     flexDirection: 'row',

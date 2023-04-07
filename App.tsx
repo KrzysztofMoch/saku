@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { useAuthStore } from '@store/auth';
 import { useHydration } from '@hooks';
+import { PreAppLoadedScreen } from '@screens';
 
 const App = () => {
   const hydrated = useHydration(useAuthStore);
@@ -20,8 +21,7 @@ const App = () => {
         <GestureHandlerRootView style={s.container}>
           <QueryClientProvider client={queryClient}>
             <NavigationContainer>
-              {/* TODO - create loading screen */}
-              {hydrated ? <StackNavigator /> : null}
+              {hydrated ? <StackNavigator /> : <PreAppLoadedScreen />}
             </NavigationContainer>
           </QueryClientProvider>
         </GestureHandlerRootView>

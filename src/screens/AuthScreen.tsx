@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import { authorize_user } from '@utils';
 import {
@@ -8,6 +14,10 @@ import {
 } from '@navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Colors } from '@constants/colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AppLogo } from '@svg';
+import { useAuthStore } from '@store/auth';
 
 type Navigation = StackScreenProps<
   StackNavigatorParams,
@@ -16,10 +26,16 @@ type Navigation = StackScreenProps<
 
 const AuthScreen = () => {
   const { navigate } = useNavigation<Navigation>();
+  const { bottom } = useSafeAreaInsets();
+  const { setState, ...state } = useAuthStore();
 
   const handleAuth = async () => {
-    console.log('Authenticating...');
     await authorize_user();
+    navigateToApp();
+  };
+
+  const skipAuth = () => {
+    setState({ ...state, skipped: true });
     navigateToApp();
   };
 
@@ -30,14 +46,18 @@ const AuthScreen = () => {
   };
 
   return (
-    <View style={s.container}>
-      <Text style={s.text}>Saku</Text>
-      <TouchableOpacity onPress={handleAuth} style={s.button}>
-        <Text style={s.authText}>Login with MangaDex</Text>
+    <View style={[s.container, { paddingBottom: bottom }]}>
+      <AppLogo width={Dimensions.get('window').width - 40} />
+      <TouchableOpacity onPress={handleAuth} style={s.loginButton}>
+        <Text style={s.loginText}>Login with MangaDex</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={s.button} onPress={navigateToApp}>
-        <Text style={s.authText}>Continue without login</Text>
+      <TouchableOpacity onPress={skipAuth} style={s.skipButton}>
+        <Text style={s.skipText}>Continue without login</Text>
       </TouchableOpacity>
+      <Text style={s.info}>
+        Your login and password are <Text style={s.infoBold}>not saved</Text>
+        {'\n'} in the application
+      </Text>
     </View>
   );
 };
@@ -47,16 +67,42 @@ export default AuthScreen;
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.BLACK_LIGHT,
     alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  loginButton: {
+    marginTop: '75%',
+    marginHorizontal: '10%',
+    marginBottom: 20,
+    backgroundColor: Colors.PINK,
+    width: '80%',
+    height: 62,
+    borderRadius: 10,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  text: {
-    color: 'black',
-    fontSize: 30,
+  loginText: {
+    color: Colors.WHITE,
+    fontSize: 22,
+    fontWeight: 'bold',
   },
-  authText: {
-    color: 'blue',
+  skipButton: {
+    marginHorizontal: '10%',
+  },
+  skipText: {
+    color: Colors.WHITE,
+    fontSize: 17,
+  },
+  info: {
+    marginTop: '20%',
+    color: Colors.WHITE,
+    fontWeight: '400',
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  infoBold: {
+    fontWeight: 'bold',
   },
   button: {
     marginVertical: 10,
