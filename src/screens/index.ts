@@ -1,7 +1,7 @@
-export { default as HomeScreen } from './HomeScreen';
-export { default as AuthScreen } from './AuthScreen';
-export { default as SettingsScreen } from './SettingsScreen';
-export { default as SearchScreen } from './SearchScreen';
-export { default as UpdatesScreen } from './UpdatesScreen';
-export { default as LibraryScreen } from './LibraryScreen';
-export { default as PreAppLoadedScreen } from './PreAppLoadedScreen';
+export { default as HomeScreen } from './bottomBar/HomeScreen';
+export { default as SearchScreen } from './bottomBar/SearchScreen';
+export { default as UpdatesScreen } from './bottomBar/UpdatesScreen';
+export { default as LibraryScreen } from './bottomBar/LibraryScreen';
+export { default as SettingsScreen } from './stack/SettingsScreen';
+export { default as PreAppLoadedScreen } from './auth/PreAppLoadedScreen';
+export { default as AuthScreen } from './auth/AuthScreen';
