@@ -17,6 +17,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Colors } from '@constants/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppLogo } from '@svg';
+import { useAuthStore } from '@store/auth';
 
 type Navigation = StackScreenProps<
   StackNavigatorParams,
@@ -26,10 +27,15 @@ type Navigation = StackScreenProps<
 const AuthScreen = () => {
   const { navigate } = useNavigation<Navigation>();
   const { bottom } = useSafeAreaInsets();
+  const { setState, ...state } = useAuthStore();
 
   const handleAuth = async () => {
-    console.log('Authenticating...');
     await authorize_user();
+    navigateToApp();
+  };
+
+  const skipAuth = () => {
+    setState({ ...state, skipped: true });
     navigateToApp();
   };
 
@@ -45,7 +51,7 @@ const AuthScreen = () => {
       <TouchableOpacity onPress={handleAuth} style={s.loginButton}>
         <Text style={s.loginText}>Login with MangaDex</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={s.skipButton} onPress={navigateToApp}>
+      <TouchableOpacity onPress={skipAuth} style={s.skipButton}>
         <Text style={s.skipText}>Continue without login</Text>
       </TouchableOpacity>
       <Text style={s.info}>

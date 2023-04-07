@@ -5,6 +5,7 @@ import { MMKV } from 'react-native-mmkv';
 type AuthState =
   | {
       authorized: true;
+      skipped: boolean;
       accessToken: string;
       accessTokenExpiresAt: string;
       refreshToken: string;
@@ -12,6 +13,7 @@ type AuthState =
     }
   | {
       authorized: false;
+      skipped: boolean;
       accessToken: undefined;
       accessTokenExpiresAt: undefined;
       refreshToken: undefined;
@@ -25,6 +27,7 @@ type AuthStore = AuthState & {
 
 const initialState: AuthState = {
   authorized: false,
+  skipped: false,
   accessToken: undefined,
   accessTokenExpiresAt: undefined,
   refreshToken: undefined,
