@@ -3,8 +3,8 @@ import { Colors } from '@constants/colors';
 import Svg, { Path, G, Defs, ClipPath } from 'react-native-svg';
 
 interface Props {
-  height?: number;
-  width?: number;
+  height?: number | string;
+  width?: number | string;
 }
 
 function SvgComponent({ height, width, ...props }: Props) {
