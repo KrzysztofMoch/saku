@@ -28,6 +28,7 @@ module.exports = {
           '@molecules': './src/components/molecules',
           '@types': './src/types',
           '@hooks': './src/hooks',
+          '@svg': './src/assets/svg',
         },
       },
     ],
