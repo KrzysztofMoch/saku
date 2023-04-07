@@ -3,11 +3,12 @@ import { getManga, MangaExpansions } from '@api/manga-api';
 import { ContentRating } from '@types';
 import { convertDate, manipulateDate } from '@utils';
 
-const useNewPopularTitles = () => {
+const useNewPopularTitles = (enabled?: boolean) => {
   const createdAtSince = convertDate(manipulateDate(new Date(), { days: -30 }));
 
   const query = useQuery({
-    queryKey: ['manga'],
+    enabled,
+    queryKey: ['new-popular-titles'],
     queryFn: () =>
       getManga({
         limit: 10,
@@ -30,9 +31,10 @@ const useNewPopularTitles = () => {
   return query;
 };
 
-const useRecentlyAdded = () => {
+const useRecentlyAdded = (enabled?: boolean) => {
   const query = useQuery({
-    queryKey: ['manga'],
+    enabled,
+    queryKey: ['recently-added'],
     queryFn: () =>
       getManga({
         limit: 15,

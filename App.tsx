@@ -14,17 +14,19 @@ const App = () => {
   const queryClient = new QueryClient();
 
   return (
-    <SafeAreaProvider style={s.container}>
-      <StatusBar barStyle={'light-content'} />
-      <GestureHandlerRootView style={s.container}>
-        <QueryClientProvider client={queryClient}>
-          <NavigationContainer>
-            {/* TODO - create loading screen */}
-            {hydrated ? <StackNavigator /> : null}
-          </NavigationContainer>
-        </QueryClientProvider>
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={s.container}>
+      <SafeAreaProvider style={s.container}>
+        <StatusBar barStyle={'light-content'} />
+        <GestureHandlerRootView style={s.container}>
+          <QueryClientProvider client={queryClient}>
+            <NavigationContainer>
+              {/* TODO - create loading screen */}
+              {hydrated ? <StackNavigator /> : null}
+            </NavigationContainer>
+          </QueryClientProvider>
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 };
 

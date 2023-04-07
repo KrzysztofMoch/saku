@@ -2,7 +2,7 @@ import { getCustomListById } from '@api/list-api';
 import { getManga, MangaExpansions } from '@api/manga-api';
 import { useQuery } from '@tanstack/react-query';
 
-const useSeasonalList = () => {
+const useSeasonalList = (enabled?: boolean) => {
   const SEASONAL_LIST_ID = '44224004-1fad-425e-b416-45b46b74d3d1';
 
   const queryFn = async () => {
@@ -30,8 +30,9 @@ const useSeasonalList = () => {
   };
 
   const query = useQuery({
-    queryKey: ['seasonal'],
     queryFn,
+    queryKey: ['seasonal-list'],
+    enabled,
   });
 
   return query;
