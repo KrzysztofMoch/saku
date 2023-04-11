@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import React, { useMemo } from 'react';
 import { ChapterWithCoverResponse } from '@api/chapter-api';
 import { Colors } from '@constants/colors';
 import { extractRelationship } from '@utils';
+import { Text } from '@atoms';
 
-type ChapterListItemProps = ChapterWithCoverResponse['data'][number];
+type ChapterCardProps = ChapterWithCoverResponse['data'][number];
 
-const ChapterListItem = ({
+const ChapterCard = ({
   attributes: { publishAt, chapter, volume },
   relationships,
   manga: { title, cover },
-}: ChapterListItemProps) => {
+}: ChapterCardProps) => {
   const minutesFromPublish = Math.floor(
     (new Date().getTime() - new Date(publishAt).getTime()) / 1000 / 60,
   );
@@ -48,7 +49,7 @@ const ChapterListItem = ({
   );
 };
 
-export default React.memo(ChapterListItem);
+export default React.memo(ChapterCard);
 
 const s = StyleSheet.create({
   container: {
