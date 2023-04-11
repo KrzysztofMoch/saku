@@ -90,8 +90,6 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    color: Colors.WHITE,
-    fontFamily: 'Quicksand',
     fontWeight: 'bold',
     fontSize: 12,
   },

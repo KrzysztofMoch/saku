@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React, { useMemo } from 'react';
 import { MangaResponse } from '@api/manga-api';
-import { getCoversLinks, extractRelationship } from '@utils';
+import { getCoversLinks, extractRelationship, getTitle } from '@utils';
 import { CachedImage, Text } from '@atoms';
 
 type MangaCardProps = MangaResponse['data'][number] & {

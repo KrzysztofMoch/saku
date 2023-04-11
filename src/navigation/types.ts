@@ -11,6 +11,7 @@ export enum StackNavigatorRoutes {
   Auth = 'Auth',
   Settings = 'Settings',
   BottomTabNavigator = 'BottomTabNavigator',
+  MangaDetails = 'MangaDetails',
 }
 
 export type BottomTabNavigatorParams = {
@@ -24,4 +25,7 @@ export type StackNavigatorParams = {
   [StackNavigatorRoutes.Auth]: undefined;
   [StackNavigatorRoutes.Settings]: undefined;
   [StackNavigatorRoutes.BottomTabNavigator]: NavigatorScreenParams<BottomTabNavigatorParams>;
+  [StackNavigatorRoutes.MangaDetails]: {
+    mangaId: string;
+  };
 };

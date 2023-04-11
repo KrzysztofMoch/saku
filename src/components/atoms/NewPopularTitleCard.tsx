@@ -7,21 +7,40 @@ import {
   ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import {
   extractRelationship,
   getColorFromImage,
   getCoversLinks,
+  getTitle,
   hexOpacity,
   hexToRgba,
 } from '@utils';
 import { MangaResponse } from '@api/manga-api';
 import { CachedImage, Text } from '@atoms';
 import ReactNativeBlobUtil from 'react-native-blob-util';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StackScreenProps } from '@react-navigation/stack';
+import {
+  BottomTabNavigatorParams,
+  BottomTabNavigatorRoutes,
+  StackNavigatorParams,
+  StackNavigatorRoutes,
+} from '@navigation/types';
 
 type NewPopularTitleCardProps = MangaResponse['data'][number] & {
   number: number;
   style?: StyleProp<ViewStyle>;
 };
+
+type Navigation = CompositeScreenProps<
+  StackScreenProps<
+    StackNavigatorParams,
+    StackNavigatorRoutes.BottomTabNavigator
+  >,
+  BottomTabScreenProps<BottomTabNavigatorParams, BottomTabNavigatorRoutes.Home>
+>['navigation'];
 
 const getGradientColors = (hex: string) => {
   return [
@@ -64,6 +83,7 @@ const NewPopularTitleCard = ({
 
   const gradientLoaded = useRef(false);
   const [gradient, setGradient] = useState(getGradientColors(FALLBACK_COLOR));
+  const navigation = useNavigation<Navigation>();
 
   const imageUrl = useMemo(() => {
     return getCoversLinks(
@@ -71,6 +91,12 @@ const NewPopularTitleCard = ({
       extractRelationship(relationships, 'cover_art'),
     )?.[0];
   }, [mangaId, relationships]);
+
+  const onPress = useCallback(() => {
+    navigation.push(StackNavigatorRoutes.MangaDetails, {
+      mangaId,
+    });
+  }, [mangaId, navigation]);
 
   const onImageCached = useCallback(
     (filePath: string) => {
@@ -85,7 +111,7 @@ const NewPopularTitleCard = ({
   );
 
   return (
-    <View style={[s.container, style]}>
+    <TouchableOpacity style={[s.container, style]} onPress={onPress}>
       <LinearGradient style={s.gradient} colors={gradient} key={number}>
         <Text style={s.number}>No. {number < 10 ? `0${number}` : number}</Text>
         <View style={s.content}>
@@ -115,7 +141,7 @@ const NewPopularTitleCard = ({
           </View>
         </View>
       </LinearGradient>
-    </View>
+    </TouchableOpacity>
   );
 };
 
