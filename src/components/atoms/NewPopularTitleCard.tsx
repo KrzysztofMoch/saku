@@ -54,12 +54,14 @@ const CARD_WIDTH = Dimensions.get('screen').width * 0.9;
 const CARD_MARGIN = Dimensions.get('screen').width * 0.05;
 
 const NewPopularTitleCard = ({
-  attributes: { title, description, altTitles },
+  attributes,
   id: mangaId,
   relationships,
   number,
   style,
 }: NewPopularTitleCardProps) => {
+  const { description } = attributes;
+
   const gradientLoaded = useRef(false);
   const [gradient, setGradient] = useState(getGradientColors(FALLBACK_COLOR));
 
@@ -102,7 +104,7 @@ const NewPopularTitleCard = ({
               numberOfLines={2}
               adjustsFontSizeToFit
               minimumFontScale={0.8}>
-              {title.en ?? altTitles.en}
+              {getTitle(attributes)}
             </Text>
             <Text
               style={s.description}

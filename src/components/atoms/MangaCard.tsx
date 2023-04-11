@@ -19,7 +19,7 @@ type MangaCardProps = MangaResponse['data'][number] & {
 const CARD_WIDTH = Dimensions.get('screen').width * 0.3;
 
 const MangaCard = ({
-  attributes: { title, altTitles },
+  attributes,
   id: mangaId,
   relationships,
   cacheCover = false,
@@ -52,7 +52,7 @@ const MangaCard = ({
         numberOfLines={2}
         adjustsFontSizeToFit
         minimumFontScale={0.8}>
-        {title.en ?? altTitles.en}
+        {getTitle(attributes)}
       </Text>
     </View>
   );
