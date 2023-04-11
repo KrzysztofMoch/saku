@@ -3,7 +3,7 @@ import { getManga, MangaExpansions } from '@api/manga-api';
 import { useQuery } from '@tanstack/react-query';
 
 const useSeasonalList = (enabled?: boolean) => {
-  const SEASONAL_LIST_ID = '44224004-1fad-425e-b416-45b46b74d3d1';
+  const SEASONAL_LIST_ID = '77430796-6625-4684-b673-ffae5140f337';
 
   const queryFn = async () => {
     const { data, problem } = await getCustomListById(SEASONAL_LIST_ID);
