@@ -14,3 +14,9 @@ export { default as getCoversLinks } from './api/get-covers-links';
 export { default as hexToRgba } from './hex-to-rgba';
 export { default as arrayToObject } from './array-to-object';
 export { default as getTitle } from './api/get-title';
+export { default as consumeMangaChapters } from './api/consume-manga-chapters';
+export type {
+  MergedChapters,
+  MergedChaptersData,
+  MergedByVolume,
+} from './api/consume-manga-chapters';

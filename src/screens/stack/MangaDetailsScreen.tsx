@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Dimensions,
   NativeScrollEvent,
+  NativeSyntheticEvent,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -34,11 +35,10 @@ type MangaDetailsScreenProps = StackScreenProps<
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('screen');
 
 const isCloseToBottom = ({
-  layoutMeasurement,
-  contentOffset,
-  contentSize,
-}: NativeScrollEvent) => {
+  nativeEvent: { layoutMeasurement, contentOffset, contentSize },
+}: NativeSyntheticEvent<NativeScrollEvent>) => {
   const paddingToBottom = 140;
+
   return (
     layoutMeasurement.height + contentOffset.y >=
     contentSize.height - paddingToBottom
@@ -101,14 +101,16 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
     [mangaId],
   );
 
-  const onBottomReached = useCallback(() => {
-    if (!chapterListRef.current) {
-      console.log('no ref');
-      return;
-    }
+  const onBottomReached = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      if (!chapterListRef.current || !isCloseToBottom(event)) {
+        return;
+      }
 
-    chapterListRef.current.fetchNextPage();
-  }, []);
+      chapterListRef.current.fetchNextPage();
+    },
+    [],
+  );
 
   useEffect(() => {
     return () => {
@@ -160,12 +162,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={[{ paddingTop: top }, s.container]}
-        onScroll={({ nativeEvent }) => {
-          if (isCloseToBottom(nativeEvent)) {
-            console.log('bottom reached');
-            onBottomReached();
-          }
-        }}
+        onScroll={onBottomReached}
         scrollEventThrottle={400}
         contentContainerStyle={s.contentContainer}>
         <TouchableOpacity style={s.back} onPress={handleBack}>
@@ -181,6 +178,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
             color: Colors.WHITE,
             backgroundColor: Colors.BLACK_LIGHT,
           }}
+          style={s.cover}
         />
         <Text
           selectable
@@ -226,7 +224,12 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
             </View>
           </View>
         </View>
-        {/* TODO: create chapter list */}
+        <ChapterList
+          ref={chapterListRef}
+          mangaId={mangaId}
+          style={s.chapterList}
+          chaptersPerPage={30}
+        />
       </ScrollView>
     </View>
   );
@@ -262,6 +265,9 @@ const s = StyleSheet.create({
     color: Colors.WHITE,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  cover: {
+    borderRadius: 10,
   },
   container: {
     flex: 1,
