@@ -2,14 +2,13 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
 import React, { useMemo } from 'react';
 import { MangaResponse } from '@api/manga-api';
 import { getCoversLinks, extractRelationship } from '@utils';
-import CachedImage from './CachedImage';
+import { CachedImage, Text } from '@atoms';
 
 type MangaCardProps = MangaResponse['data'][number] & {
   mode?: 'compact' | 'full';

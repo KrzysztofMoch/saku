@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Colors } from '@constants/colors';
+import { Text } from '@atoms';
 
 const UpdatesScreen = () => {
   return (

@@ -3,13 +3,13 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { MangaResponse } from '@api/manga-api';
-import { CenterCardCarousel, MANGA_CARD_WIDTH, MangaCard } from '@atoms';
+import { CenterCardCarousel, MANGA_CARD_WIDTH, MangaCard, Text } from '@atoms';
 import { Colors } from '@constants/colors';
 import { useSeasonalList } from '@hooks';
 

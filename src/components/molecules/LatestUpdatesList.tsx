@@ -2,14 +2,13 @@ import {
   ActivityIndicator,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
 import React from 'react';
 import { useLatestUploads } from '@hooks';
 import { Colors } from '@constants/colors';
-import { ChapterListItem } from '@atoms';
+import { ChapterListItem, Text } from '@atoms';
 
 interface LatestUpdatesListProps {
   style?: StyleProp<ViewStyle>;

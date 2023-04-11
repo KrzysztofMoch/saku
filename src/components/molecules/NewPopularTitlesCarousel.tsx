@@ -3,7 +3,6 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
@@ -14,6 +13,7 @@ import {
   NEW_POPULAR_CARD_WIDTH,
   NEW_POPULAR_CARD_MARGIN,
   CenterCardCarousel,
+  Text,
 } from '@atoms';
 import { Colors } from '@constants/colors';
 import { useNewPopularTitles } from '@hooks';

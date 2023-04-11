@@ -3,7 +3,6 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
@@ -16,7 +15,7 @@ import {
   hexToRgba,
 } from '@utils';
 import { MangaResponse } from '@api/manga-api';
-import CachedImage from './CachedImage';
+import { CachedImage, Text } from '@atoms';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 
 type NewPopularTitleCardProps = MangaResponse['data'][number] & {
