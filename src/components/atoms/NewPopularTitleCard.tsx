@@ -88,15 +88,13 @@ const NewPopularTitleCard = ({
         <Text style={s.number}>No. {number < 10 ? `0${number}` : number}</Text>
         <View style={s.content}>
           <View style={s.imageContainer}>
-            {imageUrl && (
-              <CachedImage
-                height={CARD_WIDTH * 0.5}
-                width={CARD_WIDTH * 0.3}
-                imageUrl={imageUrl}
-                imageKey={imageUrl.split('/')[imageUrl.split('/').length - 1]}
-                onImageCached={onImageCached}
-              />
-            )}
+            <CachedImage
+              onImageCached={onImageCached}
+              height={CARD_WIDTH * 0.5}
+              width={CARD_WIDTH * 0.3}
+              imageUrl={imageUrl}
+              saveToCache
+            />
           </View>
           <View style={s.info}>
             <Text

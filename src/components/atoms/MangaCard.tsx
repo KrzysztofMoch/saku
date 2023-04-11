@@ -12,6 +12,7 @@ import { CachedImage, Text } from '@atoms';
 
 type MangaCardProps = MangaResponse['data'][number] & {
   mode?: 'compact' | 'full';
+  cacheCover?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -21,6 +22,7 @@ const MangaCard = ({
   attributes: { title, altTitles },
   id: mangaId,
   relationships,
+  cacheCover = false,
   style,
   mode = 'full',
 }: MangaCardProps) => {
@@ -38,14 +40,12 @@ const MangaCard = ({
   return (
     <View style={[s.container, style]}>
       <View style={s.card}>
-        {imageUrl && (
-          <CachedImage
-            height={CARD_WIDTH * 1.5}
-            width={CARD_WIDTH}
-            imageUrl={imageUrl}
-            imageKey={imageUrl.split('/')[imageUrl.split('/').length - 1]}
-          />
-        )}
+        <CachedImage
+          height={CARD_WIDTH * 1.5}
+          width={CARD_WIDTH}
+          imageUrl={imageUrl}
+          saveToCache={cacheCover}
+        />
       </View>
       <Text
         style={[s.title, textPosition]}
