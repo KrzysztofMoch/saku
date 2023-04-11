@@ -141,8 +141,10 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
 
   const author = extractRelationship(relationships, 'author')[0].attributes;
   const artist = extractRelationship(relationships, 'artist')[0].attributes;
-  // replace markdown links with plain text
-  const description = attributes.description.en.replace(/\[.*\]\(.*\)/g, '');
+  // replace markdown links with plain text and bold text
+  const description = attributes.description.en
+    .replace(/\[(.*?)\]\((.*?)\)/g, '$1')
+    .replace(/\*\*(.*?)\*\*/g, '$1');
 
   return (
     <View style={s.background}>
