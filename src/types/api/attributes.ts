@@ -14,7 +14,7 @@ interface ChapterAttributes {
   volume: string | null;
   chapter: string | null;
   pages: string | null;
-  translatedLanguage: string[];
+  translatedLanguage: string;
   uploader: string | null;
   externalUrl: string | null;
   version: number;
