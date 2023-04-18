@@ -7,8 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import {
   extractRelationship,
   getColorFromImage,
@@ -21,26 +20,19 @@ import { MangaResponse } from '@api/manga-api';
 import { CachedImage, Text } from '@atoms';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { StackScreenProps } from '@react-navigation/stack';
 import {
-  BottomTabNavigatorParams,
   BottomTabNavigatorRoutes,
-  StackNavigatorParams,
   StackNavigatorRoutes,
 } from '@navigation/types';
+import { BottomTabScreenNavigationProp } from '@types';
 
 type NewPopularTitleCardProps = MangaResponse['data'][number] & {
   number: number;
   style?: StyleProp<ViewStyle>;
 };
 
-type Navigation = CompositeScreenProps<
-  StackScreenProps<
-    StackNavigatorParams,
-    StackNavigatorRoutes.BottomTabNavigator
-  >,
-  BottomTabScreenProps<BottomTabNavigatorParams, BottomTabNavigatorRoutes.Home>
->['navigation'];
+type Navigation =
+  BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Home>['navigation'];
 
 const getGradientColors = (hex: string) => {
   return [

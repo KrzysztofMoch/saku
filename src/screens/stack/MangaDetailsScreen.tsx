@@ -9,9 +9,8 @@ import {
   View,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StackNavigatorParams, StackNavigatorRoutes } from '@navigation/types';
+import { StackNavigatorRoutes } from '@navigation/types';
 import { Colors } from '@constants/colors';
 import {
   extractRelationship,
@@ -26,11 +25,10 @@ import ReactNativeBlobUtil from 'react-native-blob-util';
 import { Back } from '@svg';
 import { ChapterList, ChapterListRef } from '@molecules';
 import { useManga } from '@hooks';
+import { StackScreenNavigationProp } from '@types';
 
-type MangaDetailsScreenProps = StackScreenProps<
-  StackNavigatorParams,
-  StackNavigatorRoutes.MangaDetails
->;
+type MangaDetailsScreenProps =
+  StackScreenNavigationProp<StackNavigatorRoutes.MangaDetails>;
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('screen');
 

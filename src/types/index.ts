@@ -24,3 +24,7 @@ export type {
 } from './api/relationship';
 export type { ApiError } from './api/api-error';
 export { ContentRating } from './api/content-rating';
+export type {
+  BottomTabScreenNavigationProp,
+  StackScreenNavigationProp,
+} from './navigation/navigation-helpers';

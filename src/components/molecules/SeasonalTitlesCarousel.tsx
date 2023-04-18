@@ -8,31 +8,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, { useCallback } from 'react';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
-import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import { MangaResponse } from '@api/manga-api';
 import { CenterCardCarousel, MANGA_CARD_WIDTH, MangaCard, Text } from '@atoms';
 import { Colors } from '@constants/colors';
 import { useSeasonalList } from '@hooks';
 import {
-  StackNavigatorParams,
   StackNavigatorRoutes,
-  BottomTabNavigatorParams,
   BottomTabNavigatorRoutes,
 } from '@navigation/types';
+import { BottomTabScreenNavigationProp } from '@types';
 
 interface SeasonalTitlesCarouselProps {
   style?: StyleProp<ViewStyle>;
 }
 
-type Navigation = CompositeScreenProps<
-  StackScreenProps<
-    StackNavigatorParams,
-    StackNavigatorRoutes.BottomTabNavigator
-  >,
-  BottomTabScreenProps<BottomTabNavigatorParams, BottomTabNavigatorRoutes.Home>
->['navigation'];
+type Navigation =
+  BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Home>['navigation'];
 
 const cardConfig = {
   width: MANGA_CARD_WIDTH,
