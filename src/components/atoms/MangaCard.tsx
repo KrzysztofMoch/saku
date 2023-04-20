@@ -2,26 +2,27 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
 import React, { useMemo } from 'react';
 import { MangaResponse } from '@api/manga-api';
-import { getCoversLinks, extractRelationship } from '@utils';
-import CachedImage from './CachedImage';
+import { getCoversLinks, extractRelationship, getTitle } from '@utils';
+import { CachedImage, Text } from '@atoms';
 
 type MangaCardProps = MangaResponse['data'][number] & {
   mode?: 'compact' | 'full';
+  cacheCover?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
 const CARD_WIDTH = Dimensions.get('screen').width * 0.3;
 
 const MangaCard = ({
-  attributes: { title, altTitles },
+  attributes,
   id: mangaId,
   relationships,
+  cacheCover = false,
   style,
   mode = 'full',
 }: MangaCardProps) => {
@@ -39,21 +40,19 @@ const MangaCard = ({
   return (
     <View style={[s.container, style]}>
       <View style={s.card}>
-        {imageUrl && (
-          <CachedImage
-            height={CARD_WIDTH * 1.5}
-            width={CARD_WIDTH}
-            imageUrl={imageUrl}
-            imageKey={imageUrl.split('/')[imageUrl.split('/').length - 1]}
-          />
-        )}
+        <CachedImage
+          height={CARD_WIDTH * 1.5}
+          width={CARD_WIDTH}
+          imageUrl={imageUrl}
+          saveToCache={cacheCover}
+        />
       </View>
       <Text
         style={[s.title, textPosition]}
         numberOfLines={2}
         adjustsFontSizeToFit
         minimumFontScale={0.8}>
-        {title.en ?? altTitles.en}
+        {getTitle(attributes)}
       </Text>
     </View>
   );

@@ -3,26 +3,36 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 import {
   extractRelationship,
   getColorFromImage,
   getCoversLinks,
+  getTitle,
   hexOpacity,
   hexToRgba,
 } from '@utils';
 import { MangaResponse } from '@api/manga-api';
-import CachedImage from './CachedImage';
+import { CachedImage, Text } from '@atoms';
 import ReactNativeBlobUtil from 'react-native-blob-util';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  BottomTabNavigatorRoutes,
+  StackNavigatorRoutes,
+} from '@navigation/types';
+import { BottomTabScreenNavigationProp } from '@types';
 
 type NewPopularTitleCardProps = MangaResponse['data'][number] & {
   number: number;
   style?: StyleProp<ViewStyle>;
 };
+
+type Navigation =
+  BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Home>['navigation'];
 
 const getGradientColors = (hex: string) => {
   return [
@@ -55,14 +65,17 @@ const CARD_WIDTH = Dimensions.get('screen').width * 0.9;
 const CARD_MARGIN = Dimensions.get('screen').width * 0.05;
 
 const NewPopularTitleCard = ({
-  attributes: { title, description, altTitles },
+  attributes,
   id: mangaId,
   relationships,
   number,
   style,
 }: NewPopularTitleCardProps) => {
+  const { description } = attributes;
+
   const gradientLoaded = useRef(false);
   const [gradient, setGradient] = useState(getGradientColors(FALLBACK_COLOR));
+  const navigation = useNavigation<Navigation>();
 
   const imageUrl = useMemo(() => {
     return getCoversLinks(
@@ -70,6 +83,12 @@ const NewPopularTitleCard = ({
       extractRelationship(relationships, 'cover_art'),
     )?.[0];
   }, [mangaId, relationships]);
+
+  const onPress = useCallback(() => {
+    navigation.push(StackNavigatorRoutes.MangaDetails, {
+      mangaId,
+    });
+  }, [mangaId, navigation]);
 
   const onImageCached = useCallback(
     (filePath: string) => {
@@ -84,20 +103,18 @@ const NewPopularTitleCard = ({
   );
 
   return (
-    <View style={[s.container, style]}>
+    <TouchableOpacity style={[s.container, style]} onPress={onPress}>
       <LinearGradient style={s.gradient} colors={gradient} key={number}>
         <Text style={s.number}>No. {number < 10 ? `0${number}` : number}</Text>
         <View style={s.content}>
           <View style={s.imageContainer}>
-            {imageUrl && (
-              <CachedImage
-                height={CARD_WIDTH * 0.5}
-                width={CARD_WIDTH * 0.3}
-                imageUrl={imageUrl}
-                imageKey={imageUrl.split('/')[imageUrl.split('/').length - 1]}
-                onImageCached={onImageCached}
-              />
-            )}
+            <CachedImage
+              onImageCached={onImageCached}
+              height={CARD_WIDTH * 0.5}
+              width={CARD_WIDTH * 0.3}
+              imageUrl={imageUrl}
+              saveToCache
+            />
           </View>
           <View style={s.info}>
             <Text
@@ -105,7 +122,7 @@ const NewPopularTitleCard = ({
               numberOfLines={2}
               adjustsFontSizeToFit
               minimumFontScale={0.8}>
-              {title.en ?? altTitles.en}
+              {getTitle(attributes)}
             </Text>
             <Text
               style={s.description}
@@ -116,7 +133,7 @@ const NewPopularTitleCard = ({
           </View>
         </View>
       </LinearGradient>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -10,4 +10,6 @@ export {
   default as MangaCard,
   CARD_WIDTH as MANGA_CARD_WIDTH,
 } from './MangaCard';
+export { default as ChapterCard } from './ChapterCard';
+export { default as Text } from './Text';
 export { default as ChapterListItem } from './ChapterListItem';

@@ -1,4 +1,4 @@
-import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import React, { useCallback, useMemo } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '@constants/colors';
@@ -13,6 +13,7 @@ import {
   LibraryFilledIcon,
   LibraryIcon,
 } from '@icons';
+import { Text } from '@atoms';
 
 interface Props {
   label: string;
@@ -89,8 +90,6 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    color: Colors.WHITE,
-    fontFamily: 'Quicksand',
     fontWeight: 'bold',
     fontSize: 12,
   },

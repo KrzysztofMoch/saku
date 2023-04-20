@@ -1,91 +1,105 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import React, { useMemo } from 'react';
-import { ChapterWithCoverResponse } from '@api/chapter-api';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { memo } from 'react';
+import { MergedChaptersData, hexOpacity } from '@utils';
+import { Text } from '@atoms';
+import codes from '@constants/language-codes';
 import { Colors } from '@constants/colors';
-import { extractRelationship } from '@utils';
 
-type ChapterListItemProps = ChapterWithCoverResponse['data'][number];
+interface ChapterListItemProps {
+  data: MergedChaptersData[];
+}
 
-const ChapterListItem = ({
-  attributes: { publishAt, chapter, volume },
-  relationships,
-  manga: { title, cover },
-}: ChapterListItemProps) => {
-  const minutesFromPublish = Math.floor(
-    (new Date().getTime() - new Date(publishAt).getTime()) / 1000 / 60,
-  );
+const formatDate = (date: string) => {
+  const formatter = new Intl.DateTimeFormat('en', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
 
-  const groupName = useMemo(() => {
-    const groupAttr = extractRelationship(relationships, 'scanlation_group')[0];
+  return formatter.format(new Date(date));
+};
 
-    return groupAttr?.attributes?.name || '[No group]';
-  }, [relationships]);
+const codeToLanguage = (code: string) => {
+  const language = codes.find(({ two_letter }) => two_letter === code);
+
+  return language?.name ?? code;
+};
+
+const ChapterListItem = ({ data }: ChapterListItemProps) => {
+  if (data.length === 1) {
+    const { chapter, translatedLanguage, title, createdAt, group } = data[0];
+    return (
+      <TouchableOpacity style={s.container}>
+        <View style={s.row}>
+          <Text style={s.title}>
+            <Text style={s.bold}>{chapter} - </Text>
+            <Text style={s.bold}>{codeToLanguage(translatedLanguage)} - </Text>
+            <Text style={s.regular} numberOfLines={1} ellipsizeMode="tail">
+              {title}
+            </Text>
+          </Text>
+        </View>
+        <View style={s.row}>
+          <Text style={s.regular}>{group}</Text>
+          <Text style={s.regular}>{formatDate(createdAt)}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
 
   return (
     <View style={s.container}>
-      <Image
-        style={s.image}
-        source={{
-          uri: cover,
-          width: 40,
-          height: 60,
-        }}
-      />
-      <View style={s.content}>
-        <Text style={s.title} numberOfLines={1}>
-          {title}
-        </Text>
-        <Text style={s.chapter}>
-          {volume && 'Vol ' + volume + ' '}
-          {chapter && 'Ch. ' + chapter}
-        </Text>
-        <Text>
-          <Text style={s.groupName}>{groupName} - </Text>
-          <Text style={s.time}>{minutesFromPublish} min ago</Text>
-        </Text>
-      </View>
+      <Text style={[s.title, s.bold]}>{data[0].chapter}</Text>
+      {data.map(({ translatedLanguage, title, createdAt, group }) => (
+        <TouchableOpacity style={s.item} key={translatedLanguage + group}>
+          <View style={s.row}>
+            <Text style={s.title}>
+              <Text style={s.bold}>
+                {codeToLanguage(translatedLanguage)} -{' '}
+              </Text>
+              <Text style={s.regular} numberOfLines={1} ellipsizeMode="tail">
+                {title}
+              </Text>
+            </Text>
+          </View>
+          <View style={s.row}>
+            <Text style={s.regular}>{group}</Text>
+            <Text style={s.regular}>{formatDate(createdAt)}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
 
-export default React.memo(ChapterListItem);
+export default memo(ChapterListItem);
 
 const s = StyleSheet.create({
+  bold: {
+    fontWeight: 'bold',
+  },
   container: {
-    height: 60,
-    width: '94%',
-    marginTop: 16,
-    marginHorizontal: 16,
-    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: hexOpacity(Colors.WHITE, 0.7),
   },
-  content: {
+  row: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  image: {
-    height: 60,
-    width: 40,
-    backgroundColor: 'grey',
-    borderRadius: 5,
-    overflow: 'hidden',
-    marginRight: 6,
+  item: {
+    marginVertical: 5,
+    marginLeft: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
-    color: Colors.WHITE,
+    width: '100%',
+    height: 25,
   },
-  chapter: {
+  regular: {
+    fontWeight: 'normal',
     fontSize: 14,
-    color: Colors.WHITE,
-  },
-  groupName: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: Colors.WHITE,
-  },
-  time: {
-    fontSize: 14,
-    color: Colors.WHITE,
   },
 });

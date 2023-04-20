@@ -11,10 +11,11 @@ import ReactNativeBlobUtil, {
 } from 'react-native-blob-util';
 
 interface CachedImageProps extends Omit<ImageProps, 'source'> {
-  imageUrl: string;
-  imageKey: string;
+  imageUrl: string | undefined;
   width: number;
   height: number;
+  imageKey?: string;
+  saveToCache?: boolean;
   activityIndicator?: {
     size?: 'small' | 'large';
     color?: string;
@@ -92,6 +93,7 @@ const CachedImage = ({
   imageKey,
   width,
   height,
+  saveToCache = false,
   activityIndicator,
   onImageCached,
   ...imageProps
@@ -105,21 +107,33 @@ const CachedImage = ({
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   useEffect(() => {
-    if (imageLoaded.current) {
+    if (imageLoaded.current || !imageUrl) {
       return;
     }
 
+    const _imageKey =
+      imageKey || imageUrl.split('/')[imageUrl.split('/').length - 1];
+
     imageLoaded.current = true;
 
-    getImage(imageKey, imageUrl, onImageCached).then(result =>
-      setImageUri(FILE_PREFIX + result),
-    );
+    if (saveToCache) {
+      getImage(_imageKey, imageUrl, onImageCached).then(result =>
+        setImageUri(FILE_PREFIX + result),
+      );
+      return;
+    }
+
+    checkImage(imageUrl, onImageCached).then(result => {
+      const uri = result ? FILE_PREFIX + result : imageUrl;
+      setImageUri(uri);
+      onImageCached?.(uri);
+    });
 
     return () => {
       setImageUri(null);
       imageLoaded.current = false;
     };
-  }, [imageKey, imageUrl, onImageCached]);
+  }, [imageKey, imageUrl, onImageCached, saveToCache]);
 
   return (
     <View
@@ -127,7 +141,7 @@ const CachedImage = ({
         { height, width, backgroundColor: backgroundColor },
         s.container,
       ]}>
-      {imageUri ? (
+      {imageUri !== null ? (
         <Image
           {...imageProps}
           source={{

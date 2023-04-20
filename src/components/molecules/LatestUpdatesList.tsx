@@ -2,14 +2,13 @@ import {
   ActivityIndicator,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
 import React from 'react';
 import { useLatestUploads } from '@hooks';
 import { Colors } from '@constants/colors';
-import { ChapterListItem } from '@atoms';
+import { ChapterCard, Text } from '@atoms';
 
 interface LatestUpdatesListProps {
   style?: StyleProp<ViewStyle>;
@@ -33,7 +32,7 @@ const LatestUpdatesList = ({ style }: LatestUpdatesListProps) => {
         {status === 'success' && data.data && data.ok && (
           <>
             {data.data.data.map(item => (
-              <ChapterListItem {...item} key={item.id} />
+              <ChapterCard {...item} key={item.id} />
             ))}
           </>
         )}

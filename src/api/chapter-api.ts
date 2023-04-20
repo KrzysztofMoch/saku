@@ -9,6 +9,7 @@ import {
   convertParamsToUrl,
   extractRelationship,
   getCoversLinks,
+  getTitle,
 } from '@utils';
 import { network } from './network';
 import { MangaExpansions, getManga } from './manga-api';
@@ -27,7 +28,7 @@ export enum ChapterExpansions {
   SCANLATION_GROUP = 'scanlation_group',
 }
 
-interface ChapterParams {
+export interface ChapterParams {
   limit: number;
   offset: number;
   ids: string[];
@@ -109,20 +110,18 @@ const getChapterWithCover = async (params?: Partial<ChapterParams>) => {
     return manga as ApiResponse<ChapterWithCoverResponse, ApiError>;
   }
 
-  const mangaData = manga.data.data.map(
-    ({ attributes: { title, altTitles }, id, relationships }) => {
-      const covers = getCoversLinks(
-        id,
-        extractRelationship(relationships, 'cover_art'),
-      );
+  const mangaData = manga.data.data.map(({ attributes, id, relationships }) => {
+    const covers = getCoversLinks(
+      id,
+      extractRelationship(relationships, 'cover_art'),
+    );
 
-      return {
-        mangaId: id,
-        title: title.en ?? altTitles.en ?? '[No title]',
-        cover: covers ? covers[0] : undefined,
-      };
-    },
-  );
+    return {
+      mangaId: id,
+      title: getTitle(attributes),
+      cover: covers ? covers[0] : undefined,
+    };
+  });
 
   const result = chapters.data.data.map(chapter => {
     const pairId = mangaIdsMap[chapter.id];

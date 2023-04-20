@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import { AuthScreen, SettingsScreen } from '@screens';
+import { AuthScreen, MangaDetailsScreen, SettingsScreen } from '@screens';
 import { BottomTabNavigator } from './bottom-tab-navigator';
 import { StackNavigatorParams, StackNavigatorRoutes } from './types';
 import { useAuthStore } from '@store/auth';
@@ -29,6 +29,10 @@ export const StackNavigator = () => {
       <Stack.Screen
         name={StackNavigatorRoutes.BottomTabNavigator}
         component={BottomTabNavigator}
+      />
+      <Stack.Screen
+        name={StackNavigatorRoutes.MangaDetails}
+        component={MangaDetailsScreen}
       />
     </Stack.Navigator>
   );
