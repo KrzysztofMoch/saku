@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SakuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SakuTests.m */; };
-		03C676FCD8FE196BBAE5C72C /* libPods-Saku.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CED386F031849A8B6C006D0A /* libPods-Saku.a */; };
-		03FC1012814DB91DF2CC23D9 /* libPods-Saku-SakuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D331BA7D30C8833DC4A328EF /* libPods-Saku-SakuTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B4EE66CEBB5F4210A3598CAA /* Quicksand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AE3EB56B2914B8E8E4D93EE /* Quicksand.ttf */; };
+		BE1EB535168B4FF3D19B3E4B /* libPods-Saku.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AC54BDB57ED08CC4BF85063 /* libPods-Saku.a */; };
+		D0C7BC53A7B4CB5623C4B340 /* libPods-Saku-SakuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4854FF5B78259FD24812E55 /* libPods-Saku-SakuTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,15 +37,15 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Saku/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Saku/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Saku/main.m; sourceTree = "<group>"; };
-		585D2130DE7B850AEDADE007 /* Pods-Saku.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku.debug.xcconfig"; path = "Target Support Files/Pods-Saku/Pods-Saku.debug.xcconfig"; sourceTree = "<group>"; };
-		7630A94610F935A356AAC0AD /* Pods-Saku-SakuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku-SakuTests.release.xcconfig"; path = "Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests.release.xcconfig"; sourceTree = "<group>"; };
+		2AC54BDB57ED08CC4BF85063 /* libPods-Saku.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Saku.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36394CFF1834DE8C6C8D8BBD /* Pods-Saku.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku.debug.xcconfig"; path = "Target Support Files/Pods-Saku/Pods-Saku.debug.xcconfig"; sourceTree = "<group>"; };
+		6DF010F25FA9C6F56A6356E0 /* Pods-Saku-SakuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku-SakuTests.release.xcconfig"; path = "Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests.release.xcconfig"; sourceTree = "<group>"; };
+		7AB0531509E3F9DD05D9A782 /* Pods-Saku.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku.release.xcconfig"; path = "Target Support Files/Pods-Saku/Pods-Saku.release.xcconfig"; sourceTree = "<group>"; };
 		7AE3EB56B2914B8E8E4D93EE /* Quicksand.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Quicksand.ttf; path = ../src/assets/fonts/Quicksand.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Saku/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9026ECAD47F393992840B8F8 /* Pods-Saku.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku.release.xcconfig"; path = "Target Support Files/Pods-Saku/Pods-Saku.release.xcconfig"; sourceTree = "<group>"; };
-		CED386F031849A8B6C006D0A /* libPods-Saku.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Saku.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D331BA7D30C8833DC4A328EF /* libPods-Saku-SakuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Saku-SakuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF9F8D826160F2B68608158F /* Pods-Saku-SakuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku-SakuTests.debug.xcconfig"; path = "Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A4854FF5B78259FD24812E55 /* libPods-Saku-SakuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Saku-SakuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EDD84C028D277A566FBE87CD /* Pods-Saku-SakuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saku-SakuTests.debug.xcconfig"; path = "Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03FC1012814DB91DF2CC23D9 /* libPods-Saku-SakuTests.a in Frameworks */,
+				D0C7BC53A7B4CB5623C4B340 /* libPods-Saku-SakuTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03C676FCD8FE196BBAE5C72C /* libPods-Saku.a in Frameworks */,
+				BE1EB535168B4FF3D19B3E4B /* libPods-Saku.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				CED386F031849A8B6C006D0A /* libPods-Saku.a */,
-				D331BA7D30C8833DC4A328EF /* libPods-Saku-SakuTests.a */,
+				2AC54BDB57ED08CC4BF85063 /* libPods-Saku.a */,
+				A4854FF5B78259FD24812E55 /* libPods-Saku-SakuTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -151,10 +151,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				585D2130DE7B850AEDADE007 /* Pods-Saku.debug.xcconfig */,
-				9026ECAD47F393992840B8F8 /* Pods-Saku.release.xcconfig */,
-				DF9F8D826160F2B68608158F /* Pods-Saku-SakuTests.debug.xcconfig */,
-				7630A94610F935A356AAC0AD /* Pods-Saku-SakuTests.release.xcconfig */,
+				36394CFF1834DE8C6C8D8BBD /* Pods-Saku.debug.xcconfig */,
+				7AB0531509E3F9DD05D9A782 /* Pods-Saku.release.xcconfig */,
+				EDD84C028D277A566FBE87CD /* Pods-Saku-SakuTests.debug.xcconfig */,
+				6DF010F25FA9C6F56A6356E0 /* Pods-Saku-SakuTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -166,12 +166,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SakuTests" */;
 			buildPhases = (
-				D3B603CA27442FE487D70D3A /* [CP] Check Pods Manifest.lock */,
+				C4132BEF455B8DF98BF6CE63 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				A1F1C0A71BCD582810026604 /* [CP] Embed Pods Frameworks */,
-				6E1A81EA2063189E2B49BE54 /* [CP] Copy Pods Resources */,
+				C0B1753862B9BC5B79D47D41 /* [CP] Embed Pods Frameworks */,
+				26452B3EEA258C50F6C8CDE4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -187,14 +187,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Saku" */;
 			buildPhases = (
-				32008037BC34307E188F687A /* [CP] Check Pods Manifest.lock */,
+				C0D153838572E17A70024293 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				F57A285C2F6BD415BE6090AD /* [CP] Embed Pods Frameworks */,
-				BB1BAFF8F80AD8ABDA78078D /* [CP] Copy Pods Resources */,
+				6F7B9ED86A3E26997A3487BE /* [CP] Embed Pods Frameworks */,
+				9A137E2B20BF504D7FC36770 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -278,7 +278,75 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		32008037BC34307E188F687A /* [CP] Check Pods Manifest.lock */ = {
+		26452B3EEA258C50F6C8CDE4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F7B9ED86A3E26997A3487BE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A137E2B20BF504D7FC36770 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0B1753862B9BC5B79D47D41 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0D153838572E17A70024293 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,58 +368,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6E1A81EA2063189E2B49BE54 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1F1C0A71BCD582810026604 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku-SakuTests/Pods-Saku-SakuTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB1BAFF8F80AD8ABDA78078D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D3B603CA27442FE487D70D3A /* [CP] Check Pods Manifest.lock */ = {
+		C4132BEF455B8DF98BF6CE63 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -371,23 +388,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F57A285C2F6BD415BE6090AD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Saku/Pods-Saku-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -442,7 +442,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF9F8D826160F2B68608158F /* Pods-Saku-SakuTests.debug.xcconfig */;
+			baseConfigurationReference = EDD84C028D277A566FBE87CD /* Pods-Saku-SakuTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -469,7 +469,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7630A94610F935A356AAC0AD /* Pods-Saku-SakuTests.release.xcconfig */;
+			baseConfigurationReference = 6DF010F25FA9C6F56A6356E0 /* Pods-Saku-SakuTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -493,7 +493,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 585D2130DE7B850AEDADE007 /* Pods-Saku.debug.xcconfig */;
+			baseConfigurationReference = 36394CFF1834DE8C6C8D8BBD /* Pods-Saku.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -525,7 +525,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9026ECAD47F393992840B8F8 /* Pods-Saku.release.xcconfig */;
+			baseConfigurationReference = 7AB0531509E3F9DD05D9A782 /* Pods-Saku.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
