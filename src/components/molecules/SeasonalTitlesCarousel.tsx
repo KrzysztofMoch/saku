@@ -61,9 +61,9 @@ const SeasonalTitlesCarousel = ({ style }: SeasonalTitlesCarouselProps) => {
           <ActivityIndicator />
         </View>
       )}
-      {status === 'success' && data.data && data.ok && (
+      {status === 'success' && data && data.result === 'ok' && (
         <CenterCardCarousel
-          data={data.data?.data}
+          data={data.data}
           card={cardConfig}
           style={s.list}
           renderItem={Item}

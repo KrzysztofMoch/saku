@@ -20,11 +20,11 @@ const useChapters = (
     queryKey: ['chapters-' + mangaId],
     queryFn: fetchChapters,
     getNextPageParam: lastPage => {
-      if (!lastPage.ok || !lastPage.data) {
+      if (lastPage === undefined || lastPage.result !== 'ok') {
         return undefined;
       }
 
-      const { limit, offset, total } = lastPage.data;
+      const { limit, offset, total } = lastPage;
 
       const newOffset = offset + limit > total ? total : offset + limit;
 

@@ -29,9 +29,9 @@ const LatestUpdatesList = ({ style }: LatestUpdatesListProps) => {
             <ActivityIndicator />
           </View>
         )}
-        {status === 'success' && data.data && data.ok && (
+        {status === 'success' && data && data.result === 'ok' && (
           <>
-            {data.data.data.map(item => (
+            {data.data.map(item => (
               <ChapterCard {...item} key={item.id} />
             ))}
           </>

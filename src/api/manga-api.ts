@@ -6,12 +6,11 @@ import {
   ContentRating,
 } from '@types';
 import { convertParamsToUrl } from '@utils';
-import { ApiResponse } from 'apisauce';
-import { network } from './network';
+import { get } from './network';
 
 const PATH = '/manga';
 
-interface MangaOrderBy {
+export interface MangaOrderBy {
   title: 'asc' | 'desc';
   year: 'asc' | 'desc';
   createdAt: 'asc' | 'desc';
@@ -70,10 +69,12 @@ export interface MangaResponse {
 
 const getManga: (
   params?: Partial<MangaParams>,
-) => Promise<ApiResponse<MangaResponse, ApiError>> = async params => {
+) => Promise<MangaResponse | ApiError | undefined> = async params => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
-  return await network.get<MangaResponse, ApiError>(PATH + urlParams);
+  const result = await get<MangaResponse | ApiError>(PATH + urlParams);
+
+  return result;
 };
 
 export { getManga };

@@ -51,9 +51,7 @@ const ChapterList = forwardRef<ChapterListRef, ChapterListProps>(
     });
 
     const volumes = useMemo(() => {
-      const dataWithSuccess = chaptersResponse?.pages
-        .map(({ data }) => data)
-        .filter(isChapterData);
+      const dataWithSuccess = chaptersResponse?.pages.filter(isChapterData);
 
       if (!dataWithSuccess) {
         return [];
