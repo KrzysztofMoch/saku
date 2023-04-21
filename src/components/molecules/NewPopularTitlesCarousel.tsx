@@ -56,9 +56,9 @@ const NewPopularTitlesCarousel = ({ style }: NewPopularTitlesCarouselProps) => {
           <ActivityIndicator />
         </View>
       )}
-      {status === 'success' && data.ok && data.data && (
+      {status === 'success' && data && data.result === 'ok' && (
         <CenterCardCarousel
-          data={data.data.data}
+          data={data.data}
           card={cardConfig}
           style={s.list}
           scaleFirst

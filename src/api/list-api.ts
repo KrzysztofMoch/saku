@@ -1,6 +1,5 @@
 import { ApiError, CustomListAttributes, MangaRelationship } from '@types';
-import { ApiResponse } from 'apisauce';
-import { network } from './network';
+import { get } from './network';
 
 const PATH = '/list';
 
@@ -17,8 +16,8 @@ interface CustomListResponse {
 
 const getCustomListById = async (
   listId: string,
-): Promise<ApiResponse<CustomListResponse, ApiError>> => {
-  return network.get(`${PATH}/${listId}`);
+): Promise<CustomListResponse | ApiError | undefined> => {
+  return get<CustomListResponse, ApiError>(`${PATH}/${listId}`);
 };
 
 export { getCustomListById };

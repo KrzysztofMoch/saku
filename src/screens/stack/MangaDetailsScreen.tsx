@@ -124,7 +124,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
     );
   }
 
-  if (status === 'error' || !data.ok || !data.data) {
+  if (status === 'error' || data === undefined || data.result !== 'ok') {
     return (
       <View style={[s.background, s.loader]}>
         <Text>Error</Text>
@@ -132,7 +132,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
     );
   }
 
-  const { attributes, relationships } = data.data.data[0];
+  const { attributes, relationships } = data.data[0];
 
   const covers = getCoversLinks(
     mangaId,

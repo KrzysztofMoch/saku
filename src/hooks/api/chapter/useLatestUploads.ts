@@ -1,19 +1,5 @@
-import {
-  ChapterExpansions,
-  ChapterResponse,
-  getChapter,
-  getChapterWithCover,
-} from '@api/chapter-api';
+import { ChapterExpansions, getChapterWithCover } from '@api/chapter-api';
 import { useQuery } from '@tanstack/react-query';
-import { arrayToObject, extractRelationship } from '@utils';
-import {
-  MinimalMangaData,
-  getMangaDataFromCovers,
-} from 'src/utils/api/get-manga-data-from-covers';
-
-export type LatestUploads = ChapterResponse['data'][number] & {
-  manga: MinimalMangaData;
-};
 
 const useLatestUploads = () => {
   const query = useQuery({

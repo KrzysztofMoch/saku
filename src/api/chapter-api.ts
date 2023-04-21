@@ -11,9 +11,8 @@ import {
   getCoversLinks,
   getTitle,
 } from '@utils';
-import { network } from './network';
+import { get } from './network';
 import { MangaExpansions, getManga } from './manga-api';
-import { ApiResponse } from 'apisauce';
 
 interface ChapterOrderBy {
   createdAt: 'asc' | 'desc';
@@ -79,18 +78,22 @@ export interface ChapterWithCoverResponse extends ChapterResponse {
 const getChapter = async (params?: Partial<ChapterParams>) => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
-  return await network.get<ChapterResponse, ApiError>('/chapter' + urlParams);
+  return await get<ChapterResponse, ApiError>('/chapter' + urlParams);
 };
 
-const getChapterWithCover = async (params?: Partial<ChapterParams>) => {
+const getChapterWithCover: (
+  params?: Partial<ChapterParams>,
+) => Promise<
+  ChapterWithCoverResponse | ApiError | undefined
+> = async params => {
   const chapters = await getChapter(params);
 
-  if (!chapters.ok || !chapters.data) {
-    return chapters as ApiResponse<ChapterWithCoverResponse, ApiError>;
+  if (chapters === undefined || chapters.result === 'error') {
+    return chapters;
   }
 
   const mangaIdsMap = arrayToObject(
-    chapters.data.data,
+    chapters.data,
     ({ id }) => id,
     ({ relationships }) => {
       const mangaRelationship = extractRelationship(relationships, 'manga');
@@ -106,11 +109,11 @@ const getChapterWithCover = async (params?: Partial<ChapterParams>) => {
     includes: [MangaExpansions.COVER],
   });
 
-  if (!manga.ok || !manga.data) {
-    return manga as ApiResponse<ChapterWithCoverResponse, ApiError>;
+  if (manga === undefined || manga.result === 'error') {
+    return manga;
   }
 
-  const mangaData = manga.data.data.map(({ attributes, id, relationships }) => {
+  const mangaData = manga.data.map(({ attributes, id, relationships }) => {
     const covers = getCoversLinks(
       id,
       extractRelationship(relationships, 'cover_art'),
@@ -123,7 +126,7 @@ const getChapterWithCover = async (params?: Partial<ChapterParams>) => {
     };
   });
 
-  const result = chapters.data.data.map(chapter => {
+  const result = chapters.data.map(chapter => {
     const pairId = mangaIdsMap[chapter.id];
     const pairManga = mangaData.find(({ mangaId }) => pairId === mangaId);
 
@@ -140,11 +143,8 @@ const getChapterWithCover = async (params?: Partial<ChapterParams>) => {
 
   return {
     ...chapters,
-    data: {
-      ...chapters.data,
-      data: result,
-    },
-  } as ApiResponse<ChapterWithCoverResponse, ApiError>;
+    data: result,
+  };
 };
 
 const getMangaChapters = async (
@@ -153,7 +153,7 @@ const getMangaChapters = async (
 ) => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
-  return await network.get<ChapterResponse, ApiError>(
+  return await get<ChapterResponse, ApiError>(
     `/manga/${mangaId}/feed` + urlParams,
   );
 };
@@ -164,7 +164,7 @@ const getCustomListChapters = async (
 ) => {
   const urlParams = params ? convertParamsToUrl(params) : '';
 
-  return await network.get<ChapterResponse, ApiError>(
+  return await get<ChapterResponse, ApiError>(
     `/list/${listId}/feed` + urlParams,
   );
 };

@@ -6,10 +6,10 @@ const useSeasonalList = (enabled?: boolean) => {
   const SEASONAL_LIST_ID = '77430796-6625-4684-b673-ffae5140f337';
 
   const queryFn = async () => {
-    const { data, problem } = await getCustomListById(SEASONAL_LIST_ID);
+    const data = await getCustomListById(SEASONAL_LIST_ID);
 
-    if (problem) {
-      throw new Error(problem);
+    if (data === undefined || data.result !== 'ok') {
+      throw new Error('No data found');
     }
 
     const ids = data?.data?.relationships?.map(({ id }) => id) ?? [];
