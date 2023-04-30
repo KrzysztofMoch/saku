@@ -20,3 +20,4 @@ export type {
   MergedChaptersData,
   MergedByVolume,
 } from './api/consume-manga-chapters';
+export { capitalize } from './capitalize';

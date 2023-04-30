@@ -5,3 +5,5 @@ export { useSeasonalList } from './api/custom-list/useSeasonalList';
 export { useLatestUploads } from './api/chapter/useLatestUploads';
 export { useManga } from './api/manga/useManga';
 export { useChapters } from './api/chapter/useChapters';
+export { useMangaQuery } from './api/manga/useMangaQuery';
+export type { MangaSearchFilters } from './api/manga/useMangaQuery';

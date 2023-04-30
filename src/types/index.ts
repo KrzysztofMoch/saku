@@ -1,5 +1,5 @@
 export type { Full } from './full';
-export type { TagMode } from './api/tag-mode';
+export { TagMode } from './api/tag-mode';
 export type {
   TagAttributes,
   ChapterAttributes,
