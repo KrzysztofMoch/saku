@@ -29,7 +29,7 @@ const useSCReducer = <T>(initialState: T) => {
       const key = type.slice(3) as keyof T;
       return {
         ...state,
-        [key]: payload,
+        [key.toString().toLowerCase()]: payload,
       };
     }
 
@@ -37,7 +37,7 @@ const useSCReducer = <T>(initialState: T) => {
       const key = type.slice(5) as keyof T;
       return {
         ...state,
-        [key]: undefined,
+        [key.toString().toLowerCase()]: undefined,
       };
     }
 
