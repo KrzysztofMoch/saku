@@ -1,9 +1,9 @@
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useCallback, useMemo, useReducer } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '@constants/colors';
-import { MangaSearchFilters, useMangaQuery } from '@hooks';
+import { MangaSearchFilters, useMangaQuery, useSCReducer } from '@hooks';
 import { MangaExpansions, MangaResponse } from '@api/manga-api';
 import { MangaCard, SearchInput, Text } from '@atoms';
 import { BottomTabScreenNavigationProp } from '@types';
@@ -22,25 +22,6 @@ const keyExtractor = ({ id }: MangaResponse['data'][number]) => id;
 type Navigation =
   BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Search>['navigation'];
 
-type setAction = {
-  [K in keyof MangaSearchFilters]: {
-    type: `set${Capitalize<string & K>}`;
-    payload: MangaSearchFilters[K];
-  };
-}[keyof MangaSearchFilters];
-
-type clearAction = {
-  [K in keyof MangaSearchFilters]: {
-    type: `clear${Capitalize<string & K>}`;
-    payload?: undefined;
-  };
-}[keyof MangaSearchFilters];
-
-type Action =
-  | setAction
-  | clearAction
-  | { type: 'clearAll'; payload?: undefined };
-
 const INITIAL_PARAMS: Partial<MangaSearchFilters> = {
   title: '',
   order: {
@@ -53,33 +34,7 @@ const SearchScreen = () => {
 
   const navigation = useNavigation<Navigation>();
 
-  const [params, dispatch] = useReducer(
-    (state: Partial<MangaSearchFilters>, { type, payload }: Action) => {
-      if (type === 'clearAll') {
-        return INITIAL_PARAMS;
-      }
-
-      if (type.startsWith('set')) {
-        const key = type.slice(3) as keyof MangaSearchFilters;
-        return {
-          ...state,
-          [key]: payload,
-        };
-      }
-
-      if (type.startsWith('clear')) {
-        const key = type.slice(5) as keyof MangaSearchFilters;
-        return {
-          ...state,
-          [key]: undefined,
-        };
-      }
-
-      __DEV__ && console.warn('Unknown action type', type);
-      return state;
-    },
-    INITIAL_PARAMS,
-  );
+  const [params, dispatch] = useSCReducer(INITIAL_PARAMS);
 
   const {
     data,
@@ -117,7 +72,7 @@ const SearchScreen = () => {
       });
       refetch();
     },
-    [refetch],
+    [refetch, dispatch],
   );
 
   const showAdvancedSearch = useCallback(() => {
