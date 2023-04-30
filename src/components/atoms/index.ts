@@ -13,3 +13,4 @@ export {
 export { default as ChapterCard } from './ChapterCard';
 export { default as Text } from './Text';
 export { default as ChapterListItem } from './ChapterListItem';
+export { default as SearchInput } from './SearchInput';
