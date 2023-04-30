@@ -2,6 +2,7 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
@@ -14,6 +15,7 @@ type MangaCardProps = MangaResponse['data'][number] & {
   mode?: 'compact' | 'full';
   cacheCover?: boolean;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 };
 
 const CARD_WIDTH = Dimensions.get('screen').width * 0.3;
@@ -24,6 +26,7 @@ const MangaCard = ({
   relationships,
   cacheCover = false,
   style,
+  onPress,
   mode = 'full',
 }: MangaCardProps) => {
   const imageUrl = useMemo(() => {
@@ -38,7 +41,10 @@ const MangaCard = ({
   };
 
   return (
-    <View style={[s.container, style]}>
+    <TouchableOpacity
+      style={[s.container, style]}
+      disabled={!onPress}
+      onPress={onPress}>
       <View style={s.card}>
         <CachedImage
           height={CARD_WIDTH * 1.5}
@@ -54,7 +60,7 @@ const MangaCard = ({
         minimumFontScale={0.8}>
         {getTitle(attributes)}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
