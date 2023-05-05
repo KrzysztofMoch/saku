@@ -7,5 +7,8 @@ export { useManga } from './api/manga/useManga';
 export { useChapters } from './api/chapter/useChapters';
 export { useMangaQuery } from './api/manga/useMangaQuery';
 export type { MangaSearchFilters } from './api/manga/useMangaQuery';
+export { useGroupQuery } from './api/group/useGroupQuery';
+export { useAuthorQuery } from './api/author/useAuthorQuery';
+export { useMangaTags } from './api/tag/useMangaTags';
 export { useSCReducer } from './useSCReducer';
 export type { Action as SCReducerAction } from './useSCReducer';
