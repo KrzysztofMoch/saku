@@ -13,8 +13,8 @@ type StackScreenNavigationProp<T extends StackNavigatorRoutes> =
 
 type BottomTabScreenNavigationProp<T extends BottomTabNavigatorRoutes> =
   CompositeScreenProps<
-    StackScreenNavigationProp<StackNavigatorRoutes.BottomTabNavigator>,
-    BottomTabScreenProps<BottomTabNavigatorParams, T>
+    BottomTabScreenProps<BottomTabNavigatorParams, T>,
+    StackScreenNavigationProp<StackNavigatorRoutes.BottomTabNavigator>
   >;
 
 export type { StackScreenNavigationProp, BottomTabScreenNavigationProp };
