@@ -1,11 +1,15 @@
 import { TagsResponse, getTags } from '@api/tag-api';
 import { useQuery } from '@tanstack/react-query';
 
+export interface Tag {
+  id: string;
+  name: string;
+}
 export interface MangaTags {
-  content: string[];
-  format: string[];
-  genre: string[];
-  theme: string[];
+  content: Tag[];
+  format: Tag[];
+  genre: Tag[];
+  theme: Tag[];
 }
 
 const isResponseValid = (response: any): response is TagsResponse => {
@@ -15,24 +19,36 @@ const isResponseValid = (response: any): response is TagsResponse => {
 };
 
 const transformTags: (tags: TagsResponse) => MangaTags = tags => {
-  const content: string[] = [];
-  const format: string[] = [];
-  const genre: string[] = [];
-  const theme: string[] = [];
+  const content: Tag[] = [];
+  const format: Tag[] = [];
+  const genre: Tag[] = [];
+  const theme: Tag[] = [];
 
-  tags.data.forEach(({ attributes: { group, name } }) => {
+  tags.data.forEach(({ id, attributes: { group, name } }) => {
     switch (group) {
       case 'content':
-        content.push(name.en);
+        content.push({
+          id,
+          name: name.en,
+        });
         break;
       case 'format':
-        format.push(name.en);
+        format.push({
+          id,
+          name: name.en,
+        });
         break;
       case 'genre':
-        genre.push(name.en);
+        genre.push({
+          id,
+          name: name.en,
+        });
         break;
       case 'theme':
-        theme.push(name.en);
+        theme.push({
+          id,
+          name: name.en,
+        });
         break;
     }
   });
@@ -53,7 +69,10 @@ const useMangaTags = () => {
       return result;
     }
 
-    return transformTags(result);
+    return {
+      result: 'ok',
+      data: transformTags(result),
+    };
   };
 
   const query = useQuery({
