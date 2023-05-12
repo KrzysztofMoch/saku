@@ -17,12 +17,17 @@ type ClearAction<T> = {
 export type Action<T> =
   | SetAction<T>
   | ClearAction<T>
-  | { type: 'clearAll'; payload?: undefined };
+  | { type: 'clearAll'; payload?: undefined }
+  | { type: 'setState'; payload: T };
 
 const useSCReducer = <T>(initialState: T) => {
   return useReducer((state: T, { type, payload }: Action<T>) => {
     if (type === 'clearAll') {
       return initialState;
+    }
+
+    if (type === 'setState') {
+      return payload as T;
     }
 
     if (type.startsWith('set')) {
