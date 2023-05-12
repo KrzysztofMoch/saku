@@ -1,7 +1,11 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import React, { useCallback, useMemo } from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import { Colors } from '@constants/colors';
 import { MangaSearchFilters, useMangaQuery, useSCReducer } from '@hooks';
 import { MangaExpansions, MangaResponse } from '@api/manga-api';
@@ -19,9 +23,6 @@ const isMangaResponse = (obj: any): obj is MangaResponse => {
 
 const keyExtractor = ({ id }: MangaResponse['data'][number]) => id;
 
-type Navigation =
-  BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Search>['navigation'];
-
 const INITIAL_PARAMS: Partial<MangaSearchFilters> = {
   title: '',
   order: {
@@ -29,12 +30,16 @@ const INITIAL_PARAMS: Partial<MangaSearchFilters> = {
   },
 };
 
-const SearchScreen = () => {
+const SearchScreen = ({
+  navigation,
+  route,
+}: BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Search>) => {
   const { top } = useSafeAreaInsets();
-
-  const navigation = useNavigation<Navigation>();
-
-  const [params, dispatch] = useSCReducer(INITIAL_PARAMS);
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [params, dispatch] = useSCReducer({
+    ...INITIAL_PARAMS,
+    ...route.params,
+  });
 
   const {
     data,
@@ -75,9 +80,23 @@ const SearchScreen = () => {
     [refetch, dispatch],
   );
 
-  const showAdvancedSearch = useCallback(() => {
-    // TODO: implement advanced search
-  }, []);
+  const onFilterPress = () => {
+    setShowAdvancedSearch(true);
+    navigation.setOptions({
+      tabBarStyle: {
+        display: 'none',
+      },
+    });
+
+    if (showAdvancedSearch) {
+      setShowAdvancedSearch(false);
+      navigation.setOptions({
+        tabBarStyle: {
+          display: 'flex',
+        },
+      });
+    }
+  };
 
   const renderItem = useCallback(
     ({ item }: { item: MangaResponse['data'][number] }) => {
@@ -125,6 +144,7 @@ const SearchScreen = () => {
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         stickyHeaderIndices={[0]}
+        ListHeaderComponentStyle={s.header}
         ListHeaderComponent={
           <View style={s.searchContainer}>
             <SearchInput
@@ -132,12 +152,11 @@ const SearchScreen = () => {
               onTextChange={onInputSubmit}
               style={s.search}
             />
-            <TouchableOpacity onPress={showAdvancedSearch}>
+            <TouchableOpacity onPress={onFilterPress}>
               <FilterIcon />
             </TouchableOpacity>
           </View>
         }
-        ListHeaderComponentStyle={s.header}
         ListFooterComponentStyle={s.footer}
         ListFooterComponent={
           <View style={s.loader}>

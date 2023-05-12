@@ -1,3 +1,4 @@
+import { MangaSearchFilters } from '@hooks';
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 export enum BottomTabNavigatorRoutes {
@@ -16,7 +17,7 @@ export enum StackNavigatorRoutes {
 
 export type BottomTabNavigatorParams = {
   [BottomTabNavigatorRoutes.Home]: undefined;
-  [BottomTabNavigatorRoutes.Search]: undefined;
+  [BottomTabNavigatorRoutes.Search]: Partial<MangaSearchFilters>;
   [BottomTabNavigatorRoutes.Updates]: undefined;
   [BottomTabNavigatorRoutes.Library]: undefined;
 };
