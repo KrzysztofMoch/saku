@@ -1,5 +1,6 @@
 import {
   FlatList,
+  Modal,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -16,6 +17,7 @@ import {
   StackNavigatorRoutes,
 } from '@navigation/types';
 import { FilterIcon } from '@icons';
+import { AdvancedSearchPanel } from '@molecules';
 
 const isMangaResponse = (obj: any): obj is MangaResponse => {
   return typeof obj === 'object' && 'result' in obj && obj.result === 'ok';
@@ -131,6 +133,18 @@ const SearchScreen = ({
 
   return (
     <View style={[s.container, { paddingTop: top }]}>
+      <Modal
+        transparent
+        visible={showAdvancedSearch}
+        animationType="slide"
+        onRequestClose={() => setShowAdvancedSearch(false)}>
+        <AdvancedSearchPanel
+          params={params}
+          dispatch={dispatch}
+          onClose={onFilterPress}
+          defaultValues={INITIAL_PARAMS}
+        />
+      </Modal>
       <FlatList
         style={s.list}
         contentContainerStyle={s.listContent}
