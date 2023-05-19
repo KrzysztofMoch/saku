@@ -231,6 +231,7 @@ const s = StyleSheet.create({
   },
   listContent: {
     gap: 60,
+    paddingBottom: 120,
   },
   listWrapper: {
     justifyContent: 'space-evenly',

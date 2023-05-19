@@ -76,6 +76,21 @@ const MultiSelectInput = ({
     [onValueChange],
   );
 
+  const handleQueryChange = useCallback(
+    (newQuery: string) => {
+      if (debounceTimeOut.current) {
+        clearTimeout(debounceTimeOut.current);
+      }
+
+      setQueryValue(newQuery);
+
+      debounceTimeOut.current = setTimeout(() => {
+        onQueryChange(newQuery);
+      }, 400);
+    },
+    [onQueryChange],
+  );
+
   const handleItemPress = useCallback(
     (item: MultiSelectInputData) => {
       const newItems = [...items];
@@ -83,6 +98,9 @@ const MultiSelectInput = ({
 
       if (index === -1) {
         newItems.push(item);
+
+        // clear query
+        handleQueryChange('');
       }
 
       if (item.excluded || (!allowExclude && index !== -1)) {
@@ -95,7 +113,7 @@ const MultiSelectInput = ({
 
       handleValueChange(newItems);
     },
-    [items, allowExclude, handleValueChange],
+    [items, allowExclude, handleValueChange, handleQueryChange],
   );
 
   const getQueryListItemState = useCallback(
@@ -110,18 +128,6 @@ const MultiSelectInput = ({
     },
     [items],
   );
-
-  const handleQueryChange = (newQuery: string) => {
-    if (debounceTimeOut.current) {
-      clearTimeout(debounceTimeOut.current);
-    }
-
-    setQueryValue(newQuery);
-
-    debounceTimeOut.current = setTimeout(() => {
-      onQueryChange(newQuery);
-    }, 400);
-  };
 
   const scrollToEnd = () => {
     scrollViewRef.current?.scrollToEnd({ animated: true });
