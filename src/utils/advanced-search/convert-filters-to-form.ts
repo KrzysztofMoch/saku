@@ -81,6 +81,8 @@ const convertFiltersToForm = async (params: Partial<MangaSearchFilters>) => {
     formats: [],
     genres: [],
     themes: [],
+    excludeAndMode: false,
+    includeAndMode: false,
     year: '',
   };
 
@@ -99,6 +101,18 @@ const convertFiltersToForm = async (params: Partial<MangaSearchFilters>) => {
   if ('year' in params && params.year) {
     Object.assign(filters, {
       year: params.year.toString(),
+    });
+  }
+
+  if ('includedTagsMode' in params) {
+    Object.assign(filters, {
+      includeAndMode: params.includedTagsMode === 'AND',
+    });
+  }
+
+  if ('excludedTagsMode' in params) {
+    Object.assign(filters, {
+      excludeAndMode: params.excludedTagsMode === 'AND',
     });
   }
 

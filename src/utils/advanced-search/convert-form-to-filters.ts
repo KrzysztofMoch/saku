@@ -1,11 +1,21 @@
 import { MangaSearchFilters } from '@hooks';
 import { AdvancedSearchForm } from '@molecules';
+import { TagMode } from '@types';
 
 const convertFormToFilters = (
   form: AdvancedSearchForm,
   defaultValues: Partial<MangaSearchFilters>,
 ) => {
-  const { authors, artists, formats, genres, themes, year } = form;
+  const {
+    authors,
+    artists,
+    formats,
+    genres,
+    themes,
+    year,
+    excludeAndMode,
+    includeAndMode,
+  } = form;
 
   const params: Partial<MangaSearchFilters> = {
     ...defaultValues,
@@ -59,6 +69,24 @@ const convertFormToFilters = (
     Object.assign(params, {
       year: parseInt(year, 10),
     });
+  } else {
+    delete params.year;
+  }
+
+  if (excludeAndMode) {
+    Object.assign(params, {
+      excludedTagsMode: TagMode.AND,
+    });
+  } else {
+    delete params.excludedTagsMode;
+  }
+
+  if (includeAndMode) {
+    Object.assign(params, {
+      includedTagsMode: TagMode.AND,
+    });
+  } else {
+    delete params.includedTagsMode;
   }
 
   return params;

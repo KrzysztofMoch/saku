@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '@constants/colors';
@@ -9,7 +16,7 @@ import {
   FormTextInput,
   TagsSelectInput,
 } from '@molecules';
-import { MultiSelectInputData } from '@atoms';
+import { MultiSelectInputData, SwitchFormInput } from '@atoms';
 import { convertFiltersToForm, convertFormToFilters } from '@utils';
 import { useSearchFiltersStore } from '@store/search-filters';
 import { INITIAL_PARAMS } from '@constants/default-search-filters';
@@ -25,6 +32,8 @@ export interface AdvancedSearchForm {
   genres: MultiSelectInputData[];
   themes: MultiSelectInputData[];
   year: string;
+  excludeAndMode: boolean;
+  includeAndMode: boolean;
 }
 
 const AdvancedSearchPanel = ({ onClose }: AdvancedSearchPanelProps) => {
@@ -66,20 +75,40 @@ const AdvancedSearchPanel = ({ onClose }: AdvancedSearchPanelProps) => {
         </TouchableOpacity>
       </View>
       {/* NOTE: Order of components is reversed for fixed render hierarchy */}
-      <View style={s.inputs}>
-        <TagsSelectInput tagType="format" control={control} name="formats" />
-        <FormTextInput
-          control={control}
-          inputProps={{ keyboardType: 'number-pad' }}
-          name="year"
-          label="Years"
-          placeholder="eg. 2010"
-        />
-        <TagsSelectInput tagType="genre" control={control} name="genres" />
-        <TagsSelectInput tagType="theme" control={control} name="themes" />
-        <ArtistsSelectInput control={control} name="artists" />
-        <AuthorsSelectInput control={control} name="authors" />
-      </View>
+      <TouchableWithoutFeedback style={s.inputs} onPress={Keyboard.dismiss}>
+        <View style={s.inputs}>
+          <FormTextInput
+            control={control}
+            inputProps={{ keyboardType: 'number-pad' }}
+            name="year"
+            label="Year"
+            placeholder="eg. 2010"
+          />
+          <View style={s.switchesContainer}>
+            <View style={s.switch}>
+              <Text style={s.switchTitle}>Include mode</Text>
+              <View style={s.switchContent}>
+                <Text style={s.switchMode}>OR</Text>
+                <SwitchFormInput control={control} name="includeAndMode" />
+                <Text style={s.switchMode}>AND</Text>
+              </View>
+            </View>
+            <View style={s.switch}>
+              <Text style={s.switchTitle}>Exclude mode</Text>
+              <View style={s.switchContent}>
+                <Text style={s.switchMode}>OR</Text>
+                <SwitchFormInput control={control} name="excludeAndMode" />
+                <Text style={s.switchMode}>AND</Text>
+              </View>
+            </View>
+          </View>
+          <TagsSelectInput tagType="format" control={control} name="formats" />
+          <TagsSelectInput tagType="genre" control={control} name="genres" />
+          <TagsSelectInput tagType="theme" control={control} name="themes" />
+          <ArtistsSelectInput control={control} name="artists" />
+          <AuthorsSelectInput control={control} name="authors" />
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
@@ -121,6 +150,34 @@ const s = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
     justifyContent: 'flex-end',
+  },
+  switchesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 6,
+    marginBottom: 12,
+  },
+  switch: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  switchContent: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  switchTitle: {
+    color: Colors.WHITE,
+    fontSize: 13,
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+  switchMode: {
+    color: Colors.WHITE,
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginHorizontal: 8,
   },
 });
 
