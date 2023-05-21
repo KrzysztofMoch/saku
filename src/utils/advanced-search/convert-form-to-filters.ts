@@ -5,7 +5,7 @@ const convertFormToFilters = (
   form: AdvancedSearchForm,
   defaultValues: Partial<MangaSearchFilters>,
 ) => {
-  const { authors, artists, formats, genres, themes } = form;
+  const { authors, artists, formats, genres, themes, year } = form;
 
   const params: Partial<MangaSearchFilters> = {
     ...defaultValues,
@@ -53,6 +53,12 @@ const convertFormToFilters = (
     } else {
       delete params.excludedTags;
     }
+  }
+
+  if (year !== '' && !isNaN(parseInt(year, 10))) {
+    Object.assign(params, {
+      year: parseInt(year, 10),
+    });
   }
 
   return params;

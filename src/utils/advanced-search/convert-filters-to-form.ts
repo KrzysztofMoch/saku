@@ -12,10 +12,6 @@ const extractAuthors = async (
   });
 
   if (!authorsData || authorsData.result !== 'ok') {
-    Object.assign(filters, {
-      authors: [],
-    });
-
     return;
   }
 
@@ -34,18 +30,7 @@ const extractTags = async (
 ) => {
   const tagsData = await getTags(true);
 
-  Object.assign(filters, {
-    formats: [],
-    genres: [],
-    themes: [],
-  });
-
   if (!tagsData || tagsData.result !== 'ok') {
-    Object.assign(filters, {
-      formats: [],
-      genres: [],
-      themes: [],
-    });
     return;
   }
 
@@ -90,40 +75,34 @@ const extractTags = async (
 };
 
 const convertFiltersToForm = async (params: Partial<MangaSearchFilters>) => {
-  const filters = {};
+  const filters: AdvancedSearchForm = {
+    authors: [],
+    artists: [],
+    formats: [],
+    genres: [],
+    themes: [],
+    year: '',
+  };
 
-  const filterKeys = Object.keys(params);
-
-  if (filterKeys.includes('authors')) {
+  if ('authors' in params) {
     await extractAuthors(params.authors, filters);
-  } else {
-    Object.assign(filters, {
-      authors: [],
-    });
   }
 
-  if (filterKeys.includes('artists')) {
+  if ('artists' in params) {
     await extractAuthors(params.artists, filters);
-  } else {
-    Object.assign(filters, {
-      artists: [],
-    });
   }
 
-  if (
-    filterKeys.includes('includedTags') ||
-    filterKeys.includes('excludedTags')
-  ) {
+  if ('includedTags' in params || 'excludedTags' in params) {
     await extractTags(params.includedTags, params.excludedTags, filters);
-  } else {
+  }
+
+  if ('year' in params && params.year) {
     Object.assign(filters, {
-      formats: [],
-      genres: [],
-      themes: [],
+      year: params.year.toString(),
     });
   }
 
-  return filters as AdvancedSearchForm;
+  return filters;
 };
 
 export { convertFiltersToForm };

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import {
   ArtistsSelectInput,
   AuthorsSelectInput,
+  FormTextInput,
   TagsSelectInput,
 } from '@molecules';
 import { MultiSelectInputData } from '@atoms';
@@ -25,6 +26,7 @@ export interface AdvancedSearchForm {
   formats: MultiSelectInputData[];
   genres: MultiSelectInputData[];
   themes: MultiSelectInputData[];
+  year: string;
 }
 
 const AdvancedSearchPanel = ({
@@ -70,9 +72,16 @@ const AdvancedSearchPanel = ({
       </View>
       {/* NOTE: Order of components is reversed for fixed render hierarchy */}
       <View style={s.inputs}>
+        <TagsSelectInput tagType="format" control={control} name="formats" />
+        <FormTextInput
+          control={control}
+          inputProps={{ keyboardType: 'number-pad' }}
+          name="year"
+          label="Years"
+          placeholder="eg. 2010"
+        />
         <TagsSelectInput tagType="genre" control={control} name="genres" />
         <TagsSelectInput tagType="theme" control={control} name="themes" />
-        <TagsSelectInput tagType="format" control={control} name="formats" />
         <ArtistsSelectInput control={control} name="artists" />
         <AuthorsSelectInput control={control} name="authors" />
       </View>
