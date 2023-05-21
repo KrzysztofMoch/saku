@@ -9,3 +9,4 @@ export { default as AdvancedSearchPanel } from './AdvancedSearch/AdvancedSearchP
 export { default as AuthorsSelectInput } from './AdvancedSearch/Inputs/AuthorsSelectInput';
 export { default as ArtistsSelectInput } from './AdvancedSearch/Inputs/ArtistsSelectInput';
 export { default as TagsSelectInput } from './AdvancedSearch/Inputs/TagsSelectInput';
+export { default as FormTextInput } from './FormTextInput';

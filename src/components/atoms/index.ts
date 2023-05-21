@@ -16,3 +16,4 @@ export { default as ChapterListItem } from './ChapterListItem';
 export { default as SearchInput } from './SearchInput';
 export { default as MultiSelectInput } from './MultiSelectInput/MultiSelectInput';
 export type { MultiSelectInputData } from './MultiSelectInput/MultiSelectInput';
+export { default as TextInput } from './TextInput';

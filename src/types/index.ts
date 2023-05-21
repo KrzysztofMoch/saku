@@ -28,3 +28,4 @@ export type {
   BottomTabScreenNavigationProp,
   StackScreenNavigationProp,
 } from './navigation/navigation-helpers';
+export type { FormInputRule } from './form-input-rule';
