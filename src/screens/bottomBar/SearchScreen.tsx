@@ -8,7 +8,7 @@ import {
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '@constants/colors';
-import { MangaSearchFilters, useMangaQuery, useSCReducer } from '@hooks';
+import { useMangaQuery } from '@hooks';
 import { MangaExpansions, MangaResponse } from '@api/manga-api';
 import { MangaCard, SearchInput, Text } from '@atoms';
 import { BottomTabScreenNavigationProp } from '@types';
@@ -18,6 +18,7 @@ import {
 } from '@navigation/types';
 import { FilterIcon } from '@icons';
 import { AdvancedSearchPanel } from '@molecules';
+import { useSearchFiltersStore } from '@store/search-filters';
 
 const isMangaResponse = (obj: any): obj is MangaResponse => {
   return typeof obj === 'object' && 'result' in obj && obj.result === 'ok';
@@ -25,23 +26,16 @@ const isMangaResponse = (obj: any): obj is MangaResponse => {
 
 const keyExtractor = ({ id }: MangaResponse['data'][number]) => id;
 
-const INITIAL_PARAMS: Partial<MangaSearchFilters> = {
-  title: '',
-  order: {
-    relevance: 'desc',
-  },
-};
-
 const SearchScreen = ({
   navigation,
   route,
 }: BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Search>) => {
   const { top } = useSafeAreaInsets();
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
-  const [params, dispatch] = useSCReducer({
-    ...INITIAL_PARAMS,
-    ...route.params,
-  });
+  const { params, setParams } = useSearchFiltersStore(state => ({
+    ...state,
+    params: { ...state.params, ...route.params },
+  }));
 
   const {
     data,
@@ -73,13 +67,12 @@ const SearchScreen = ({
 
   const onInputSubmit = useCallback(
     (value: string) => {
-      dispatch({
-        type: 'setTitle',
-        payload: value,
+      setParams({
+        title: value,
       });
       refetch();
     },
-    [refetch, dispatch],
+    [setParams, refetch],
   );
 
   const onFilterPress = () => {
@@ -138,12 +131,7 @@ const SearchScreen = ({
         visible={showAdvancedSearch}
         animationType="slide"
         onRequestClose={() => setShowAdvancedSearch(false)}>
-        <AdvancedSearchPanel
-          params={params}
-          dispatch={dispatch}
-          onClose={onFilterPress}
-          defaultValues={INITIAL_PARAMS}
-        />
+        <AdvancedSearchPanel onClose={onFilterPress} />
       </Modal>
       <FlatList
         style={s.list}

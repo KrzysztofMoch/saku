@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { MangaSearchFilters, SCReducerAction } from '@hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '@constants/colors';
 import { useForm } from 'react-hook-form';
@@ -12,11 +11,10 @@ import {
 } from '@molecules';
 import { MultiSelectInputData } from '@atoms';
 import { convertFiltersToForm, convertFormToFilters } from '@utils';
+import { useSearchFiltersStore } from '@store/search-filters';
+import { INITIAL_PARAMS } from '@constants/default-search-filters';
 
 interface AdvancedSearchPanelProps {
-  params: Partial<MangaSearchFilters>;
-  defaultValues: Partial<MangaSearchFilters>;
-  dispatch: React.Dispatch<SCReducerAction<Partial<MangaSearchFilters>>>;
   onClose: () => void;
 }
 
@@ -29,31 +27,28 @@ export interface AdvancedSearchForm {
   year: string;
 }
 
-const AdvancedSearchPanel = ({
-  params,
-  dispatch,
-  onClose,
-  defaultValues,
-}: AdvancedSearchPanelProps) => {
+const AdvancedSearchPanel = ({ onClose }: AdvancedSearchPanelProps) => {
   const { top } = useSafeAreaInsets();
+  const { params, setParams, clearParams } = useSearchFiltersStore();
+
   const { control, handleSubmit, clearErrors, reset } =
     useForm<AdvancedSearchForm>({
       defaultValues: async () => await convertFiltersToForm(params),
     });
 
   const onReset = async () => {
-    const defaultFormValues = await convertFiltersToForm(defaultValues);
+    const defaultFormValues = await convertFiltersToForm(INITIAL_PARAMS);
 
     reset({ ...defaultFormValues });
     clearErrors();
-    dispatch({ type: 'clearAll' });
+    clearParams();
   };
 
   const onSubmit = (data: AdvancedSearchForm) => {
     const payload = convertFormToFilters(data, params);
     console.log('PAYLOAD', payload);
 
-    dispatch({ type: 'setState', payload });
+    setParams(payload);
     onClose();
   };
 
