@@ -1,0 +1,10 @@
+{
+  "name": "saku",
+  "version": "0.0.0",
+  "repository": "https://github.com/KrzysztofMoch/saku",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "packageManager": "yarn@3.1.1"
+}
