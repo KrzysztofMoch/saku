@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["esnext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "declaration": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@utils": ["src/utils"],
+      "@api": ["src/api"],
+      "@constants": ["src/constants"],
+      "@icons": ["src/assets/icons"],
+      "@atoms": ["src/components/atoms"],
+      "@molecules": ["src/components/molecules"],
+      "@types": ["src/types"],
+      "@hooks": ["src/hooks"],
+      "@svg": ["src/assets/svg"]
+    }
+  },
+  "include": ["src/**/*", "index.ts"]
+}

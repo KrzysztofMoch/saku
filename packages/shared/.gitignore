@@ -1,0 +1,8 @@
+# build folder
+dist/
+
+# yarn cache
+.yarn
+
+# node_modules
+node_modules/

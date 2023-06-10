@@ -1,0 +1,29 @@
+{
+  "name": "@saku/shared",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc && tsc-alias",
+    "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
+    "postinstall": "yarn build"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.24.10",
+    "axios": "^1.3.6",
+    "react": "18.2.0",
+    "react-native": "0.71.7",
+    "react-native-svg": "^13.8.0",
+    "zustand": "^4.3.3"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.0.0",
+    "@tsconfig/react-native": "^2.0.2",
+    "@types/react": "^18.0.24",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.19.0",
+    "rimraf": "^3.0.2",
+    "tsc-alias": "^1.8.6",
+    "typescript": "4.8.4"
+  }
+}
