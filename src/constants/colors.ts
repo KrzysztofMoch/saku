@@ -5,4 +5,5 @@ export const Colors = {
   WHITE: '#ffffff',
   PINK_LIGHT: '#F1B4BF',
   PINK: '#FF8A9F',
+  ERROR: '#DB3B2A',
 } as const;

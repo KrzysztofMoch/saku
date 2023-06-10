@@ -1,5 +1,5 @@
 export type { Full } from './full';
-export type { TagMode } from './api/tag-mode';
+export { TagMode } from './api/tag-mode';
 export type {
   TagAttributes,
   ChapterAttributes,
@@ -28,3 +28,4 @@ export type {
   BottomTabScreenNavigationProp,
   StackScreenNavigationProp,
 } from './navigation/navigation-helpers';
+export type { FormInputRule } from './form-input-rule';

@@ -1,4 +1,4 @@
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { LayoutChangeEvent, StyleSheet, View, ViewStyle } from 'react-native';
 import React, { useCallback, useMemo, useReducer } from 'react';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Colors } from '@constants/colors';
@@ -44,6 +44,13 @@ const CustomBottomBar = ({
     }),
     [bottomInset],
   );
+
+  const barStyle = useMemo(() => {
+    const index = state.index;
+    const { options } = descriptors[state.routes[index].key];
+
+    return options.tabBarStyle;
+  }, [descriptors, state.index, state.routes]);
 
   const hoverTranslateX = useMemo(() => {
     const index = state.index;
@@ -101,7 +108,7 @@ const CustomBottomBar = ({
   );
 
   return (
-    <View style={[s.container, positionProps]}>
+    <View style={[s.container, positionProps, barStyle as ViewStyle]}>
       <Animated.View style={[s.hover, hoverStyle]} />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];

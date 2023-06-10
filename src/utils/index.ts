@@ -20,3 +20,6 @@ export type {
   MergedChaptersData,
   MergedByVolume,
 } from './api/consume-manga-chapters';
+export { capitalize } from './capitalize';
+export { convertFormToFilters } from './advanced-search/convert-form-to-filters';
+export { convertFiltersToForm } from './advanced-search/convert-filters-to-form';
