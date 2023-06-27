@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { authorize_user } from 'src/utils';
+import { authorize_user } from '@utils';
 import {
   BottomTabNavigatorRoutes,
   StackNavigatorParams,

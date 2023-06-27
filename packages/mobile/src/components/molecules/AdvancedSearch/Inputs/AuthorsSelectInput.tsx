@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { MultiSelectInput } from '@atoms';
-import { useAuthorQuery } from '@hooks';
+import { useAuthorQuery } from '@saku/shared';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 interface AuthorsSelectInputProps<T extends FieldValues> {

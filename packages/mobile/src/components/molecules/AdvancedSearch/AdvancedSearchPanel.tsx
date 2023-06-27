@@ -17,9 +17,12 @@ import {
   TagsSelectInput,
 } from '@molecules';
 import { MultiSelectInputData, SwitchFormInput } from '@atoms';
-import { convertFiltersToForm, convertFormToFilters } from 'src/utils';
+import {
+  convertFiltersToForm,
+  convertFormToFilters,
+  INITIAL_PARAMS,
+} from '@saku/shared';
 import { useSearchFiltersStore } from '@store/search-filters';
-import { INITIAL_PARAMS } from '@constants/default-search-filters';
 
 interface AdvancedSearchPanelProps {
   onClose: () => void;

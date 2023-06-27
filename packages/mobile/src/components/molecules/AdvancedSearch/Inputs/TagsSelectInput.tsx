@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { MultiSelectInput } from '@atoms';
-import { useMangaTags } from '@hooks';
-import { capitalize } from 'src/utils';
+import { useMangaTags, capitalize } from '@saku/shared';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 interface TagsSelectInputProps<T extends FieldValues> {
