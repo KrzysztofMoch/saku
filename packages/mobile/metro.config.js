@@ -5,10 +5,13 @@
  * @format
  */
 
-const path = require("node:path");
+const path = require('node:path');
 
 module.exports = {
-  watchFolders: [path.resolve(__dirname, "../../node_modules")],
+  watchFolders: [
+    path.resolve(__dirname, '../../node_modules'),
+    path.resolve(__dirname, '../../node_modules/@saku/shared'),
+  ],
   transformer: {
     getTransformOptions: async () => ({
       transform: {
