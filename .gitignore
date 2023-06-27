@@ -1,5 +1,6 @@
-# yarn cache
-.yarn
+# yarn
+.yarn/*
+!.yarn/releases
 
 # node modules
 node_modules/
