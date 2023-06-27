@@ -6,8 +6,12 @@ Application that allow to read manga from [MangaDex](https://mangadex.org/) usin
 
 ## Specs
 
-Application use React Native ``0.71.6`` and is tested & developed on **old architecture**
+Application use React Native `0.72.0` and is tested & developed on **old architecture**
 
 ## Security
 
 Your username and password are not saved on device and are sending **ONLY** to MangaDex
+
+## Roadmap
+- [ ] mobile app [WIP]
+- [ ] desktop app 
