@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
   rootDir: './',
-  extends: '@react-native-community',
+  extends: '@react-native',
 };
