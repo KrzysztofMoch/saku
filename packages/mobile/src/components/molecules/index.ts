@@ -12,3 +12,4 @@ export { default as TagsSelectInput } from './AdvancedSearch/Inputs/TagsSelectIn
 export { default as FormTextInput } from './FormTextInput';
 export { default as LibraryMangaList } from './LibraryMangaList';
 export { default as CreateNewMangaList } from './CreateNewMangaList';
+export { default as SelectMangaList } from './SelectMangaList/SelectMangaList';
