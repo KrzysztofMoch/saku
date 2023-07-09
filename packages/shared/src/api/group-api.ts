@@ -1,6 +1,6 @@
-import { ApiError, GetRelationship, ScanlationGroupAttributes } from 'src/types';
+import { ApiError, GetRelationship, ScanlationGroupAttributes } from '@types';
 import { get } from './network';
-import { convertParamsToUrl } from 'src/utils';
+import { convertParamsToUrl } from '@utils';
 
 const PATH = '/group';
 

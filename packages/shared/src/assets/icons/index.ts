@@ -8,3 +8,6 @@ export { default as ClockIcon } from './bottom-bar/Clock';
 export { default as ClockFilledIcon } from './bottom-bar/ClockFilled';
 
 export { default as FilterIcon } from './navigation/Filter';
+
+export { default as CheckIcon } from './CheckIcon';
+export { default as PlusIcon } from './PlusIcon';

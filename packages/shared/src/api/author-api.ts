@@ -1,6 +1,6 @@
-import { ApiError, AuthorAttributes, GetRelationship } from 'src/types';
+import { ApiError, AuthorAttributes, GetRelationship } from '@types';
 import { get } from './network';
-import { convertParamsToUrl } from 'src/utils';
+import { convertParamsToUrl } from '@utils';
 
 const PATH = '/author';
 

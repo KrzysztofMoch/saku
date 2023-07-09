@@ -1,4 +1,4 @@
-import { ApiError, CustomListAttributes, MangaRelationship } from 'src/types';
+import { ApiError, CustomListAttributes, MangaRelationship } from '@types';
 import { get } from './network';
 
 const PATH = '/list';
