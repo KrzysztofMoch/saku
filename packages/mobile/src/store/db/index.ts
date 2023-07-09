@@ -1,7 +1,9 @@
-import { librarySchemaV1 } from '@store/db/schema';
-import { models } from '@store/db/models';
-import Database from '@nozbe/watermelondb/Database';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
+import Database from '@nozbe/watermelondb/Database';
+
+import { models } from '@store/db/models';
+import { librarySchemaV1 } from '@store/db/schema';
+
 import { Manga } from './models/manga';
 import { MangaList, MangaListManga } from './models/manga-list';
 
@@ -27,18 +29,27 @@ const database = new Database({
 //   await database.unsafeResetDatabase();
 // });
 
-database.get<Manga>('manga').query().then(manga => {
-  console.log(manga.map(m => `${m.title} (${m.id})`));
-});
+database
+  .get<Manga>('manga')
+  .query()
+  .then(manga => {
+    console.log(manga.map(m => `${m.title} (${m.id})`));
+  });
 
 // display all lists in the database (map to name)
-database.get<MangaList>('lists').query().then(lists => {
-  console.log(lists.map(l => `${l.name} (${l.id})`));
-});
+database
+  .get<MangaList>('lists')
+  .query()
+  .then(lists => {
+    console.log(lists.map(l => `${l.name} (${l.id})`));
+  });
 
 // display all manga relations in the database (map to manga title)
-database.get<MangaListManga>('lists_manga').query().then(relations => {
-  console.log(relations.map(r => `${r.manga.id} - ${r.list.id}`));
-});
+database
+  .get<MangaListManga>('lists_manga')
+  .query()
+  .then(relations => {
+    console.log(relations.map(r => `${r.manga.id} - ${r.list.id}`));
+  });
 
 export default database;

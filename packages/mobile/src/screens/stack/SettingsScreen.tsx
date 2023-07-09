@@ -1,6 +1,8 @@
-import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
 import { Colors } from '@saku/shared';
+
 import { Text } from '@atoms';
 
 const SettingsScreen = () => {

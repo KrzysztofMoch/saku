@@ -1,5 +1,6 @@
-import { TagsResponse, getTags } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getTags, TagsResponse } from '@api';
 
 export interface Tag {
   id: string;

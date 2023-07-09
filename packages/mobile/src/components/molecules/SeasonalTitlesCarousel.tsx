@@ -1,20 +1,22 @@
+import React, { useCallback } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   StyleProp,
   StyleSheet,
+  TouchableOpacity,
   View,
   ViewStyle,
-  TouchableOpacity,
 } from 'react-native';
-import React, { useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { CenterCardCarousel, MANGA_CARD_WIDTH, MangaCard, Text } from '@atoms';
+
 import { Colors } from '@saku/shared';
-import { useSeasonalList, MangaResponse } from '@saku/shared';
+import { MangaResponse, useSeasonalList } from '@saku/shared';
+
+import { CenterCardCarousel, MANGA_CARD_WIDTH, MangaCard, Text } from '@atoms';
 import {
-  StackNavigatorRoutes,
   BottomTabNavigatorRoutes,
+  StackNavigatorRoutes,
 } from '@navigation/types';
 import { BottomTabScreenNavigationProp } from '@types';
 

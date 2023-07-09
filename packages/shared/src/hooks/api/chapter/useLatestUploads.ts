@@ -1,5 +1,6 @@
-import { ChapterExpansions, getChapterWithCover } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { ChapterExpansions, getChapterWithCover } from '@api';
 
 const useLatestUploads = () => {
   const query = useQuery({

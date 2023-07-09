@@ -1,58 +1,60 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Alert,
+  Dimensions,
+  FlatList,
   StyleSheet,
   TouchableOpacity,
   View,
-  FlatList,
-  Dimensions,
-  Alert,
 } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Colors, PlusIcon } from '@saku/shared';
-import { Text, OverlayRef } from '@atoms';
-import { MangaList } from '@store/db/models/manga-list';
-import withObservables from '@nozbe/with-observables';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import database from '@store/db';
+import withObservables from '@nozbe/with-observables';
+
+import { Colors, PlusIcon } from '@saku/shared';
+
+import { OverlayRef, Text } from '@atoms';
 import { CreateNewMangaList, LibraryMangaList } from '@molecules';
+import database from '@store/db';
+import { MangaList } from '@store/db/models/manga-list';
 import { EnchantedComponent } from '@types';
 
 const CARD_WIDTH = Dimensions.get('screen').width * 0.3;
-const mangaLists = database.collections.get<MangaList>('lists').query();
+const mangaListsQuery = database.collections.get<MangaList>('lists').query();
 
 const getMangaLists = () => ({
-  mangaLists,
+  mangaLists: mangaListsQuery,
 });
 
 interface Props {
   mangaLists: MangaList[];
 }
 
-const getFirstMangaList = (mangaLists: MangaList[]) => {
-  if (!mangaLists || mangaLists.length === 0) {
+const getFirstMangaList = (lists: MangaList[]) => {
+  if (!lists || lists.length === 0) {
     return undefined;
   }
 
-  return mangaLists[0];
+  return lists[0];
 };
 
-const getOtherMangaList = (mangaLists: MangaList[], oldListId: string) => {
-  if (!mangaLists || mangaLists.length === 0) {
+const getOtherMangaList = (lists: MangaList[], oldListId: string) => {
+  if (!lists || lists.length === 0) {
     return undefined;
   }
 
-  return mangaLists.find(({ id }) => id !== oldListId);
+  return lists.find(({ id }) => id !== oldListId);
 };
 
-const getListById = (mangaLists: MangaList[], id: string | null) => {
+const getListById = (lists: MangaList[], id: string | null) => {
   if (!id) {
     return undefined;
   }
 
-  const list = mangaLists.find(({ id: listId }) => listId === id);
+  const list = lists.find(({ id: listId }) => listId === id);
 
   // if list is undefined it means that the list was deleted
   // return other one available
-  return list || getOtherMangaList(mangaLists, id);
+  return list || getOtherMangaList(lists, id);
 };
 
 const LibraryScreen = ({ mangaLists }: Props) => {
@@ -111,16 +113,13 @@ const LibraryScreen = ({ mangaLists }: Props) => {
           onLongPress={onLongPress}
           style={[
             s.listSelectorItem,
-            isSelected && {
-              borderWidth: 2,
-              borderColor: Colors.PINK,
-            },
+            isSelected && s.listSelectorItemSelected,
           ]}>
           <Text>{item.name}</Text>
         </TouchableOpacity>
       );
     },
-    [selectedListId],
+    [mangaLists, selectedListId],
   );
 
   useEffect(() => {
@@ -138,7 +137,7 @@ const LibraryScreen = ({ mangaLists }: Props) => {
           horizontal
           style={s.listSelector}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ alignItems: 'center', marginLeft: 10 }}
+          contentContainerStyle={s.contentContainer}
           data={mangaLists}
           renderItem={renderSelectorItem}
         />
@@ -168,6 +167,10 @@ const s = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.BLACK,
   },
+  contentContainer: {
+    alignItems: 'center',
+    marginLeft: 10,
+  },
   listSelector: {
     flex: 1,
   },
@@ -184,6 +187,10 @@ const s = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
     paddingVertical: 8,
+  },
+  listSelectorItemSelected: {
+    borderWidth: 2,
+    borderColor: Colors.PINK,
   },
   text: {
     color: Colors.WHITE,

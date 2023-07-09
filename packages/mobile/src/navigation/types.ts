@@ -1,5 +1,6 @@
-import { MangaSearchFilters } from '@saku/shared';
 import { NavigatorScreenParams } from '@react-navigation/native';
+
+import { MangaSearchFilters } from '@saku/shared';
 
 export enum BottomTabNavigatorRoutes {
   Home = 'Home',

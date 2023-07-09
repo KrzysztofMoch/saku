@@ -1,6 +1,7 @@
 import { ApiError, GetRelationship, ScanlationGroupAttributes } from '@types';
-import { get } from './network';
 import { convertParamsToUrl } from '@utils';
+
+import { get } from './network';
 
 const PATH = '/group';
 
@@ -51,4 +52,4 @@ const getGroup = async (id: string) => {
   return result;
 };
 
-export { getGroups, getGroup };
+export { getGroup, getGroups };

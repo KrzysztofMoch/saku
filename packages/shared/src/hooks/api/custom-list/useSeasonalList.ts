@@ -1,5 +1,6 @@
-import { getCustomListById, getManga, MangaExpansions } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getCustomListById, getManga, MangaExpansions } from '@api';
 
 const useSeasonalList = (enabled?: boolean) => {
   const SEASONAL_LIST_ID = '77430796-6625-4684-b673-ffae5140f337';

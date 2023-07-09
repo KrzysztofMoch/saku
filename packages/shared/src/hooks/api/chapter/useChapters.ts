@@ -1,5 +1,6 @@
-import { ChapterParams, getMangaChapters } from '@api';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { ChapterParams, getMangaChapters } from '@api';
 
 const DEFAULT_LIMIT = 20;
 

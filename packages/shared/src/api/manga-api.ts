@@ -1,11 +1,12 @@
 import {
-  TagMode,
-  MangaAttributes,
-  GetRelationship,
   ApiError,
   ContentRating,
+  GetRelationship,
+  MangaAttributes,
+  TagMode,
 } from '@types';
 import { convertParamsToUrl } from '@utils';
+
 import { get } from './network';
 
 const PATH = '/manga';

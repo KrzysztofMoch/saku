@@ -1,19 +1,21 @@
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import React, { useCallback, useMemo } from 'react';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { BottomTabNavigatorRoutes } from '@navigation/types';
+
 import {
-  HomeFilledIcon,
-  HomeIcon,
   ClockFilledIcon,
   ClockIcon,
-  SearchFilledIcon,
-  SearchIcon,
+  Colors,
+  HomeFilledIcon,
+  HomeIcon,
   LibraryFilledIcon,
   LibraryIcon,
-  Colors,
+  SearchFilledIcon,
+  SearchIcon,
 } from '@saku/shared';
+
 import { Text } from '@atoms';
+import { BottomTabNavigatorRoutes } from '@navigation/types';
 
 interface Props {
   label: string;

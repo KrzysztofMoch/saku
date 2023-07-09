@@ -1,5 +1,6 @@
-import { INITIAL_PARAMS, MangaSearchFilters } from '@saku/shared';
 import { create } from 'zustand';
+
+import { INITIAL_PARAMS, MangaSearchFilters } from '@saku/shared';
 
 interface SearchFiltersStore {
   params: Partial<MangaSearchFilters>;

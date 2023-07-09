@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -5,18 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import { authorize_user } from '@utils';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
+
+import { AppLogo, Colors } from '@saku/shared';
+
 import {
   BottomTabNavigatorRoutes,
   StackNavigatorParams,
   StackNavigatorRoutes,
 } from '@navigation/types';
-import { useNavigation } from '@react-navigation/native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { Colors, AppLogo } from '@saku/shared';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuthStore } from '@store/auth';
+import { authorize_user } from '@utils';
 
 type Navigation = StackScreenProps<
   StackNavigatorParams,

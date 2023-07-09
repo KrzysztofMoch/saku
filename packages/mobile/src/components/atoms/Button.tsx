@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   StyleProp,
   StyleSheet,
@@ -5,9 +6,10 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
-import { Text } from '@atoms';
+
 import { Colors } from '@saku/shared';
+
+import { Text } from '@atoms';
 
 interface Props {
   title: string;

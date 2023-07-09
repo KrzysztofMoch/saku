@@ -1,15 +1,15 @@
+import React, { memo, useCallback } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import React, { memo, useCallback, useRef } from 'react';
 import withObservables from '@nozbe/with-observables';
-import { Manga } from '@store/db/models/manga';
 import { useNavigation } from '@react-navigation/native';
-import { BottomTabScreenNavigationProp, EnchantedComponent } from '@types';
+
+import { MangaCard } from '@atoms';
 import {
   BottomTabNavigatorRoutes,
   StackNavigatorRoutes,
 } from '@navigation/types';
-import MangaCard from '../atoms/MangaCard';
-import { Text } from '@atoms';
+import { Manga } from '@store/db/models/manga';
+import { BottomTabScreenNavigationProp, EnchantedComponent } from '@types';
 
 interface Props {
   manga: Manga[];

@@ -1,6 +1,6 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Dimensions,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -9,28 +9,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import LinearGradient from 'react-native-linear-gradient';
 import ReactNativeBlobUtil from 'react-native-blob-util';
-import { StackNavigatorRoutes } from '@navigation/types';
+import LinearGradient from 'react-native-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Q } from '@nozbe/watermelondb';
+
 import {
+  Back,
   Colors,
   extractRelationship,
   getColorFromImage,
   getCoversLinks,
   getTitle,
   hexToRgba,
-  Back,
   useManga,
 } from '@saku/shared';
+
 import { CachedImage, OverlayRef, Text } from '@atoms';
 import { ChapterList, ChapterListRef, SelectMangaList } from '@molecules';
-import { StackScreenNavigationProp } from '@types';
+import { StackNavigatorRoutes } from '@navigation/types';
 import database from '@store/db';
 import { Manga } from '@store/db/models/manga';
-import { Q } from '@nozbe/watermelondb';
 import { MangaList } from '@store/db/models/manga-list';
+import { StackScreenNavigationProp } from '@types';
 
 type MangaDetailsScreenProps =
   StackScreenNavigationProp<StackNavigatorRoutes.MangaDetails>;
@@ -146,7 +147,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
             newManga.coverUrl =
               getCoversLinks(
                 mangaId,
-                extractRelationship(relationships, 'cover_art'),
+                extractRelationship(data.data[0].relationships, 'cover_art'),
               )?.[0] || undefined;
           });
         });
@@ -158,7 +159,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
       const list = await database.get<MangaList>('lists').find(listId);
       list.addMangaToList(mangaQuery[0]);
     },
-    [data],
+    [data, mangaId],
   );
 
   const addToLibrary = useCallback(() => {
@@ -167,7 +168,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
     }
 
     selectMangaListRef.current.open();
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     return () => {

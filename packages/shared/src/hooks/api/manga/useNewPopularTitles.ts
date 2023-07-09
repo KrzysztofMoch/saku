@@ -1,5 +1,6 @@
-import { getManga, MangaExpansions } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getManga, MangaExpansions } from '@api';
 import { ContentRating } from '@types';
 import { convertDate, manipulateDate } from '@utils';
 

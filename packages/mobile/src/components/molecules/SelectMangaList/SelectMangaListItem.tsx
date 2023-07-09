@@ -1,13 +1,14 @@
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from '@atoms';
 import React from 'react';
-import withObservables from '@nozbe/with-observables';
-import { EnchantedComponent } from '@types';
-import { Manga } from '@store/db/models/manga';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { Query } from '@nozbe/watermelondb';
-import { MangaList } from '@store/db/models/manga-list';
+import withObservables from '@nozbe/with-observables';
+
 import { CheckIcon, Colors, PlusIcon } from '@saku/shared';
-import database from '@store/db';
+
+import { Text } from '@atoms';
+import { Manga } from '@store/db/models/manga';
+import { MangaList } from '@store/db/models/manga-list';
+import { EnchantedComponent } from '@types';
 
 const enhance = ({ mangaInList }: { mangaInList: Query<Manga> }) => ({
   mangaInList,

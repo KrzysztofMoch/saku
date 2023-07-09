@@ -1,18 +1,13 @@
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import React, { RefObject, useCallback, useState } from 'react';
+import React, { RefObject, useCallback } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import withObservables from '@nozbe/with-observables';
-import { EnchantedComponent } from '@types';
-import { MangaList } from '@store/db/models/manga-list';
+
+import { Button, Overlay, OverlayRef } from '@atoms';
 import database from '@store/db';
-import { Button, Overlay, OverlayRef, Text } from '@atoms';
+import { MangaList } from '@store/db/models/manga-list';
+import { EnchantedComponent } from '@types';
+
 import SelectMangaListItem from './SelectMangaListItem';
-import { Colors } from '@saku/shared';
 
 interface Props {
   overlayRef?: RefObject<OverlayRef>;
@@ -42,9 +37,12 @@ const SelectMangaList = ({
     onClose && onClose();
   }, [onClose]);
 
-  const onItemPress = useCallback((listId: string) => {
-    onListSelected && onListSelected(listId);
-  }, []);
+  const onItemPress = useCallback(
+    (listId: string) => {
+      onListSelected && onListSelected(listId);
+    },
+    [onListSelected],
+  );
 
   const renderItem = useCallback(
     ({ item }: { item: MangaList }) => {
@@ -57,7 +55,7 @@ const SelectMangaList = ({
         />
       );
     },
-    [mangaId],
+    [mangaId, onItemPress],
   );
 
   return (

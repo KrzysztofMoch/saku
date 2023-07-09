@@ -1,7 +1,13 @@
-import { Model, Relation } from "@nozbe/watermelondb";
-import { Associations } from "@nozbe/watermelondb/Model";
-import { field, text, immutableRelation, writer } from "@nozbe/watermelondb/decorators";
-import { Manga } from "./manga";
+import { Model, Relation } from '@nozbe/watermelondb';
+import {
+  field,
+  immutableRelation,
+  text,
+  writer,
+} from '@nozbe/watermelondb/decorators';
+import { Associations } from '@nozbe/watermelondb/Model';
+
+import { Manga } from './manga';
 
 export class Chapter extends Model {
   static table = 'chapters';
@@ -14,7 +20,7 @@ export class Chapter extends Model {
   @immutableRelation('manga', 'manga_id') manga!: Relation<Manga>;
 
   static associations: Associations = {
-    manga: { type: 'belongs_to', key: 'manga_id' }
+    manga: { type: 'belongs_to', key: 'manga_id' },
   };
 
   @writer async markAsRead() {

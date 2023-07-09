@@ -1,5 +1,6 @@
-import database from "@store/db/";
-import { MangaList } from "../models/manga-list";
+import database from '@store/db/';
+
+import { MangaList } from '../models/manga-list';
 
 export const createMangaList = async (name: string) => {
   await database.write(async () => {

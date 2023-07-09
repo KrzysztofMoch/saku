@@ -96,12 +96,12 @@ interface AuthorAttributes {
 }
 
 export type {
-  ChapterAttributes,
-  MangaAttributes,
-  TagAttributes,
-  ScanlationGroupAttributes,
-  CoverAttributes,
-  MangaRelationAttributes,
   AuthorAttributes,
+  ChapterAttributes,
+  CoverAttributes,
   CustomListAttributes,
+  MangaAttributes,
+  MangaRelationAttributes,
+  ScanlationGroupAttributes,
+  TagAttributes,
 };

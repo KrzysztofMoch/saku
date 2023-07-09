@@ -1,8 +1,10 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React, { memo } from 'react';
-import { MergedChaptersData, hexOpacity, COUNTRY_CODES } from '@saku/shared';
-import { Text } from '@atoms';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import { COUNTRY_CODES, hexOpacity, MergedChaptersData } from '@saku/shared';
 import { Colors } from '@saku/shared';
+
+import { Text } from '@atoms';
 
 interface ChapterListItemProps {
   data: MergedChaptersData[];

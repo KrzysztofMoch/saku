@@ -1,13 +1,15 @@
-import { LayoutChangeEvent, StyleSheet, View, ViewStyle } from 'react-native';
 import React, { useCallback, useMemo, useReducer } from 'react';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { Colors } from '@saku/shared';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BottomBarButton } from '@atoms';
+import { LayoutChangeEvent, StyleSheet, View, ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+
+import { Colors } from '@saku/shared';
+
+import { BottomBarButton } from '@atoms';
 
 interface IconPos {
   name: string;

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getManga, MangaExpansions } from '@api'
+
+import { getManga, MangaExpansions } from '@api';
 import { ContentRating } from '@types';
 
 const useRecentlyAddedTitles = (enabled?: boolean) => {

@@ -1,5 +1,6 @@
-import { StyleSheet, Text as RNText, TextProps } from 'react-native';
 import React, { forwardRef } from 'react';
+import { StyleSheet, Text as RNText, TextProps } from 'react-native';
+
 import { Colors } from '@saku/shared';
 
 const Text = forwardRef<RNText, TextProps>(({ style, ...props }, ref) => {

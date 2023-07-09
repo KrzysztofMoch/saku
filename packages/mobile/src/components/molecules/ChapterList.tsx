@@ -1,15 +1,17 @@
-import { FlatList, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import React, { forwardRef, useImperativeHandle, useMemo } from 'react';
+import { FlatList, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { FetchNextPageOptions } from '@tanstack/react-query';
+
 import {
-  Colors,
   ApiError,
-  MergedByVolume,
-  consumeMangaChapters,
   ChapterExpansions,
   ChapterResponse,
+  Colors,
+  consumeMangaChapters,
+  MergedByVolume,
   useChapters,
 } from '@saku/shared';
-import { FetchNextPageOptions } from '@tanstack/react-query';
+
 import { Text, VolumeListItem } from '@atoms';
 
 interface ChapterListProps {

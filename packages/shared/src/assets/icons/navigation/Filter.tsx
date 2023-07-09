@@ -1,6 +1,7 @@
-import { Colors } from '@constants';
 import React from 'react';
-import Svg, { G, Path, Defs, ClipPath, SvgProps } from 'react-native-svg';
+import Svg, { ClipPath, Defs, G, Path, SvgProps } from 'react-native-svg';
+
+import { Colors } from '@constants';
 
 const Filter = ({ height, width, fill, ...props }: SvgProps) => {
   return (

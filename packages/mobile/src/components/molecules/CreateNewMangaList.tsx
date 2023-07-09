@@ -1,8 +1,10 @@
-import { Alert, StyleSheet, View } from 'react-native';
-import React, { RefObject, useCallback, useRef } from 'react';
-import { Button, Overlay, OverlayRef, SwitchFormInput, Text } from '@atoms';
-import { hexOpacity, Colors } from '@saku/shared';
+import React, { RefObject, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import { Alert, StyleSheet, View } from 'react-native';
+
+import { Colors, hexOpacity } from '@saku/shared';
+
+import { Button, Overlay, OverlayRef, SwitchFormInput, Text } from '@atoms';
 import { FormTextInput } from '@molecules';
 import { createMangaList } from '@store/db/utils/manga-list';
 
@@ -26,7 +28,7 @@ const CreateNewMangaListModal = ({ onClose, overlayRef }: Props) => {
   const _onClose = useCallback(() => {
     onClose && onClose();
     reset();
-  }, [onClose]);
+  }, [onClose, reset]);
 
   const onCreate = async ({ listName }: FormValues) => {
     try {

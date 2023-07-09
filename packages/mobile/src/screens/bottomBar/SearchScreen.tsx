@@ -1,3 +1,4 @@
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
   Modal,
@@ -5,23 +6,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useCallback, useMemo, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import {
   Colors,
-  useMangaQuery,
+  FilterIcon,
   MangaExpansions,
   MangaResponse,
-  FilterIcon,
+  useMangaQuery,
 } from '@saku/shared';
+
 import { MangaCard, SearchInput, Text } from '@atoms';
-import { BottomTabScreenNavigationProp } from '@types';
+import { AdvancedSearchPanel } from '@molecules';
 import {
   BottomTabNavigatorRoutes,
   StackNavigatorRoutes,
 } from '@navigation/types';
-import { AdvancedSearchPanel } from '@molecules';
 import { useSearchFiltersStore } from '@store/search-filters';
+import { BottomTabScreenNavigationProp } from '@types';
 
 const isMangaResponse = (obj: any): obj is MangaResponse => {
   return typeof obj === 'object' && 'result' in obj && obj.result === 'ok';

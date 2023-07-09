@@ -1,5 +1,6 @@
-import { MangaExpansions, getManga } from '@api';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { getManga, MangaExpansions } from '@api';
 import { MangaSearchFilters } from '@types';
 
 interface Options {

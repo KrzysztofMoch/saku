@@ -1,6 +1,7 @@
 import * as React from 'react';
+import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
+
 import { Colors } from '@constants';
-import Svg, { Path, G, Defs, ClipPath } from 'react-native-svg';
 
 interface Props {
   height?: number | string;

@@ -1,6 +1,14 @@
 import { Model, Q, Relation } from '@nozbe/watermelondb';
+import {
+  field,
+  immutableRelation,
+  lazy,
+  reader,
+  text,
+  writer,
+} from '@nozbe/watermelondb/decorators';
 import { Associations } from '@nozbe/watermelondb/Model';
-import { field, immutableRelation, lazy, reader, text, writer } from '@nozbe/watermelondb/decorators';
+
 import { Manga } from './manga';
 
 export class MangaList extends Model {
@@ -12,7 +20,7 @@ export class MangaList extends Model {
   @field('last_updated_at') lastUpdatedAt?: number;
 
   static associations: Associations = {
-    lists_manga: { type: 'has_many', foreignKey: 'list_id' }
+    lists_manga: { type: 'has_many', foreignKey: 'list_id' },
   };
 
   @lazy manga = this.collections
@@ -20,10 +28,12 @@ export class MangaList extends Model {
     .query(Q.on('lists_manga', 'list_id', this.id));
 
   @writer async addMangaToList(manga: Manga): Promise<void> {
-    await this.collections.get<MangaListManga>('lists_manga').create(listManga => {
-      listManga.list.set(this);
-      listManga.manga.set(manga);
-    });
+    await this.collections
+      .get<MangaListManga>('lists_manga')
+      .create(listManga => {
+        listManga.list.set(this);
+        listManga.manga.set(manga);
+      });
   }
 
   @writer async removeMangaFromList(manga: Manga): Promise<void> {
@@ -32,7 +42,7 @@ export class MangaList extends Model {
       .query(Q.where('list_id', this.id), Q.where('manga_id', manga.id))
       .destroyAllPermanently();
 
-    await this.callWriter(() => this.cleanUpManga())
+    await this.callWriter(() => this.cleanUpManga());
   }
 
   @writer async removeAllMangaFromList(): Promise<void> {
@@ -40,21 +50,27 @@ export class MangaList extends Model {
       .get<MangaListManga>('lists_manga')
       .query(Q.where('list_id', this.id))
       .destroyAllPermanently();
-    
-    await this.callWriter(() => this.cleanUpManga())
+
+    await this.callWriter(() => this.cleanUpManga());
   }
 
   @writer async cleanUpManga(): Promise<void> {
-    const relations = await this.collections.get<MangaListManga>('lists_manga').query();
+    const relations = await this.collections
+      .get<MangaListManga>('lists_manga')
+      .query();
     const mangaIds = relations.map(relation => relation.manga.id);
 
-    if(mangaIds.length === 0) return;
+    if (mangaIds.length === 0) {
+      return;
+    }
 
-    const mangaToRemove = await this.collections.get<Manga>('manga').query(Q.where('id', Q.notIn(mangaIds)))
+    const mangaToRemove = await this.collections
+      .get<Manga>('manga')
+      .query(Q.where('id', Q.notIn(mangaIds)));
 
     this.batch(
-      ...mangaToRemove.map(manga => manga.prepareDestroyPermanently())
-    )
+      ...mangaToRemove.map(manga => manga.prepareDestroyPermanently()),
+    );
   }
 
   @reader async hasManga(mangaId: string): Promise<boolean> {
@@ -67,7 +83,7 @@ export class MangaList extends Model {
 
   async destroyPermanently(): Promise<void> {
     // remove manga - manga list relations
-    await this.callWriter(() => this.removeAllMangaFromList())
+    await this.callWriter(() => this.removeAllMangaFromList());
     await this.callWriter(() => this.cleanUpManga());
     await super.destroyPermanently();
   }
@@ -81,6 +97,6 @@ export class MangaListManga extends Model {
 
   static associations: Associations = {
     manga: { type: 'belongs_to', key: 'manga_id' },
-    list: { type: 'belongs_to', key: 'list_id' }
+    list: { type: 'belongs_to', key: 'list_id' },
   };
 }
