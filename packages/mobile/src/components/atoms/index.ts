@@ -19,3 +19,6 @@ export type { MultiSelectInputData } from './MultiSelectInput/MultiSelectInput';
 export { default as TextInput } from './TextInput';
 export { default as SwitchFormInput } from './SwitchFormInput';
 export { default as VolumeListItem } from './VolumeListItem';
+export { default as Overlay } from './Overlay';
+export type { OverlayRef } from './Overlay';
+export { default as Button } from './Button';

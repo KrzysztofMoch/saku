@@ -10,6 +10,7 @@ import DatabaseProvider from '@nozbe/watermelondb/DatabaseProvider';
 import { useAuthStore } from '@store/auth';
 import { useHydration } from '@saku/shared';
 import { PreAppLoadedScreen } from '@screens';
+import database from '@store/db';
 
 const App = () => {
   const hydrated = useHydration(useAuthStore);
