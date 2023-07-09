@@ -7,10 +7,14 @@ const path = require('node:path');
  *
  * @type {import('metro-config').MetroConfig}
  */
+
 const config = {
+  resolver: {
+    unstable_enableSymlinks: true,
+  },
   watchFolders: [
     path.resolve(__dirname, '../../node_modules'),
-    path.resolve(__dirname, '../../node_modules/@saku/shared'),
+    path.resolve(__dirname, '../shared'),
   ],
 };
 
