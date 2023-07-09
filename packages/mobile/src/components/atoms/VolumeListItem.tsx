@@ -1,7 +1,9 @@
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import { ChapterListItem, Text } from '@atoms';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { Back, Colors, MergedByVolume, MergedChapters } from '@saku/shared';
+
+import { ChapterListItem, Text } from '@atoms';
 
 interface VolumeListItemProps {
   data: MergedByVolume;

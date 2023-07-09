@@ -1,3 +1,4 @@
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -5,12 +6,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+
 import { Colors, hexOpacity } from '@saku/shared';
+
 import { Text } from '@atoms';
 
-import MultiSelectInputItem from './MultiSelectInputItem';
 import MultiSelectInputBadge from './MultiSelectInputBadge';
+import MultiSelectInputItem from './MultiSelectInputItem';
 
 export interface MultiSelectInputData {
   value: string;

@@ -1,6 +1,7 @@
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { Colors, AppLogo } from '@saku/shared';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+
+import { AppLogo, Colors } from '@saku/shared';
 
 const PreAppLoadedScreen = () => {
   return (

@@ -1,6 +1,7 @@
-import { Switch } from 'react-native';
 import React from 'react';
-import { FieldValues, Path, Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import { Switch } from 'react-native';
+
 import { Colors } from '@saku/shared';
 
 interface SwitchFormInputProps<T extends FieldValues> {

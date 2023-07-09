@@ -3,22 +3,24 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
+  TouchableOpacity,
   View,
   ViewStyle,
-  TouchableOpacity,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import ReactNativeBlobUtil from 'react-native-blob-util';
+import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+
 import {
   extractRelationship,
   getColorFromImage,
   getCoversLinks,
-  MangaResponse,
   getTitle,
   hexOpacity,
   hexToRgba,
+  MangaResponse,
 } from '@saku/shared';
+
 import { CachedImage, Text } from '@atoms';
 import {
   BottomTabNavigatorRoutes,
@@ -193,4 +195,4 @@ const s = StyleSheet.create({
 });
 
 export default React.memo(NewPopularTitleCard);
-export { CARD_WIDTH, CARD_MARGIN };
+export { CARD_MARGIN, CARD_WIDTH };

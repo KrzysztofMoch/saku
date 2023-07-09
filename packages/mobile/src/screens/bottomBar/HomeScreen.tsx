@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { Colors } from '@saku/shared';
+
 import {
   LatestUpdatesList,
   NewPopularTitlesCarousel,
   SeasonalTitlesCarousel,
 } from '@molecules';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native-gesture-handler';
 
 // TODO: create header component
 

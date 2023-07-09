@@ -1,5 +1,11 @@
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { Modal, Pressable, StyleSheet, ViewProps } from 'react-native';
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
+
 import { Colors, hexOpacity } from '@saku/shared';
 
 interface Props extends React.PropsWithChildren {
@@ -16,10 +22,12 @@ const Overlay = forwardRef<OverlayRef, Props>(
   ({ children, onClose, style }, ref) => {
     const [visible, setVisible] = useState(false);
 
-    const _onClose = () => {
-      setVisible(false);
-      onClose && onClose();
-    };
+    const _onClose = useCallback(() => {
+      () => {
+        setVisible(false);
+        onClose && onClose();
+      };
+    }, [onClose]);
 
     useImperativeHandle(
       ref,
@@ -29,7 +37,7 @@ const Overlay = forwardRef<OverlayRef, Props>(
           close: _onClose,
         };
       },
-      [onClose],
+      [_onClose],
     );
 
     return (

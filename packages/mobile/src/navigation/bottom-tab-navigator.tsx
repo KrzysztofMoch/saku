@@ -4,14 +4,16 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
+
+import { CustomBottomBar } from '@molecules';
 import {
   HomeScreen,
   LibraryScreen,
   SearchScreen,
   UpdatesScreen,
 } from '@screens';
-import { BottomTabNavigatorRoutes, BottomTabNavigatorParams } from './types';
-import { CustomBottomBar } from '@molecules';
+
+import { BottomTabNavigatorParams, BottomTabNavigatorRoutes } from './types';
 
 const Tab = createBottomTabNavigator<BottomTabNavigatorParams>();
 

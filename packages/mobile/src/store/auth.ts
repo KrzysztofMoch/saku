@@ -1,6 +1,6 @@
+import { MMKV } from 'react-native-mmkv';
 import { create } from 'zustand';
 import { createJSONStorage, persist, StateStorage } from 'zustand/middleware';
-import { MMKV } from 'react-native-mmkv';
 
 type AuthState =
   | {

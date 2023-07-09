@@ -1,15 +1,16 @@
 import React from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { StackNavigator } from '@navigation/stack-navigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DatabaseProvider from '@nozbe/watermelondb/DatabaseProvider';
+import { NavigationContainer } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { useAuthStore } from '@store/auth';
 import { useHydration } from '@saku/shared';
+
+import { StackNavigator } from '@navigation/stack-navigator';
 import { PreAppLoadedScreen } from '@screens';
+import { useAuthStore } from '@store/auth';
 import database from '@store/db';
 
 const App = () => {

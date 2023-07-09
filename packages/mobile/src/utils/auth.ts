@@ -1,4 +1,5 @@
-import { authorize, refresh, logout } from 'react-native-app-auth';
+import { authorize, logout, refresh } from 'react-native-app-auth';
+
 import { AppDeepLinks } from '@constants/app-deeplinks';
 import { AppAuthConfiguration } from '@constants/auth-configuration';
 import { useAuthStore } from '@store/auth';

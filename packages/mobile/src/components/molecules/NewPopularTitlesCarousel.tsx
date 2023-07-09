@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -6,15 +7,16 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
+
+import { Colors, MangaResponse, useNewPopularTitles } from '@saku/shared';
+
 import {
-  NewPopularTitleCard,
-  NEW_POPULAR_CARD_WIDTH,
-  NEW_POPULAR_CARD_MARGIN,
   CenterCardCarousel,
+  NEW_POPULAR_CARD_MARGIN,
+  NEW_POPULAR_CARD_WIDTH,
+  NewPopularTitleCard,
   Text,
 } from '@atoms';
-import { Colors, MangaResponse, useNewPopularTitles } from '@saku/shared';
 
 interface NewPopularTitlesCarouselProps {
   style?: StyleProp<ViewStyle>;

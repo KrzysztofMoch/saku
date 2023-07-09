@@ -1,8 +1,11 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { MultiSelectInputData, QueryListItem } from './MultiSelectInput';
-import { Text } from '@atoms';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+
 import { Colors, hexOpacity } from '@saku/shared';
+
+import { Text } from '@atoms';
+
+import { MultiSelectInputData, QueryListItem } from './MultiSelectInput';
 
 interface MultiSelectInputItemProps {
   height: number;

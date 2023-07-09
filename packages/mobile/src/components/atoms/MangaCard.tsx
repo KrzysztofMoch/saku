@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Dimensions,
   StyleProp,
@@ -6,13 +7,14 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { useEffect, useMemo } from 'react';
+
 import {
-  MangaResponse,
-  getCoversLinks,
   extractRelationship,
+  getCoversLinks,
   getTitle,
+  MangaResponse,
 } from '@saku/shared';
+
 import { CachedImage, Text } from '@atoms';
 
 type MangaCardPackedProps = MangaResponse['data'][number] & {
@@ -67,7 +69,6 @@ const extractProps = (
 
 const MangaCard = (props: MangaCardProps | MangaCardPackedProps) => {
   const {
-    mangaId,
     title,
     coverUrl,
     mode = 'full',

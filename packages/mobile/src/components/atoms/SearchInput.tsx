@@ -1,3 +1,4 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   NativeSyntheticEvent,
   StyleProp,
@@ -7,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import { Colors, hexOpacity, SearchIcon } from '@saku/shared';
 
 interface SearchInputProps {

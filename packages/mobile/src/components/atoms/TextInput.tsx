@@ -1,11 +1,12 @@
+import React from 'react';
 import {
   StyleSheet,
   Text,
-  View,
   TextInput as RNTextInput,
+  View,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
+
 import { Colors, hexOpacity } from '@saku/shared';
 
 interface TextInputProps {

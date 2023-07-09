@@ -1,3 +1,5 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import {
   Keyboard,
   StyleSheet,
@@ -6,22 +8,22 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { Colors } from '@saku/shared';
-import { useForm } from 'react-hook-form';
+import {
+  convertFiltersToForm,
+  convertFormToFilters,
+  INITIAL_PARAMS,
+} from '@saku/shared';
+
+import { MultiSelectInputData, SwitchFormInput } from '@atoms';
 import {
   ArtistsSelectInput,
   AuthorsSelectInput,
   FormTextInput,
   TagsSelectInput,
 } from '@molecules';
-import { MultiSelectInputData, SwitchFormInput } from '@atoms';
-import {
-  convertFiltersToForm,
-  convertFormToFilters,
-  INITIAL_PARAMS,
-} from '@saku/shared';
 import { useSearchFiltersStore } from '@store/search-filters';
 
 interface AdvancedSearchPanelProps {

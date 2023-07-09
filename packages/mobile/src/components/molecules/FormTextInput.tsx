@@ -1,5 +1,4 @@
 import React, { ComponentProps } from 'react';
-import { ViewStyle } from 'react-native';
 import {
   Control,
   Controller,
@@ -7,8 +6,11 @@ import {
   Path,
   PathValue,
 } from 'react-hook-form';
-import { TextInput } from '@atoms';
+import { ViewStyle } from 'react-native';
+
 import { FormInputRule } from '@saku/shared';
+
+import { TextInput } from '@atoms';
 
 type TextInputProps = ComponentProps<typeof TextInput>['textInputProps'];
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ActivityIndicator,
   StyleProp,
@@ -5,8 +6,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
+
 import { Colors, useLatestUploads } from '@saku/shared';
+
 import { ChapterCard, Text } from '@atoms';
 
 interface LatestUpdatesListProps {

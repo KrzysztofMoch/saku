@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { MultiSelectInput } from '@atoms';
-import { useAuthorQuery } from '@saku/shared';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+
+import { useAuthorQuery } from '@saku/shared';
+
+import { MultiSelectInput } from '@atoms';
 
 interface ArtistsSelectInputProps<T extends FieldValues> {
   control: Control<T, any>;

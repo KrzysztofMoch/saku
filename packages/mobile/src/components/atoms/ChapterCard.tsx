@@ -1,10 +1,12 @@
-import { StyleSheet, View, Image } from 'react-native';
 import React, { useMemo } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+
 import {
   ChapterWithCoverResponse,
-  extractRelationship,
   Colors,
+  extractRelationship,
 } from '@saku/shared';
+
 import { Text } from '@atoms';
 
 type ChapterCardProps = ChapterWithCoverResponse['data'][number];

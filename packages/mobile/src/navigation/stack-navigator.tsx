@@ -3,10 +3,12 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
+
 import { AuthScreen, MangaDetailsScreen, SettingsScreen } from '@screens';
+import { useAuthStore } from '@store/auth';
+
 import { BottomTabNavigator } from './bottom-tab-navigator';
 import { StackNavigatorParams, StackNavigatorRoutes } from './types';
-import { useAuthStore } from '@store/auth';
 
 const Stack = createStackNavigator<StackNavigatorParams>();
 

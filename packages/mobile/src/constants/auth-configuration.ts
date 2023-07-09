@@ -1,4 +1,5 @@
 import { AuthConfiguration } from 'react-native-app-auth';
+
 import { AppDeepLinks } from './app-deeplinks';
 
 export const AppAuthConfiguration: AuthConfiguration = {

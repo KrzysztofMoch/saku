@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
+  Image,
+  ImageProps,
   StyleSheet,
   View,
-  Image,
-  ActivityIndicator,
-  ImageProps,
 } from 'react-native';
 import ReactNativeBlobUtil, {
   ReactNativeBlobUtilConfig,

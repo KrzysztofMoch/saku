@@ -1,4 +1,4 @@
-import { Model, Query } from "@nozbe/watermelondb";
+import { Model, Query } from '@nozbe/watermelondb';
 
 type RemoveArrayElement<T> = T extends Array<infer U>
   ? U

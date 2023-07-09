@@ -5,9 +5,9 @@ import {
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
 import Animated, {
-  SharedValue,
   interpolate,
   runOnJS,
+  SharedValue,
   useAnimatedGestureHandler,
   useAnimatedReaction,
   useAnimatedStyle,
