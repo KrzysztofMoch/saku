@@ -1,6 +1,8 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
+    "strict": true,
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "jsx": "react",
     "paths": {
