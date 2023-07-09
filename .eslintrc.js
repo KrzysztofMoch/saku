@@ -10,6 +10,7 @@ module.exports = {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
   },
+  ignorePatterns: ['node_modules/', 'ios/', 'android/', 'dist/', 'build/'],
   overrides: [
     // override "simple-import-sort" config
     {
