@@ -1,5 +1,6 @@
-import { AuthorParams, getAuthors } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { AuthorParams, getAuthors } from '@api';
 
 type Params = Omit<AuthorParams, 'offset'>;
 

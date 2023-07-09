@@ -1,6 +1,8 @@
-import { Colors } from '@constants';
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
+
+import { Colors } from '@constants';
+
 import { IconProps } from '../types';
 
 const ClockFilled = ({ size, height, width, color }: IconProps) => {

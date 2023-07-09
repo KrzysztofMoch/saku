@@ -1,6 +1,7 @@
 import { ApiError, AuthorAttributes, GetRelationship } from '@types';
-import { get } from './network';
 import { convertParamsToUrl } from '@utils';
+
+import { get } from './network';
 
 const PATH = '/author';
 
@@ -49,4 +50,4 @@ const getAuthor = async (id: string) => {
   return result;
 };
 
-export { getAuthors, getAuthor };
+export { getAuthor, getAuthors };

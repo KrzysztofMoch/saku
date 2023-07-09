@@ -24,4 +24,4 @@ const get = async <Response, ErrorResponse = Response>(
   }
 };
 
-export { network, get };
+export { get, network };

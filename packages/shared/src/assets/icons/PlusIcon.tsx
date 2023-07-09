@@ -1,6 +1,7 @@
-import { Colors } from '@constants';
 import * as React from 'react';
-import Svg, { SvgProps, G, Path } from 'react-native-svg';
+import Svg, { Path, SvgProps } from 'react-native-svg';
+
+import { Colors } from '@constants';
 
 interface Props extends SvgProps {
   size?: number;

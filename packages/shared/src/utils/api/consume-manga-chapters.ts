@@ -1,6 +1,7 @@
 import { ChapterResponse } from '@api';
-import { extractRelationship } from '../extract-relationship';
 import { ChapterAttributes } from '@types';
+
+import { extractRelationship } from '../extract-relationship';
 
 export type MergedChaptersData = ChapterAttributes & {
   group: string;

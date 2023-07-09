@@ -1,6 +1,7 @@
-import { Colors } from '@constants';
 import * as React from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
+
+import { Colors } from '@constants';
 
 function SvgComponent({ color, width, height, ...props }: SvgProps) {
   return (

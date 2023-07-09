@@ -1,5 +1,5 @@
-import { getAuthors, getTags } from '@api'
-import { MangaSearchFilters, AdvancedSearchForm } from '@types';
+import { getAuthors, getTags } from '@api';
+import { AdvancedSearchForm, MangaSearchFilters } from '@types';
 
 const extractAuthors = async (
   authors: Partial<MangaSearchFilters>['authors'],

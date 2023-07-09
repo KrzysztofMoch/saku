@@ -1,4 +1,5 @@
 import { ApiError, TagAttributes } from '@types';
+
 import { get } from './network';
 
 const PATH = '/manga/tag';

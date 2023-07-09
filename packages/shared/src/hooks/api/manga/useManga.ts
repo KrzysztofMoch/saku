@@ -1,5 +1,6 @@
-import { MangaExpansions, getManga } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getManga, MangaExpansions } from '@api';
 
 const useManga = (mangaId: string) => {
   const query = useQuery({

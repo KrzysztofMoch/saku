@@ -11,8 +11,9 @@ import {
   getCoversLinks,
   getTitle,
 } from '@utils';
+
+import { getManga, MangaExpansions } from './manga-api';
 import { get } from './network';
-import { MangaExpansions, getManga } from './manga-api';
 
 interface ChapterOrderBy {
   createdAt: 'asc' | 'desc';
@@ -172,6 +173,6 @@ const getCustomListChapters = async (
 export {
   getChapter,
   getChapterWithCover,
-  getMangaChapters,
   getCustomListChapters,
+  getMangaChapters,
 };

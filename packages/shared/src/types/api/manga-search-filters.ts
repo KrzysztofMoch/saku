@@ -1,5 +1,5 @@
-import { MangaOrderBy } from "@api";
-import { ContentRating, TagMode } from "@types";
+import { MangaOrderBy } from '@api';
+import { ContentRating, TagMode } from '@types';
 
 export interface MangaSearchFilters {
   title: string;

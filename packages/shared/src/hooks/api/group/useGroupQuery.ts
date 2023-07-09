@@ -1,5 +1,6 @@
-import { GroupParams, getGroups } from '@api';
 import { useQuery } from '@tanstack/react-query';
+
+import { getGroups, GroupParams } from '@api';
 
 type Params = Omit<GroupParams, 'offset'>;
 

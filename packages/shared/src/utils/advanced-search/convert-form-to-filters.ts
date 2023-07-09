@@ -1,4 +1,4 @@
-import { MangaSearchFilters, TagMode, AdvancedSearchForm } from '@types';
+import { AdvancedSearchForm, MangaSearchFilters, TagMode } from '@types';
 
 const convertFormToFilters = (
   form: AdvancedSearchForm,
