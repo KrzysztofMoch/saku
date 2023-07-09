@@ -3,14 +3,14 @@ import {
   ChapterAttributes,
   ContentRating,
   GetRelationship,
-} from 'src/types';
+} from '@types';
 import {
   arrayToObject,
   convertParamsToUrl,
   extractRelationship,
   getCoversLinks,
   getTitle,
-} from 'src/utils';
+} from '@utils';
 import { get } from './network';
 import { MangaExpansions, getManga } from './manga-api';
 

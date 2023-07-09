@@ -6,6 +6,7 @@ import { Colors } from '@saku/shared';
 interface SwitchFormInputProps<T extends FieldValues> {
   name: Path<T>;
   control: Control<T, any>;
+  disabled?: boolean;
 }
 
 const colorConfig = {
@@ -16,6 +17,7 @@ const colorConfig = {
 const SwitchFormInput = <T extends FieldValues>({
   control,
   name,
+  disabled,
 }: SwitchFormInputProps<T>) => {
   return (
     <Controller
@@ -23,6 +25,7 @@ const SwitchFormInput = <T extends FieldValues>({
       name={name}
       render={({ field: { onChange, value } }) => (
         <Switch
+          disabled={disabled}
           value={value}
           onValueChange={onChange}
           trackColor={colorConfig}

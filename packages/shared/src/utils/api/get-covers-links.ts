@@ -1,5 +1,5 @@
 import { LINKS } from '@constants';
-import { CoverRelationship } from 'src/types';
+import { CoverRelationship } from '@types';
 
 const getCoversLinks = (
   mangaId: string,

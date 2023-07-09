@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   Dimensions,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -23,9 +24,13 @@ import {
   Back,
   useManga,
 } from '@saku/shared';
-import { CachedImage, Text } from '@atoms';
-import { ChapterList, ChapterListRef } from '@molecules';
+import { CachedImage, OverlayRef, Text } from '@atoms';
+import { ChapterList, ChapterListRef, SelectMangaList } from '@molecules';
 import { StackScreenNavigationProp } from '@types';
+import database from '@store/db';
+import { Manga } from '@store/db/models/manga';
+import { Q } from '@nozbe/watermelondb';
+import { MangaList } from '@store/db/models/manga-list';
 
 type MangaDetailsScreenProps =
   StackScreenNavigationProp<StackNavigatorRoutes.MangaDetails>;
@@ -83,6 +88,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
   const { data, status } = useManga(mangaId);
 
   const chapterListRef = useRef<ChapterListRef>(null);
+  const selectMangaListRef = useRef<OverlayRef>(null);
 
   const [gradient, setGradient] = useState<string[]>(['rgba(0,0,0,0)']);
 
@@ -109,6 +115,59 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
     },
     [],
   );
+
+  const onListSelect = useCallback(
+    async (listId?: string) => {
+      if (!data?.result || data.result !== 'ok') {
+        return;
+      }
+
+      if (!listId) {
+        console.log('No list selected');
+        return;
+      }
+
+      const mangaQuery = await database
+        .get<Manga>('manga')
+        .query(Q.where('manga_id', mangaId));
+
+      if (mangaQuery.length === 0) {
+        await database.write(async () => {
+          await database.get<Manga>('manga').create(newManga => {
+            newManga.mangaId = mangaId;
+            newManga.title = getTitle(data.data[0].attributes);
+            newManga.author =
+              extractRelationship(data.data[0].relationships, 'author')[0]
+                .attributes?.name || 'Unknown';
+            newManga.artist =
+              extractRelationship(data.data[0].relationships, 'artist')[0]
+                .attributes?.name || 'Unknown';
+            newManga.description = data.data[0].attributes.description.en;
+            newManga.coverUrl =
+              getCoversLinks(
+                mangaId,
+                extractRelationship(relationships, 'cover_art'),
+              )?.[0] || undefined;
+          });
+        });
+
+        onListSelect(listId);
+        return;
+      }
+
+      const list = await database.get<MangaList>('lists').find(listId);
+      list.addMangaToList(mangaQuery[0]);
+    },
+    [data],
+  );
+
+  const addToLibrary = useCallback(() => {
+    if (!selectMangaListRef.current) {
+      return;
+    }
+
+    selectMangaListRef.current.open();
+  }, [data]);
 
   useEffect(() => {
     return () => {
@@ -188,8 +247,8 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
           {getTitle(attributes)}
         </Text>
         <View style={s.buttonsContainer}>
-          <TouchableOpacity style={s.button}>
-            <Text style={s.buttonText}>Add to library</Text>
+          <TouchableOpacity style={s.button} onPress={addToLibrary}>
+            <Text style={s.buttonText}>Add to List</Text>
           </TouchableOpacity>
           <TouchableOpacity style={s.button}>
             <Text style={s.buttonText}>Read</Text>
@@ -229,6 +288,11 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
           chaptersPerPage={30}
         />
       </ScrollView>
+      <SelectMangaList
+        overlayRef={selectMangaListRef}
+        mangaId={mangaId}
+        onListSelected={onListSelect}
+      />
     </View>
   );
 };

@@ -6,7 +6,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   MangaResponse,
   getCoversLinks,
@@ -15,7 +15,17 @@ import {
 } from '@saku/shared';
 import { CachedImage, Text } from '@atoms';
 
-type MangaCardProps = MangaResponse['data'][number] & {
+type MangaCardPackedProps = MangaResponse['data'][number] & {
+  mode?: 'compact' | 'full';
+  cacheCover?: boolean;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
+};
+
+type MangaCardProps = {
+  mangaId: string;
+  coverUrl?: string;
+  title: string;
   mode?: 'compact' | 'full';
   cacheCover?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -24,21 +34,47 @@ type MangaCardProps = MangaResponse['data'][number] & {
 
 const CARD_WIDTH = Dimensions.get('screen').width * 0.3;
 
-const MangaCard = ({
-  attributes,
-  id: mangaId,
-  relationships,
-  cacheCover = false,
-  style,
-  onPress,
-  mode = 'full',
-}: MangaCardProps) => {
-  const imageUrl = useMemo(() => {
-    return getCoversLinks(
-      mangaId,
-      extractRelationship(relationships, 'cover_art'),
-    )?.[0];
-  }, [mangaId, relationships]);
+const isMangaAltProps = (
+  props: MangaCardPackedProps | MangaCardProps,
+): props is MangaCardProps => {
+  return 'mangaId' in props;
+};
+
+const extractProps = (
+  props: MangaCardPackedProps | MangaCardProps,
+): MangaCardProps => {
+  if (isMangaAltProps(props)) {
+    return props;
+  }
+
+  const { attributes, id: mangaId } = props;
+
+  const title = getTitle(attributes);
+  const coverUrl = getCoversLinks(
+    mangaId,
+    extractRelationship(props.relationships, 'cover_art'),
+  )?.[0];
+
+  return {
+    mangaId,
+    coverUrl,
+    title,
+    mode: props?.mode,
+    cacheCover: props?.cacheCover,
+    style: props?.style,
+  };
+};
+
+const MangaCard = (props: MangaCardProps | MangaCardPackedProps) => {
+  const {
+    mangaId,
+    title,
+    coverUrl,
+    mode = 'full',
+    cacheCover = false,
+    onPress,
+    style,
+  } = extractProps(props);
 
   const textPosition = {
     bottom: mode === 'full' ? -CARD_WIDTH / 20 : 0,
@@ -53,7 +89,7 @@ const MangaCard = ({
         <CachedImage
           height={CARD_WIDTH * 1.5}
           width={CARD_WIDTH}
-          imageUrl={imageUrl}
+          imageUrl={coverUrl}
           saveToCache={cacheCover}
         />
       </View>
@@ -62,7 +98,7 @@ const MangaCard = ({
         numberOfLines={2}
         adjustsFontSizeToFit
         minimumFontScale={0.8}>
-        {getTitle(attributes)}
+        {title}
       </Text>
     </TouchableOpacity>
   );

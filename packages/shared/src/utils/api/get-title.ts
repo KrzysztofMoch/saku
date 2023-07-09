@@ -1,4 +1,4 @@
-import { MangaAttributes } from 'src/types';
+import { MangaAttributes } from '@types';
 
 const getTitle = (attr: MangaAttributes) => {
   const { title, altTitles } = attr;

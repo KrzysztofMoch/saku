@@ -15,18 +15,29 @@
     "strictPropertyInitialization": false,
     "declaration": true,
     "jsx": "react",
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "rootDir": "./",
     "paths": {
-      "@utils": ["src/utils"],
-      "@api": ["src/api"],
-      "@constants": ["src/constants"],
-      "@icons": ["src/assets/icons"],
-      "@atoms": ["src/components/atoms"],
-      "@molecules": ["src/components/molecules"],
-      "@types": ["src/types"],
-      "@hooks": ["src/hooks"],
-      "@svg": ["src/assets/svg"]
-    }
+      "@utils": ["utils/"],
+      "@api": ["api/"],
+      "@constants": ["constants/"],
+      "@icons": ["assets/icons/"],
+      "@atoms": ["components/atoms/"],
+      "@molecules": ["components/molecules/"],
+      "@types": ["types/"],
+      "@hooks": ["hooks/"],
+      "@svg": ["assets/svg/"]
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths",
+        "useRootDirs": true
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
   },
   "include": ["src/**/*", "index.ts"]
 }

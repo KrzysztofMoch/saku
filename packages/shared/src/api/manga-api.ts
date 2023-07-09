@@ -4,8 +4,8 @@ import {
   GetRelationship,
   ApiError,
   ContentRating,
-} from 'src/types';
-import { convertParamsToUrl } from 'src/utils';
+} from '@types';
+import { convertParamsToUrl } from '@utils';
 import { get } from './network';
 
 const PATH = '/manga';

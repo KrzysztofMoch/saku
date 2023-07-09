@@ -1,4 +1,4 @@
-import { AnyRelationship, GetRelationship } from 'src/types';
+import { AnyRelationship, GetRelationship } from '@types';
 
 export const extractRelationship = <
   Relationships extends AnyRelationship[],
