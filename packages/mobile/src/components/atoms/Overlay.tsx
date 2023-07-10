@@ -23,10 +23,8 @@ const Overlay = forwardRef<OverlayRef, Props>(
     const [visible, setVisible] = useState(false);
 
     const _onClose = useCallback(() => {
-      () => {
-        setVisible(false);
-        onClose && onClose();
-      };
+      setVisible(false);
+      onClose && onClose();
     }, [onClose]);
 
     useImperativeHandle(
