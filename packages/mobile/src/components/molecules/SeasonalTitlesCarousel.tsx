@@ -4,7 +4,6 @@ import {
   Dimensions,
   StyleProp,
   StyleSheet,
-  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
@@ -42,9 +41,13 @@ const Item = ({ item }: { item: MangaResponse['data'][number] }) => {
   }, [item.id, navigation]);
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <MangaCard {...item} style={s.card} key={item.id} cacheCover />
-    </TouchableOpacity>
+    <MangaCard
+      {...item}
+      style={s.card}
+      key={item.id}
+      cacheCover
+      onPress={onPress}
+    />
   );
 };
 
