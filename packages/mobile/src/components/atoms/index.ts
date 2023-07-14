@@ -4,6 +4,7 @@ export { default as CachedImage } from './CachedImage';
 export { default as CenterCardCarousel } from './CenterCardCarousel';
 export { default as ChapterCard } from './ChapterCard';
 export { default as ChapterListItem } from './ChapterListItem';
+export { default as ChapterPage } from './ChapterPage/ChapterPage';
 export {
   CARD_WIDTH as MANGA_CARD_WIDTH,
   default as MangaCard,

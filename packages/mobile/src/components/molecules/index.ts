@@ -11,5 +11,6 @@ export { default as FormTextInput } from './FormTextInput';
 export { default as LatestUpdatesList } from './LatestUpdatesList';
 export { default as LibraryMangaList } from './LibraryMangaList';
 export { default as NewPopularTitlesCarousel } from './NewPopularTitlesCarousel';
+export { default as SinglePageMangaReader } from './Readers/SinglePageMangaReader';
 export { default as SeasonalTitlesCarousel } from './SeasonalTitlesCarousel';
 export { default as SelectMangaList } from './SelectMangaList/SelectMangaList';
