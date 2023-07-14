@@ -1,14 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { COUNTRY_CODES, hexOpacity, MergedChaptersData } from '@saku/shared';
 import { Colors } from '@saku/shared';
 
 import { Text } from '@atoms';
+import { StackNavigatorRoutes } from '@navigation/types';
+import { StackScreenNavigationProp } from '@types';
 
 interface ChapterListItemProps {
   data: MergedChaptersData[];
 }
+
+type Navigation =
+  StackScreenNavigationProp<StackNavigatorRoutes.MangaDetails>['navigation'];
 
 const formatDate = (date: string) => {
   const formatter = new Intl.DateTimeFormat('en', {
@@ -27,10 +33,39 @@ const codeToLanguage = (code: string) => {
 };
 
 const ChapterListItem = ({ data }: ChapterListItemProps) => {
+  const navigation = useNavigation<Navigation>();
+
+  const onPress = useCallback(
+    ({
+      chapterId,
+      title,
+      volume,
+    }: {
+      chapterId: string;
+      title: string;
+      volume: string;
+    }) => {
+      return () =>
+        navigation.navigate(StackNavigatorRoutes.Reader, {
+          chapterId,
+          title,
+          volume,
+        });
+    },
+    [navigation],
+  );
+
   if (data.length === 1) {
-    const { chapter, translatedLanguage, title, createdAt, group } = data[0];
+    const { chapter, translatedLanguage, title, createdAt, group, id, volume } =
+      data[0];
     return (
-      <TouchableOpacity style={s.container}>
+      <TouchableOpacity
+        style={s.container}
+        onPress={onPress({
+          chapterId: id,
+          title: 'IMPLEMENT_MANGA_TITLE',
+          volume: `${volume ? `Vol. ${volume}.` : '' + ' '}Ch. ${chapter}`,
+        })}>
         <View style={s.row}>
           <Text style={s.title}>
             <Text style={s.bold}>{chapter} - </Text>
@@ -51,24 +86,41 @@ const ChapterListItem = ({ data }: ChapterListItemProps) => {
   return (
     <View style={s.container}>
       <Text style={[s.title, s.bold]}>{data[0].chapter}</Text>
-      {data.map(({ translatedLanguage, title, createdAt, group }) => (
-        <TouchableOpacity style={s.item} key={translatedLanguage + group}>
-          <View style={s.row}>
-            <Text style={s.title}>
-              <Text style={s.bold}>
-                {codeToLanguage(translatedLanguage)} -{' '}
+      {data.map(
+        ({
+          translatedLanguage,
+          title,
+          createdAt,
+          group,
+          id,
+          chapter,
+          volume,
+        }) => (
+          <TouchableOpacity
+            style={s.item}
+            key={translatedLanguage + group}
+            onPress={onPress({
+              chapterId: id,
+              title: 'IMPLEMENT_MANGA_TITLE_SUPER_EXTRA_LONG_TITLE_123_123_123',
+              volume: `${volume ? `Vol. ${volume}.` : '' + ' '}Ch. ${chapter}`,
+            })}>
+            <View style={s.row}>
+              <Text style={s.title}>
+                <Text style={s.bold}>
+                  {codeToLanguage(translatedLanguage)} -{' '}
+                </Text>
+                <Text style={s.regular} numberOfLines={1} ellipsizeMode="tail">
+                  {title}
+                </Text>
               </Text>
-              <Text style={s.regular} numberOfLines={1} ellipsizeMode="tail">
-                {title}
-              </Text>
-            </Text>
-          </View>
-          <View style={s.row}>
-            <Text style={s.regular}>{group}</Text>
-            <Text style={s.regular}>{formatDate(createdAt)}</Text>
-          </View>
-        </TouchableOpacity>
-      ))}
+            </View>
+            <View style={s.row}>
+              <Text style={s.regular}>{group}</Text>
+              <Text style={s.regular}>{formatDate(createdAt)}</Text>
+            </View>
+          </TouchableOpacity>
+        ),
+      )}
     </View>
   );
 };

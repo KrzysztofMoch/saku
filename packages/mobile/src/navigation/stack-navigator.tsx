@@ -4,7 +4,14 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 
-import { AuthScreen, MangaDetailsScreen, SettingsScreen } from '@screens';
+import { Colors } from '@saku/shared';
+
+import {
+  AuthScreen,
+  MangaDetailsScreen,
+  ReaderScreen,
+  SettingsScreen,
+} from '@screens';
 import { useAuthStore } from '@store/auth';
 
 import { BottomTabNavigator } from './bottom-tab-navigator';
@@ -35,6 +42,14 @@ export const StackNavigator = () => {
       <Stack.Screen
         name={StackNavigatorRoutes.MangaDetails}
         component={MangaDetailsScreen}
+      />
+      <Stack.Screen
+        name={StackNavigatorRoutes.Reader}
+        component={ReaderScreen}
+        options={{
+          gestureEnabled: false,
+          cardStyle: { backgroundColor: Colors.BLACK },
+        }}
       />
     </Stack.Navigator>
   );
