@@ -22,3 +22,5 @@ export { default as SwitchFormInput } from './SwitchFormInput';
 export { default as Text } from './Text';
 export { default as TextInput } from './TextInput';
 export { default as VolumeListItem } from './VolumeListItem';
+export type { ZoomRef } from './Zoom';
+export { default as Zoom } from './Zoom';
