@@ -7,5 +7,6 @@ export { useManga } from './api/manga/useManga';
 export { useMangaQuery } from './api/manga/useMangaQuery';
 export { useNewPopularTitles } from './api/manga/useNewPopularTitles';
 export { useRecentlyAddedTitles } from './api/manga/useRecentlyAddedTitles';
+export { useChapterPages } from './api/reader/useChapterPages';
 export { useMangaTags } from './api/tag/useMangaTags';
 export { useHydration } from './useHydration';

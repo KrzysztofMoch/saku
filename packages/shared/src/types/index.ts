@@ -28,5 +28,6 @@ export type {
   AdvancedSearchForm,
   MultiSelectInputData,
 } from './app/advanced-search-form';
+export type { ImageLoaderState } from './app/image-loader-state';
 export type { FormInputRule } from './form-input-rule';
 export type { Full } from './full';

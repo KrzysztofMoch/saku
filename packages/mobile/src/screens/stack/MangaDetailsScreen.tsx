@@ -227,6 +227,7 @@ const MangaDetailsScreen = ({ navigation, route }: MangaDetailsScreenProps) => {
           <Back />
         </TouchableOpacity>
         <CachedImage
+          saveToCache
           height={SCREEN_WIDTH * 0.7}
           width={SCREEN_WIDTH * 0.48}
           imageKey={mangaId}

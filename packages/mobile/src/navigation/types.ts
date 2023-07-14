@@ -14,6 +14,7 @@ export enum StackNavigatorRoutes {
   Settings = 'Settings',
   BottomTabNavigator = 'BottomTabNavigator',
   MangaDetails = 'MangaDetails',
+  Reader = 'Reader',
 }
 
 export type BottomTabNavigatorParams = {
@@ -29,5 +30,11 @@ export type StackNavigatorParams = {
   [StackNavigatorRoutes.BottomTabNavigator]: NavigatorScreenParams<BottomTabNavigatorParams>;
   [StackNavigatorRoutes.MangaDetails]: {
     mangaId: string;
+  };
+  [StackNavigatorRoutes.Reader]: {
+    chapterId: string;
+    page?: number;
+    title?: string;
+    volume?: string;
   };
 };

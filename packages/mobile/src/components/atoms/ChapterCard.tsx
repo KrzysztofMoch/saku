@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   ChapterWithCoverResponse,
@@ -8,14 +9,23 @@ import {
 } from '@saku/shared';
 
 import { Text } from '@atoms';
+import {
+  BottomTabNavigatorRoutes,
+  StackNavigatorRoutes,
+} from '@navigation/types';
+import { BottomTabScreenNavigationProp } from '@types';
 
 type ChapterCardProps = ChapterWithCoverResponse['data'][number];
+type Navigation = BottomTabScreenNavigationProp<BottomTabNavigatorRoutes.Home>;
 
 const ChapterCard = ({
+  id,
   attributes: { publishAt, chapter, volume },
   relationships,
   manga: { title, cover },
 }: ChapterCardProps) => {
+  const navigation = useNavigation<Navigation['navigation']>();
+
   const minutesFromPublish = Math.floor(
     (new Date().getTime() - new Date(publishAt).getTime()) / 1000 / 60,
   );
@@ -26,8 +36,16 @@ const ChapterCard = ({
     return groupAttr?.attributes?.name || '[No group]';
   }, [relationships]);
 
+  const onPress = useCallback(() => {
+    navigation.push(StackNavigatorRoutes.Reader, {
+      chapterId: id,
+      title,
+      volume: `${volume ? `Vol. ${volume}.` : '' + ' '}Ch. ${chapter}`,
+    });
+  }, [chapter, id, navigation, title, volume]);
+
   return (
-    <View style={s.container}>
+    <TouchableOpacity style={s.container} onPress={onPress}>
       <Image
         style={s.image}
         source={{
@@ -49,7 +67,7 @@ const ChapterCard = ({
           <Text style={s.time}>{minutesFromPublish} min ago</Text>
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

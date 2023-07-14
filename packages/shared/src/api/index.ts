@@ -22,5 +22,11 @@ export { getGroup, getGroups, GroupExpansions } from './group-api';
 export { getCustomListById } from './list-api';
 export type { MangaOrderBy, MangaResponse } from './manga-api';
 export { getManga, MangaExpansions } from './manga-api';
+export type {
+  AtHomeParams,
+  AtHomeResponse,
+  ChapterPagesParams,
+} from './reader-api';
+export { getChapterPages, requestChapterAtHome } from './reader-api';
 export type { TagsResponse } from './tag-api';
 export { getTags } from './tag-api';

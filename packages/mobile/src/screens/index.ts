@@ -5,4 +5,5 @@ export { default as LibraryScreen } from './bottomBar/LibraryScreen';
 export { default as SearchScreen } from './bottomBar/SearchScreen';
 export { default as UpdatesScreen } from './bottomBar/UpdatesScreen';
 export { default as MangaDetailsScreen } from './stack/MangaDetailsScreen';
+export { default as ReaderScreen } from './stack/ReaderScreen';
 export { default as SettingsScreen } from './stack/SettingsScreen';

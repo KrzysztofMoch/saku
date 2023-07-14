@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Dimensions,
   StyleProp,
@@ -63,6 +63,7 @@ const extractProps = (
     title,
     mode: props?.mode,
     cacheCover: props?.cacheCover,
+    onPress: props?.onPress,
     style: props?.style,
   };
 };
@@ -105,7 +106,7 @@ const MangaCard = (props: MangaCardProps | MangaCardPackedProps) => {
   );
 };
 
-export default MangaCard;
+export default memo(MangaCard);
 export { CARD_WIDTH };
 
 const s = StyleSheet.create({
