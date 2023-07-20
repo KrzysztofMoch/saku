@@ -35,6 +35,12 @@ const checkImage = async (
     const fileExists = await ReactNativeBlobUtil.fs.exists(localPath);
 
     if (fileExists) {
+      const session = ReactNativeBlobUtil.session('cached-images');
+
+      if (!session.list().includes(localPath)) {
+        session.add(localPath);
+      }
+
       onImageCached?.(localPath);
       return localPath;
     }

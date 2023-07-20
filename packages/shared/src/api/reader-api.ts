@@ -20,6 +20,14 @@ export interface AtHomeParams {
   forcePort443: boolean;
 }
 
+export interface AtHomeReportParams {
+  url: string;
+  success: boolean;
+  cached: boolean;
+  bytes: number;
+  duration: number;
+}
+
 export interface AtHomeResponse extends PagesMetadata {
   result: 'ok';
 }
@@ -37,6 +45,26 @@ const requestChapterAtHome = async ({
   );
 };
 
+const reportAtHomeHealth = async (params: AtHomeReportParams) => {
+  // https://api.mangadex.org/docs/retrieving-chapter/ - The MangaDex@Home report endpoint
+
+  if (__DEV__) {
+    // Disable reporting in development because
+    // it may cause false positives in the health check.
+    return;
+  }
+
+  const response = await fetch('https://api.mangadex.network/report', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response;
+};
+
 const getChapterPages = async ({
   baseUrl,
   chapter: { hash, data, dataSaver },
@@ -49,4 +77,4 @@ const getChapterPages = async ({
   return pages.map(page => [baseUrl, saver, hash, page].join('/'));
 };
 
-export { getChapterPages, requestChapterAtHome };
+export { getChapterPages, reportAtHomeHealth, requestChapterAtHome };

@@ -29,7 +29,7 @@ const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 // for easy background color change. Background color is set in
 // stack navigator in options for reader screen.
 const ReaderScreen = ({ navigation, route }: Props) => {
-  const { chapterId, page = 0, title, volume } = route.params;
+  const { chapterId, page = 0, volume, mangaId } = route.params;
   const { top: topInset } = useSafeAreaInsets();
 
   const uiState = useSharedValue<'visible' | 'hidden'>('visible');
@@ -106,7 +106,7 @@ const ReaderScreen = ({ navigation, route }: Props) => {
         </TouchableOpacity>
         <View style={s._flex}>
           <Text numberOfLines={1} ellipsizeMode="tail" style={s.headerText}>
-            {title + '\n'}
+            TODO: IDK HOW TO GET MANGA NAME
           </Text>
           <Text style={s.headerText}>{volume}</Text>
         </View>
@@ -114,10 +114,11 @@ const ReaderScreen = ({ navigation, route }: Props) => {
       </Animated.View>
       <SinglePageMangaReader
         chapterId={chapterId}
-        pages={pages}
+        pages={[pages]}
         page={page}
         toggleReaderMenu={toggleUI}
         onPageChange={handlePageChange}
+        mangaId={mangaId}
       />
       <Animated.View style={[s.progressContainer, progressStyle]}>
         <Text style={s.progressText}>

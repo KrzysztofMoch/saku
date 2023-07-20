@@ -33,8 +33,8 @@ export type StackNavigatorParams = {
   };
   [StackNavigatorRoutes.Reader]: {
     chapterId: string;
+    mangaId: string;
     page?: number;
-    title?: string;
     volume?: string;
   };
 };

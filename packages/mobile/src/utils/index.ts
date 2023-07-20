@@ -4,3 +4,11 @@ export {
   logout_user,
   refresh_access_token,
 } from './auth';
+export {
+  checkIfChapterExists,
+  clearChapters,
+  downloadChapterPage,
+  getChapterPage,
+  removeChapter,
+  removeManga,
+} from './chapter-cache';

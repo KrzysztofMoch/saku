@@ -24,9 +24,14 @@ export type { MangaOrderBy, MangaResponse } from './manga-api';
 export { getManga, MangaExpansions } from './manga-api';
 export type {
   AtHomeParams,
+  AtHomeReportParams,
   AtHomeResponse,
   ChapterPagesParams,
 } from './reader-api';
-export { getChapterPages, requestChapterAtHome } from './reader-api';
+export {
+  getChapterPages,
+  reportAtHomeHealth,
+  requestChapterAtHome,
+} from './reader-api';
 export type { TagsResponse } from './tag-api';
 export { getTags } from './tag-api';
