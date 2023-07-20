@@ -28,6 +28,8 @@ const SinglePageMangaReader = ({
   pages,
   toggleReaderMenu,
   onPageChange,
+  chapterId,
+  mangaId,
 }: Props) => {
   const navigation = useNavigation<Navigation>();
 
@@ -110,6 +112,8 @@ const SinglePageMangaReader = ({
         <View style={s.imageContainer}>
           <Zoom ref={ref => addZoomRef(ref, index)}>
             <ChapterPage
+              mangaId={mangaId}
+              chapterId={chapterId}
               pageUrl={url}
               index={index}
               onImageLoaded={onImageLoaded}
@@ -120,7 +124,7 @@ const SinglePageMangaReader = ({
       );
     },
 
-    [onImageLoaded, loaderState, N_PAGE, addZoomRef],
+    [mangaId, chapterId, onImageLoaded, loaderState, N_PAGE, addZoomRef],
   );
 
   const nextPage = useCallback(() => {

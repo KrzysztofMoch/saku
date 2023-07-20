@@ -64,8 +64,11 @@ const ChapterList = forwardRef<ChapterListRef, ChapterListProps>(
 
       const flattedData = dataWithSuccess.flatMap(({ data }) => data);
 
-      return consumeMangaChapters(flattedData);
-    }, [chaptersResponse]);
+      return consumeMangaChapters({
+        mangaId,
+        chapters: flattedData,
+      });
+    }, [chaptersResponse?.pages, mangaId]);
 
     useImperativeHandle(
       ref,

@@ -4,6 +4,7 @@ import { ChapterAttributes } from '@types';
 import { extractRelationship } from '../extract-relationship';
 
 export type MergedChaptersData = ChapterAttributes & {
+  mangaId: string;
   group: string;
   id: string;
 };
@@ -18,11 +19,18 @@ export interface MergedByVolume {
   data: MergedChapters[];
 }
 
-const consumeMangaChapters = (data: ChapterResponse['data']) => {
+interface ConsumeMangaChaptersParams {
+  mangaId: string;
+  chapters: ChapterResponse['data'];
+}
+
+const consumeMangaChapters = (data: ConsumeMangaChaptersParams) => {
+  const { chapters, mangaId } = data;
+
   const mergedChapters: MergedChapters[] = [];
   const mergedByVolume: MergedByVolume[] = [];
 
-  for (const { attributes, relationships, id } of data) {
+  for (const { attributes, relationships, id } of chapters) {
     const { volume, chapter } = attributes;
 
     if (!chapter && !volume) {
@@ -39,6 +47,7 @@ const consumeMangaChapters = (data: ChapterResponse['data']) => {
 
     if (existing) {
       existing.data.push({
+        mangaId,
         ...attributes,
         group,
         id,
@@ -50,6 +59,7 @@ const consumeMangaChapters = (data: ChapterResponse['data']) => {
       key: key,
       data: [
         {
+          mangaId,
           ...attributes,
           group,
           id,

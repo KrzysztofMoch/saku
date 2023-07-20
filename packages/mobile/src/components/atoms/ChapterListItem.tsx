@@ -6,7 +6,7 @@ import { COUNTRY_CODES, hexOpacity, MergedChaptersData } from '@saku/shared';
 import { Colors } from '@saku/shared';
 
 import { Text } from '@atoms';
-import { StackNavigatorRoutes } from '@navigation/types';
+import { StackNavigatorParams, StackNavigatorRoutes } from '@navigation/types';
 import { StackScreenNavigationProp } from '@types';
 
 interface ChapterListItemProps {
@@ -36,34 +36,29 @@ const ChapterListItem = ({ data }: ChapterListItemProps) => {
   const navigation = useNavigation<Navigation>();
 
   const onPress = useCallback(
-    ({
-      chapterId,
-      title,
-      volume,
-    }: {
-      chapterId: string;
-      title: string;
-      volume: string;
-    }) => {
-      return () =>
-        navigation.navigate(StackNavigatorRoutes.Reader, {
-          chapterId,
-          title,
-          volume,
-        });
+    (params: StackNavigatorParams[StackNavigatorRoutes.Reader]) => {
+      return () => navigation.navigate(StackNavigatorRoutes.Reader, params);
     },
     [navigation],
   );
 
   if (data.length === 1) {
-    const { chapter, translatedLanguage, title, createdAt, group, id, volume } =
-      data[0];
+    const {
+      chapter,
+      translatedLanguage,
+      title,
+      createdAt,
+      group,
+      id,
+      volume,
+      mangaId,
+    } = data[0];
     return (
       <TouchableOpacity
         style={s.container}
         onPress={onPress({
           chapterId: id,
-          title: 'IMPLEMENT_MANGA_TITLE',
+          mangaId,
           volume: `${volume ? `Vol. ${volume}.` : '' + ' '}Ch. ${chapter}`,
         })}>
         <View style={s.row}>
@@ -95,13 +90,14 @@ const ChapterListItem = ({ data }: ChapterListItemProps) => {
           id,
           chapter,
           volume,
+          mangaId,
         }) => (
           <TouchableOpacity
             style={s.item}
             key={translatedLanguage + group}
             onPress={onPress({
               chapterId: id,
-              title: 'IMPLEMENT_MANGA_TITLE_SUPER_EXTRA_LONG_TITLE_123_123_123',
+              mangaId,
               volume: `${volume ? `Vol. ${volume}.` : '' + ' '}Ch. ${chapter}`,
             })}>
             <View style={s.row}>
